@@ -7,8 +7,8 @@ describe('Ingredient', () => {
 
   beforeEach( () => {
    ingredient = new Ingredients()
-   ingredient1 = new Ingredients(20081, "wheat flour", 142)
-   ingredient2 =new Ingredients(18372, "bicarbonate of soda", 582)
+   ingredient1 = new Ingredients(20081, 'wheat flour', 142)
+   ingredient2 =new Ingredients(18372, 'bicarbonate of soda', 582)
 
  });
   it('should be a function', () => {
@@ -22,6 +22,10 @@ describe('Ingredient', () => {
  it('should have an id', () => {
    expect(ingredient1.id).to.equal(20081);
  });
+
+ it('should have a name', () => {
+   expect(ingredient1.name).to.equal('wheat flour');
+ })
 
  
 });
