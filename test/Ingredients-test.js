@@ -12,6 +12,16 @@ describe('Ingredient', () => {
 
  });
   it('should be a function', () => {
-   expect(Ingredients).to.be.a('function')
+   expect(Ingredients).to.be.a('function');
  });
+
+ it('should create a new instance of Ingredient', () => {
+   expect(ingredient).to.be.an.instanceof(Ingredients);
+ });
+
+ it('should have an id', () => {
+   expect(ingredient1.id).to.equal(20081);
+ });
+
+ 
 });
