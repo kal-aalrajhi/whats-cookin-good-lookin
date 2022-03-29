@@ -27,5 +27,7 @@ describe('Ingredient', () => {
    expect(ingredient1.name).to.equal('wheat flour');
  })
 
- 
+ it('should return cost in cents', () => {
+   expect(ingredient1.estimatedCostInCents).to.equal(142);
+ })
 });
