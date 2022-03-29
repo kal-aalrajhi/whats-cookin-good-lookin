@@ -4,7 +4,7 @@ export class Ingredient {
     this.name = ingredient.name;
     this.estimatedCostInCents = ingredient.estimatedCostInCents;
   }
-  ingredientsCost() {
+  getCost() {
     return this.estimatedCostInCents;
   }
 };

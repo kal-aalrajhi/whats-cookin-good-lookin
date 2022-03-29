@@ -23,7 +23,11 @@ describe('Ingredient', () => {
     expect(ingredient.name).to.equal('wheat flour');
   });
 
-  it('should return cost in cents', () => {
+  it('should have a cost in cents', () => {
     expect(ingredient.estimatedCostInCents).to.equal(142);
+  });
+
+  it('should return a cost in cents', () => {
+    expect(ingredient.getCost()).to.equal(142);
   });
 });
