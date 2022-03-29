@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Ingredients from '../src/classes/Ingredients';
+import Ingredient from '../src/classes/Ingredient';
 
 describe('Ingredient', () => {
   let ingredient;
@@ -11,11 +11,11 @@ describe('Ingredient', () => {
       "name": "wheat flour",
       "estimatedCostInCents": 142
     };
-    ingredient = new Ingredients(ingredientData);
+    ingredient = new Ingredient(ingredientData);
   });
 
   it('should create a new instance of Ingredient', () => {
-    expect(ingredient).to.be.an.instanceof(Ingredients);
+    expect(ingredient).to.be.an.instanceof(Ingredient);
   });
 
   it('should have an id', () => {
