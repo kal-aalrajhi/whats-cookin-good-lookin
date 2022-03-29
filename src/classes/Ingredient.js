@@ -1,4 +1,4 @@
-class Ingredient {
+export class Ingredient {
   constructor(ingredient) {
     this.id = ingredient.id;
     this.name = ingredient.name;
@@ -8,5 +8,3 @@ class Ingredient {
     return this.estimatedCostInCents;
   }
 };
-
-module.exports = Ingredient;

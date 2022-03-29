@@ -1,4 +1,4 @@
-class RecipeRepository {
+export class RecipeRepository {
   constructor(recipe) {
     this.recipe = recipe;
   }

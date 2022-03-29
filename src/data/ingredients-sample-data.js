@@ -1,4 +1,4 @@
-const ingredientsSampleData = [
+export const ingredientsSampleData = [
     {
       "id": 20081,
       "name": "wheat flour",
@@ -25,5 +25,3 @@ const ingredientsSampleData = [
       "estimatedCostInCents": 660
     }
   ];
-
-  module.exports = {ingredientsSampleData};

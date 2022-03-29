@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import RecipeRepository from '../src/classes/RecipeRepository';
+import { RecipeRepository } from '../src/classes/RecipeRepository';
 
 describe('Recipe Repository', () => {
     let recipeRepository;
