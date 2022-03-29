@@ -2,32 +2,31 @@ import { expect } from 'chai';
 import Ingredients from '../src/classes/Ingredients';
 
 describe('Ingredient', () => {
- let ingredient, ingredient1, ingredient2;
+  let ingredient;
+  let ingredientData;
 
+  beforeEach(() => {
+    ingredientData = {
+      "id": 20081,
+      "name": "wheat flour",
+      "estimatedCostInCents": 142
+    };
+    ingredient = new Ingredients(ingredientData);
+  });
 
-  beforeEach( () => {
-   ingredient = new Ingredients()
-   ingredient1 = new Ingredients(20081, 'wheat flour', 142)
-   ingredient2 =new Ingredients(18372, 'bicarbonate of soda', 582)
+  it('should create a new instance of Ingredient', () => {
+    expect(ingredient).to.be.an.instanceof(Ingredients);
+  });
 
- });
-  it('should be a function', () => {
-   expect(Ingredients).to.be.a('function');
- });
+  it('should have an id', () => {
+    expect(ingredient.id).to.equal(20081);
+  });
 
- it('should create a new instance of Ingredient', () => {
-   expect(ingredient).to.be.an.instanceof(Ingredients);
- });
+  it('should have a name', () => {
+    expect(ingredient.name).to.equal('wheat flour');
+  });
 
- it('should have an id', () => {
-   expect(ingredient1.id).to.equal(20081);
- });
-
- it('should have a name', () => {
-   expect(ingredient1.name).to.equal('wheat flour');
- })
-
- it('should return cost in cents', () => {
-   expect(ingredient1.estimatedCostInCents).to.equal(142);
- })
+  it('should return cost in cents', () => {
+    expect(ingredient.estimatedCostInCents).to.equal(142);
+  });
 });

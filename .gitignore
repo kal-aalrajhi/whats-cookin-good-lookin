@@ -1,2 +1,3 @@
+// tells git not to add certain files or directories to our repo
 node_modules/
 package-lock.json

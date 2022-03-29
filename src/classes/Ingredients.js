@@ -1,11 +1,11 @@
 class Ingredients {
-  constructor(id, name, estimatedCostInCents) {
-    this.id = id;
-    this.name = name;
-    this.estimatedCostInCents = estimatedCostInCents;
+  constructor(ingredient) {
+    this.id = ingredient.id;
+    this.name = ingredient.name;
+    this.estimatedCostInCents = ingredient.estimatedCostInCents;
   }
   ingredientsCost() {
-    return this.estimatedCostInCents
+    return this.estimatedCostInCents;
   }
 };
 
