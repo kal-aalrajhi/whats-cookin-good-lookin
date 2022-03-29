@@ -1,16 +1,13 @@
 import { expect } from 'chai';
 import Ingredient from '../src/classes/Ingredient';
+const { ingredientsSampleData } = require('../src/data/ingredients-sample-data');
 
 describe('Ingredient', () => {
   let ingredient;
   let ingredientData;
 
   beforeEach(() => {
-    ingredientData = {
-      "id": 20081,
-      "name": "wheat flour",
-      "estimatedCostInCents": 142
-    };
+    ingredientData = ingredientsSampleData[0];
     ingredient = new Ingredient(ingredientData);
   });
 

@@ -1,18 +1,9 @@
-// class Recipe {
-//     constructor(id, image, ingredients) {
-//         this.id = id;
-//         this.image = image;
-//         this.ingredients = ingredients;
-//     }
-
-// };
 class Recipe {
-    // constructor(recipe) {
-    //     this.id = recipe.id;
-    //     this.image = recipe.image;
-    //     this.ingredients = ingredients; 
-    // }
-
+    constructor(recipe) {
+        this.id = recipe.id;
+        this.image = recipe.image;
+        this.ingredients = recipe.ingredients; 
+    }
 };
   
-  module.exports = Recipe;
+module.exports = Recipe;

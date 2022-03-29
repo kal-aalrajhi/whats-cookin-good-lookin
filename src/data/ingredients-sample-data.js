@@ -25,3 +25,5 @@ const ingredientsSampleData = [
       "estimatedCostInCents": 660
     }
   ];
+
+  module.exports = {ingredientsSampleData};
