@@ -12,7 +12,9 @@ export class RecipeRepository {
   }
 
   filterByName() {
-    // const
-    // return a filtered set of recipes based off name
+    const justNames = this.recipes.map((recipe) => {
+      return recipe.name;
+    });
+    return justNames;
   }
 }
