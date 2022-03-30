@@ -1,13 +1,18 @@
 export class RecipeRepository {
-  constructor(recipe) {
-    this.recipe = recipe;
+  constructor() {
+    this.recipes = [];
+  }
+
+  addRecipe(recipe) { //takes in recipe object
+    this.recipes.push(recipe);
   }
 
   filterByTag(tag) {
     // return a filtered set of recipes based off tag
   }
-  
-  filterByName(name) {
+
+  filterByName() {
+    // const
     // return a filtered set of recipes based off name
   }
 }
