@@ -1,4 +1,4 @@
-const usersSampleData = [
+export const usersSampleData = [
     {
       "name": "Saige O'Kon",
       "id": 1,
@@ -601,3 +601,4 @@ const usersSampleData = [
         }
       ]
     }
+  ];

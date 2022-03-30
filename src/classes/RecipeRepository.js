@@ -11,5 +11,3 @@ export class RecipeRepository {
     // return a filtered set of recipes based off name
   }
 }
-
-export default RecipeRepository;
