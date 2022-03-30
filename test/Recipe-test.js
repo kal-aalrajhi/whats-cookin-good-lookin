@@ -29,9 +29,27 @@ describe('Recipe', () => {
         expect(recipe.recipeIngredients).to.equal(recipeData.ingredients); 
     });
 
-    it.only('should get ingredient names', () => {
-        //  recipe.getIngredientDetails(allIngredientsData);
-        // recipe.getIngredientNames(allIngredientsData);
-        recipe.getTotalCost(allIngredientsData);
+    it('should get ingredient names', () => {
+        expect(recipe.getIngredientNames(allIngredientsData)).to.deep.equal([
+            'wheat flour',
+            'bicarbonate of soda',
+            'eggs',
+            'sucrose',
+            'instant vanilla pudding',
+            'brown sugar',
+            'salt',
+            'fine sea salt',
+            'semi sweet chips',
+            'unsalted butter',
+            'vanilla'
+          ]); 
+    });
+
+    it('should get total costs', () => {
+        expect(recipe.getTotalCostInDollars(allIngredientsData)).to.equal('177.76'); 
+    });
+
+    it('should get ingredient instructions', () => {
+        expect(recipe.getInstructions()).to.equal(recipe.instructions);
     });
 });
