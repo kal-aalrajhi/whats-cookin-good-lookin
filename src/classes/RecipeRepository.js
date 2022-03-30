@@ -1,4 +1,4 @@
-class RecipeRepository {
+export class RecipeRepository {
   constructor(recipe) {
     this.recipe = recipe;
   }
@@ -11,5 +11,3 @@ class RecipeRepository {
     // return a filtered set of recipes based off name
   }
 }
-
-export default RecipeRepository;

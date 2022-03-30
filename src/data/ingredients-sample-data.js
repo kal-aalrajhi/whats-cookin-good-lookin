@@ -1,4 +1,4 @@
-const ingredientsSampleData = [
+export const ingredientsSampleData = [
     {
       "id": 20081,
       "name": "wheat flour",
