@@ -10,8 +10,7 @@ export class RecipeRepository {
   filterByTag(tagToFilter) {
     const recipesWithTag = this.recipes.reduce((acc, recipe) => {
       let recipeWithSameTag = recipe.tags.find((tag) => tag === tagToFilter);
-      if (recipeWithSameTag !== undefined)
-      {
+      if (recipeWithSameTag !== undefined) {
         acc.push(recipe);
       }
       return acc;

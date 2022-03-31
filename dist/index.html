@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Recipe</title>
@@ -6,17 +6,17 @@
 </head>
 <body>
   <nav>
-    <header class="">Whats Cookin' Good Lookin'</header>
- <button class="">All recipes</button>
- <button class="">Favorite Recipes</button>
- <button class="">Lets cook</button>
+    <h1 class="">Whats Cookin' Good Lookin'</h1>
+    <button class="">All recipes</button>
+    <button class="">Favorite Recipes</button>
+    <button class="">Lets cook</button>
   </nav>
   <section class="view home-view">
-  <section class="main-recipes">
-    <h2 class="">RECIPE</h2>
-    <img class="" src="./">
+    <section class="main-recipes">
+      <h2 class="">RECIPE</h2>
+      <img class="" src="./">
+    </section>
   </section>
-</section>
   <section class="view saved-view hidden">
     <section class="saved-recipes-section"></section>
   </section>
@@ -31,5 +31,45 @@
       <button class="">recipe stuff</button>
     </form>
   </section>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!--NAVIGATION-->
+  <nav>
+    <h1 class="">Whats Cookin' Good Lookin'</h1>
+    <button class="">All recipes</button>
+    <button class="">Find recipe by name</button>
+    <button class="">Find recipe by tag</button>
+  </nav>
+  <!--MAIN SCREEN-->
+  <main class="view home-view">
+    <!--LANDING VIEW-->
+    <section class="recipe-image">
+      <h2>Recipe of The Day</h2>
+      <img src="https://www.kitchensanctuary.com/wp-content/uploads/2021/11/Deep-Dish-Apple-Pie-square-FS-84.jpg" width="200" length="200">
+    </section>
+    <section class="recipe details">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque sint odit officiis quidem est! Praesentium optio omnis, quae nihil alias porro explicabo maxime perferendis recusandae quod quam! Quod, tempora illo?</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore nulla similique quae autem, tempore, unde cupiditate molestiae vitae dignissimos repellendus veritatis voluptates possimus quidem accusamus dolorem obcaecati sed nesciunt saepe.</p>
+    </section>
+    <!--SEARCH RESULT VIEWS-->
+    <section class="view all-recipes-view hidden">
+      <!-- view all recpes appears -->
+    </section>
+    <section class="view name-recipe-view hidden">
+      <!-- recipe by name appears -->
+    </section>
+    <section class="view tag-recipes-view hidden">
+      <!-- recipes by tag appear -->
+    </section>
+  </main>
 </body>
 </html>
