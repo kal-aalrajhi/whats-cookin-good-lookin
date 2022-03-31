@@ -3,12 +3,21 @@ export class RecipeRepository {
     this.recipes = [];
   }
 
-  addRecipe(recipe) { //takes in recipe object
+  addRecipe(recipe) {
     this.recipes.push(recipe);
   }
 
-  filterByTag(tag) {
-    // return a filtered set of recipes based off tag
+  filterByTag(tagToFilter) {
+    const recipesWithTag = this.recipes.reduce((acc, recipe) => {
+      let recipeWithSameTag = recipe.tags.find((tag) => tag === tagToFilter);
+      if (recipeWithSameTag !== undefined)
+      {
+        acc.push(recipe);
+      }
+      return acc;
+    }, []);
+    console.log(recipesWithTag);
+    return recipesWithTag;
   }
 
   filterByName() {
