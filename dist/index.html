@@ -1,75 +1,58 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Recipe</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <nav>
-    <h1 class="">Whats Cookin' Good Lookin'</h1>
-    <button class="">All recipes</button>
-    <button class="">Favorite Recipes</button>
-    <button class="">Lets cook</button>
-  </nav>
-  <section class="view home-view">
-    <section class="main-recipes">
-      <h2 class="">RECIPE</h2>
-      <img class="" src="./">
-    </section>
-  </section>
-  <section class="view saved-view hidden">
-    <section class="saved-recipes-section"></section>
-  </section>
-  <section class="view form-view hidden">
-    <form>
-      <label for=""></label>
-      <input class="" type="text">
-      <label for=""></label>
-      <input class="" type="text"/>
-      <label for="">recipees</label>
-      <input class="" type="text"/>
-      <button class="">recipe stuff</button>
-    </form>
-  </section>
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Recipe</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+  <head>
+    <title>Whats Cookin' Good Lookin'</title>
+  </head>
 <body>
   <!--NAVIGATION-->
   <nav>
-    <h1 class="">Whats Cookin' Good Lookin'</h1>
-    <button class="">All recipes</button>
-    <button class="">Find recipe by name</button>
-    <button class="">Find recipe by tag</button>
+    <h1>Whats Cookin' Good Lookin'</h1>
+    <ul class="nav-list">
+      <li class="nav-item"><img class="nav-icon" src="https://icons.iconarchive.com/icons/icons8/android/256/Food-Vegeterian-Food-icon.png"></li>
+      <li class="nav-item">
+        <button class="nav-btn">All Recipes</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-btn">Find by Name</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-btn">Find by Tag</button>
+      </li>
+    </ul>
   </nav>
   <!--MAIN SCREEN-->
-  <main class="view home-view">
+  <main class="main">
     <!--LANDING VIEW-->
-    <section class="recipe-image">
-      <h2>Recipe of The Day</h2>
-      <img src="https://www.kitchensanctuary.com/wp-content/uploads/2021/11/Deep-Dish-Apple-Pie-square-FS-84.jpg" width="200" length="200">
-    </section>
-    <section class="recipe details">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque sint odit officiis quidem est! Praesentium optio omnis, quae nihil alias porro explicabo maxime perferendis recusandae quod quam! Quod, tempora illo?</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore nulla similique quae autem, tempore, unde cupiditate molestiae vitae dignissimos repellendus veritatis voluptates possimus quidem accusamus dolorem obcaecati sed nesciunt saepe.</p>
-    </section>
-    <!--SEARCH RESULT VIEWS-->
-    <section class="view all-recipes-view hidden">
-      <!-- view all recpes appears -->
-    </section>
-    <section class="view name-recipe-view hidden">
-      <!-- recipe by name appears -->
-    </section>
-    <section class="view tag-recipes-view hidden">
-      <!-- recipes by tag appear -->
+    <section class="view action-view">
+      <img class="recipe-image" src="https://www.kitchensanctuary.com/wp-content/uploads/2021/11/Deep-Dish-Apple-Pie-square-FS-84.jpg">
+      <h2 class="explore-recipe">Explore Recipes</h2>
+      <section class="recipe-details">
+        <section class="box breakfast-box">
+          <!-- <img class="image-box" src="https://i.pinimg.com/474x/ef/3d/3c/ef3d3c13d3730a739ae442f628c660c6.jpg"> -->
+          <h3>breakfast</h3>
+        </section>
+        <section class="box lunch-box">
+          <h3>lunch</h3>
+        </section>
+        <section class="box dinner-box">
+          <h3>dinner</h3>
+        </section>
+        <section class="box dessert-box">
+          <h3>dessert</h3>
+        </section>
+      </section>
+      <!--SEARCH RESULT VIEWS-->
+      <section class="view all-recipes-view hidden">
+        <!-- view all recpes appears -->
+      </section>
+      <section class="view name-recipe-view hidden">
+        <!-- recipe by name appears -->
+      </section>
+      <section class="view tag-recipes-view hidden">
+        <!-- recipes by tag appear -->
+      </section>
     </section>
   </main>
 </body>
+  <script src="bundle.js"></script>
 </html>
