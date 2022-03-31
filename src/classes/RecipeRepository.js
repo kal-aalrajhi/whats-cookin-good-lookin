@@ -15,7 +15,6 @@ export class RecipeRepository {
       }
       return acc;
     }, []);
-    console.log(recipesWithTag);
     return recipesWithTag;
   }
 
