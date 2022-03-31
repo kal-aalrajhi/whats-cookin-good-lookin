@@ -1,3 +1,139 @@
-body {
-  background-color: blueviolet;
+/* COLORS */
+/* 
+#FF8811
+#F4D06F
+#FFF8F0
+#9DD9D2
+#392F5A
+#
+*/
+:root {
+  background-color: #FFF8F0;
+  font-size: 62.5%; /* about 10px */
+}
+* {
+  box-sizing: border-box;
+  color: #333333;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  /* border: 0.1rem solid red; */
+}
+
+/* GENERAL */
+h1,
+h2 {
+  margin-bottom: 1rem;
+}
+
+/* TEXT */
+h1 {
+  font-size: 5.4rem;
+  padding: 1rem 4rem;
+}
+
+h2 {
+  margin-bottom: 0;
+  padding: 1rem;
+  font-size: 4.2rem;
+}
+
+h3 {
+  font-size: 3rem;
+}
+
+/* NAVIGATION */
+nav {
+  background-color: #9DD9D2;
+}
+
+.nav-list {
+  background-color: #f3cb9d;
+  box-shadow: 0 0 0.6rem #caa274;
+  margin: 0;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-item {
+  list-style: none;
+  margin-right: 3rem;
+}
+
+.nav-item:first-child {
+  margin-right: auto;
+  margin-left: 2rem;
+}
+
+/* VIEWS */
+.action-view {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  flex-direction: column;
+  max-width: 120rem;
+  max-height: 60rem;
+  margin: 0 auto;
+}
+
+.recipe-image {
+  height: 30rem;
+  object-fit: cover;
+}
+
+.explore-recipe {
+  background-color: #FF8811;
+  text-align: center;
+  border: 0.3rem solid #f4a14f;
+}
+
+.recipe-details {
+  flex-basis: 50%;
+  display: flex;
+}
+
+.box { 
+  flex-basis: 100%;
+  padding-top: 10rem;
+  text-align: center;
+  border: 0.1rem solid #fde193;
+  background-color: #F4D06F;
+}
+
+.box > h3 { 
+  background-color: #fadc8a;
+}
+
+.nav-icon {
+  margin-left: 1.5rem;
+  height: 5rem;
+  width: 5rem;
+  cursor: pointer;
+}
+
+/* BUTTONS */
+.nav-btn {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  background: #82b2ad;
+  color: white;
+  border: none;
+  border-radius:1rem;
+  padding: 0.8rem 1.1rem;
+  cursor: pointer;
+  transition: all 200ms ease-in
+}
+
+.nav-btn:hover {
+  background: #392F5A;
+}
+
+/* FUNCTIONALITY */
+.hidden {
+  display: none;
 }

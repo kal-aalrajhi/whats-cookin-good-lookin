@@ -45,6 +45,18 @@ describe('Recipe', () => {
           ]); 
     });
 
+    it('should get instructions', () => {
+        expect(recipe.instructions).to.equal(recipeData.instructions);
+    });
+
+    it('should get name', () => {
+        expect(recipe.name).to.equal(recipeData.name);
+    });
+
+    it('should get tags', () => {
+        expect(recipe.tags).to.equal(recipeData.tags);
+    });
+
     it('should get total costs', () => {
         expect(recipe.getTotalCostInDollars(allIngredientsData)).to.equal('177.76'); 
     });
