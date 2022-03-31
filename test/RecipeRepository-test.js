@@ -38,4 +38,11 @@ describe('Recipe Repository', () => {
     recipeRepository.addRecipe(recipe3);
     expect(recipeRepository.filterByName()).to.deep.equal(['Loaded Chocolate Chip Pudding Cookie Cups', 'Maple Dijon Apple Cider Grilled Pork Chops', 'Dirty Steve\'s Original Wing Sauce']);
   });
+
+  it('should filter recipe by tag', () => {
+    recipeRepository.addRecipe(recipe1);
+    recipeRepository.addRecipe(recipe2);
+    recipeRepository.addRecipe(recipe3);
+    expect(recipeRepository.filterByTag('snack')).to.deep.equal([recipe1]);
+  })
 });
