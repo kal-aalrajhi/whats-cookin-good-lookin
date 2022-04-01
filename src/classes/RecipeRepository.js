@@ -5,6 +5,7 @@ export class RecipeRepository {
 
   addRecipe(recipe) {
     this.recipes.push(recipe);
+    console.log(this.recipes)
   }
 
   filterByTag(tagToFilter) {
