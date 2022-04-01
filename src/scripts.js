@@ -2,34 +2,27 @@ import './styles.css';
 import apiCalls from './apiCalls';
 import { recipesSampleData } from '../src/data/recipes-sample-data';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+import './images/turing-logo.png'; // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 
-//Global Variables
-var allRecipeStorage = new RecipeRepository();
+// Global Variables
 var recipeData = recipesSampleData;
-recipeData.forEach((recipe) => {
-  console.log(recipe)
-allRecipeStorage.addRecipe(recipe);
-});
+var allRecipeStorage = new RecipeRepository();
 
-// console.log(allRecipeStorage.recipes)
-
-//Query Selectors
+// Query Selectors
 var allRecipeView = document.querySelector("#allRecipeView");
 var homeView = document.querySelector("#homeView");
 var showAllRecipesButton = document.querySelector("#allRecipesBtn");
-let findNameBtn = document.querySelector("#findNameBtn");
-let findTagBtn = document.querySelector("#findTagBtn");
+var findNameBtn = document.querySelector("#findNameBtn");
+var findTagBtn = document.querySelector("#findTagBtn");
 var homeBtn = document.querySelector("#homeBtn");
 
-//Event Listeners
+// Event Listeners
 showAllRecipesButton.addEventListener("click", loadAllRecipesView);
 // findNameButton.addEventListener("click", );
 homeBtn.addEventListener("click", loadHomeView);
 // findTagButton.addEventListener("click", );
 
-//Functions
+// Functions
 function loadAllRecipesView() {
  hideAllViews();
  show(allRecipeView);

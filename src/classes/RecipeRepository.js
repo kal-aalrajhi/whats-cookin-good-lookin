@@ -3,9 +3,14 @@ export class RecipeRepository {
     this.recipes = [];
   }
 
-  addRecipe(recipe) {
-    this.recipes.push(recipe);
-    console.log(this.recipes)
+  addRecipes(recipeCollection) {
+    if(Array.isArray(recipeCollection)) {
+      recipeCollection.forEach((recipe) => {
+        this.recipes.push(recipe);
+      });
+    } else {
+      this.recipes.push(recipeCollection);
+    }
   }
 
   filterByTag(tagToFilter) {
