@@ -43,6 +43,14 @@ h3 {
   font-size: 3rem;
 }
 
+h4 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1.7rem;
+}
+
 /* NAVIGATION */
 nav {
   background-color: #9DD9D2;
@@ -118,7 +126,7 @@ nav {
   margin-top: 2rem;
   flex-basis: 10%;
   background-color: #F4D06F;
-  border: 0.2rem solid black;
+  border: 0.2rem solid #333333;
   cursor: pointer;
 }
 
@@ -134,7 +142,14 @@ nav {
   height: 30rem;
 }
 
-.box > p {
+.recipe-card {
+  margin-top: 2rem;
+  flex-basis: 50%;
+  background-color: #F4D06F;
+  border: 0.2rem solid #333333;
+}
+
+.recipe-card > h4 {
   font-size: 2rem;
 }
 
