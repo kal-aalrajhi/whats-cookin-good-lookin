@@ -62,4 +62,11 @@ describe('Recipe Repository', () => {
     recipeRepository.addRecipes(recipe3);
     expect(recipeRepository.filterByTag('snack')).to.deep.equal([recipe1]);
   })
+
+  it('should filter recipe by id', () => {
+    recipeRepository.addRecipes(recipe1);
+    recipeRepository.addRecipes(recipe2);
+    recipeRepository.addRecipes(recipe3);
+    expect(recipeRepository.filterById(595736)).to.equal(recipeRepository.recipes[0]);
+  })
 });
