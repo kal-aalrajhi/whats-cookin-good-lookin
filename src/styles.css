@@ -5,6 +5,7 @@
 #FFF8F0
 #9DD9D2
 #392F5A
+floralwhite;
 #
 */
 :root {
@@ -118,6 +119,14 @@ nav {
   flex-basis: 10%;
   background-color: #F4D06F;
   border: 0.2rem solid black;
+  cursor: pointer;
+}
+
+.box:hover {
+  background-color: floralwhite;;
+  border-color: floralwhite;;
+  box-shadow: 0 0.4em 0.4em -0.4em #e9c46a;
+  transform: translateY(-0.25em);
 }
 
 .box > img {
