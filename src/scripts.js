@@ -3,18 +3,35 @@ import apiCalls from './apiCalls';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-let showAllRecipesButton = document.querySelector('.nav-btn');
-let homeView = document.querySelector('.home-view')
 
-showAllRecipes.addEventListener("click", showAll() )
+var homeView = document.querySelector("#homeView");
+var showAllRecipesButton = document.querySelector("#allRecipesBtn");
+let findNameButton = document.querySelector("#findNameBtn");
+let findTagButton = document.querySelector("#findTagBtn");
+var homeBtn = document.querySelector("#homeBtn");
 
-let show => (element) {
-  element.classList.remove("hidden")
 
+showAllRecipesButton.addEventListener("click", loadAllRecipesView)
+findNameButton.addEventListener("click", )
+homeBtn.addEventListener("click", homeView)
+findTagButton.addEventListener("click", )
+
+
+function loadAllRecipesView() {
+ hideElement(homeView)
+ show(allRecipeView)
 }
 
-var hide => (element) {
+function homeView() {
+  hideElement(allRecipeView)
+  hideElement(findByNameView)
+  hideElement(findByTagView)
+}
+
+var show => (element) {
+  element.classList.remove("hidden")
+}
+
+var hideElement = (element) => {
   element.classList.add("hidden")
 }
-
-console.log('Hello world');
