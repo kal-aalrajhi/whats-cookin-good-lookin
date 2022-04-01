@@ -8,11 +8,12 @@ import './images/turing-logo.png'
 //Global Variables
 var allRecipeStorage = new RecipeRepository();
 var recipeData = recipesSampleData;
-// allRecipeStorage.addRecipe(recipeData[0]);
-// console.log(recipeData)
-// console.log(allRecipeStorage.recipes)
+recipeData.forEach((recipe) => {
+  console.log(recipe)
+allRecipeStorage.addRecipe(recipe);
+});
 
-console.log(recipeData[0])
+// console.log(allRecipeStorage.recipes)
 
 //Query Selectors
 var allRecipeView = document.querySelector("#allRecipeView");
