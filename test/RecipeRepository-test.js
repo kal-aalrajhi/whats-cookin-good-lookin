@@ -2,11 +2,9 @@ import { expect } from 'chai';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { Recipe } from '../src/classes/Recipe';
 import { recipesSampleData } from '../src/data/recipes-sample-data';
-import { ingredientsData } from '../src/data/ingredients';
-
 
 describe('Recipe Repository', () => {
-    let recipeRepository;
+    let recipeRepository, recipeRepositoryWithData;
     let recipe1, recipe2, recipe3
     let recipeData;
 
@@ -16,6 +14,7 @@ describe('Recipe Repository', () => {
     recipe2 = new Recipe(recipeData[1]);
     recipe3 = new Recipe(recipeData[2]);
     recipeRepository = new RecipeRepository();
+    recipeRepositoryWithData = new RecipeRepository(recipeData);
 
   });
 
@@ -27,22 +26,42 @@ describe('Recipe Repository', () => {
     expect(recipeRepository.recipes).to.deep.equal([]);
   });
 
-  it('should add a recipe', () => {
-    recipeRepository.addRecipe(recipe1);
+  it('can be instantiated with an collection of recipes', () => {
+    expect(recipeRepositoryWithData.recipes).to.deep.equal(recipeData);
+  });
+
+  it('can add a single recipe', () => {
+    recipeRepository.addRecipes(recipe1);
     expect(recipeRepository.recipes[0]).to.deep.equal(recipe1);
   });
 
+  it('can add multiple recipes', () => {
+    recipeRepository.addRecipes(recipe1);
+    recipeRepository.addRecipes(recipe2);
+    recipeRepository.addRecipes(recipe3);
+    expect(recipeRepository.recipes[0]).to.deep.equal(recipe1);
+    expect(recipeRepository.recipes[1]).to.deep.equal(recipe2);
+    expect(recipeRepository.recipes[2]).to.deep.equal(recipe3);
+  });
+
   it('should filter recipe by name', () => {
-    recipeRepository.addRecipe(recipe1);
-    recipeRepository.addRecipe(recipe2);
-    recipeRepository.addRecipe(recipe3);
+    recipeRepository.addRecipes(recipe1);
+    recipeRepository.addRecipes(recipe2);
+    recipeRepository.addRecipes(recipe3);
     expect(recipeRepository.filterByName()).to.deep.equal(['Loaded Chocolate Chip Pudding Cookie Cups', 'Maple Dijon Apple Cider Grilled Pork Chops', 'Dirty Steve\'s Original Wing Sauce']);
   });
 
   it('should filter recipe by tag', () => {
-    recipeRepository.addRecipe(recipe1);
-    recipeRepository.addRecipe(recipe2);
-    recipeRepository.addRecipe(recipe3);
+    recipeRepository.addRecipes(recipe1);
+    recipeRepository.addRecipes(recipe2);
+    recipeRepository.addRecipes(recipe3);
     expect(recipeRepository.filterByTag('snack')).to.deep.equal([recipe1]);
-  })
+  });
+
+  it('should filter recipe by id', () => {
+    recipeRepository.addRecipes(recipe1);
+    recipeRepository.addRecipes(recipe2);
+    recipeRepository.addRecipes(recipe3);
+    expect(recipeRepository.filterById(595736)).to.equal(recipeRepository.recipes[0]);
+  });
 });
