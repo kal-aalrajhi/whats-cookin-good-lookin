@@ -1,3 +1,5 @@
+import { Recipe } from './Recipe';
+
 export class RecipeRepository {
   constructor(recipes = []) {
     this.recipes = recipes;
@@ -6,10 +8,12 @@ export class RecipeRepository {
   addRecipes(recipeCollection) {
     if(Array.isArray(recipeCollection)) {
       recipeCollection.forEach((recipe) => {
-        this.recipes.push(recipe);
+        let recipeObject = new Recipe(recipe);
+        this.recipes.push(recipeObject);
       });
     } else {
-      this.recipes.push(recipeCollection);
+      let recipeObject = new Recipe(recipeCollection);
+      this.recipes.push(recipeObject);
     }
   }
 

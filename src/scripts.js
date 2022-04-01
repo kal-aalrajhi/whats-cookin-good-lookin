@@ -6,7 +6,9 @@ import './images/turing-logo.png'; // An example of how you tell webpack to use 
 
 // Global Variables
 var allRecipeData = recipeData;
-var allRecipeStorage = new RecipeRepository(allRecipeData);
+var allRecipeStorage = new RecipeRepository();
+allRecipeStorage.addRecipes(allRecipeData);
+console.log(allRecipeStorage);
 
 // Query Selectors
 var allRecipeView = document.querySelector("#allRecipeView");
@@ -51,8 +53,11 @@ function loadRecipeDetailView(event) {
         // console.log("recipe ID is: ", event.target.id);
         hideAllViews();
         showElement(recipeDetailView);
+        
+        let currRecipeStorage = new RecipeRepository();
+        currRecipeStorage = currRecipeStorage.addRecipes(allRecipeData)
         let currentRecipe = allRecipeStorage.filterById(event.target.id);
-
+        // console.log(currRecipeStorage);
         recipeDetailView.innerHTML = `
         <div class='recipe-card'>
             <h3 class='recipe-name'>${currentRecipe.name}</h3>
@@ -61,7 +66,7 @@ function loadRecipeDetailView(event) {
             <h4>Instructions</h4>
             <p>instructions list</p>
             <h4>Total Cost</h4>
-            <p>$cost</p>
+            <p>$currentRecipe.getTotalCostInDollars()</p>
         </div>`;
     }
 }
