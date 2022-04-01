@@ -27,7 +27,6 @@ function loadAllRecipesView() {
     `<div class="box recipe-box">
      <p> Cupcake </p>
     </div>`
-
   }
 }
 
