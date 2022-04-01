@@ -47,13 +47,15 @@ function loadAllRecipesView() {
 }
 
 function loadRecipeDetailView(event) {
-    if(event.target.id !== 'searchResultView') {
-        console.log("recipe ID is: ", event.target.id);
+    if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' ) {
+        // console.log("recipe ID is: ", event.target.id);
         hideAllViews();
         showElement(recipeDetailView);
+        let currentRecipe = allRecipeStorage.filterById(event.target.id);
+
         recipeDetailView.innerHTML = `
         <div class='recipe-card'>
-            <h3 class='recipe-name'>Recipe Name</h3>
+            <h3 class='recipe-name'>${currentRecipe.name}</h3>
             <h4>Ingredients</h4>
             <p>ingredients list</p>
             <h4>Instructions</h4>
