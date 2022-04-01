@@ -1,14 +1,15 @@
 import './styles.css';
 import apiCalls from './apiCalls';
 import { recipeData } from '../src/data/recipes';
+import { ingredientsData } from '../src/data/ingredients';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import './images/turing-logo.png'; // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 
 // Global Variables
+var allIngredientsData =  ingredientsData;
 var allRecipeData = recipeData;
 var allRecipeStorage = new RecipeRepository();
 allRecipeStorage.addRecipes(allRecipeData);
-console.log(allRecipeStorage);
 
 // Query Selectors
 var allRecipeView = document.querySelector("#allRecipeView");
@@ -49,15 +50,13 @@ function loadAllRecipesView() {
 }
 
 function loadRecipeDetailView(event) {
-    if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' ) {
-        // console.log("recipe ID is: ", event.target.id);
+    console.log(event.target);
+    if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
         hideAllViews();
         showElement(recipeDetailView);
         
-        let currRecipeStorage = new RecipeRepository();
-        currRecipeStorage = currRecipeStorage.addRecipes(allRecipeData)
         let currentRecipe = allRecipeStorage.filterById(event.target.id);
-        // console.log(currRecipeStorage);
+
         recipeDetailView.innerHTML = `
         <div class='recipe-card'>
             <h3 class='recipe-name'>${currentRecipe.name}</h3>
@@ -66,7 +65,7 @@ function loadRecipeDetailView(event) {
             <h4>Instructions</h4>
             <p>instructions list</p>
             <h4>Total Cost</h4>
-            <p>$currentRecipe.getTotalCostInDollars()</p>
+            <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
         </div>`;
     }
 }

@@ -1,8 +1,8 @@
 import { Recipe } from './Recipe';
 
 export class RecipeRepository {
-  constructor(recipes = []) {
-    this.recipes = recipes;
+  constructor() {
+    this.recipes = [];
   }
 
   addRecipes(recipeCollection) {
