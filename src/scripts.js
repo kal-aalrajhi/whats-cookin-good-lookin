@@ -1,51 +1,73 @@
 import './styles.css';
 import apiCalls from './apiCalls';
-import { recipesSampleData } from '../src/data/recipes-sample-data';
+import { recipeData } from '../src/data/recipes';
+import { ingredientsData } from '../src/data/ingredients';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+import './images/turing-logo.png'; // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 
-//Global Variables
+// Global Variables
+var allIngredientsData =  ingredientsData;
+var allRecipeData = recipeData;
 var allRecipeStorage = new RecipeRepository();
-var recipeData = recipesSampleData;
-recipeData.forEach((recipe) => {
-  console.log(recipe)
-allRecipeStorage.addRecipe(recipe);
-});
+allRecipeStorage.addRecipes(allRecipeData);
 
-// console.log(allRecipeStorage.recipes)
-
-//Query Selectors
+// Query Selectors
 var allRecipeView = document.querySelector("#allRecipeView");
 var homeView = document.querySelector("#homeView");
+var recipeDetailView = document.querySelector("#recipeDetailView")
 var showAllRecipesButton = document.querySelector("#allRecipesBtn");
-let findNameBtn = document.querySelector("#findNameBtn");
-let findTagBtn = document.querySelector("#findTagBtn");
 var homeBtn = document.querySelector("#homeBtn");
+var searchResultView = document.querySelector("#searchResultView"); 
+// var findNameBtn = document.querySelector("#findNameBtn");
+// var findTagBtn = document.querySelector("#findTagBtn");
 
-//Event Listeners
+
+// Event Listeners
 showAllRecipesButton.addEventListener("click", loadAllRecipesView);
-// findNameButton.addEventListener("click", );
 homeBtn.addEventListener("click", loadHomeView);
+searchResultView.addEventListener("click", loadRecipeDetailView);
+// findNameButton.addEventListener("click", );
 // findTagButton.addEventListener("click", );
 
-//Functions
-function loadAllRecipesView() {
- hideAllViews();
- show(allRecipeView);
-  allRecipeView.innerHTML = '';
-  for(var i = 0; i < recipeData.length; i++) {
-
-    allRecipeView.innerHTML +=
-    `<div class="box recipe-box">
-     <p> Cupcake </p>
-    </div>`
-  }
-}
-
+// Functions
 function loadHomeView() {
   hideAllViews();
-  show(homeView);
+  showElement(homeView);
+}
+
+function loadAllRecipesView() {
+ hideAllViews();
+ showElement(allRecipeView);
+ allRecipeView.innerHTML = '';
+
+ allRecipeStorage.recipes.forEach((recipe) => {
+    allRecipeView.innerHTML += `
+    <div class='box recipe-box'>
+        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+        <h4 class='recipe-name'>${recipe.name}</h4>
+    </div>`
+  });
+}
+
+function loadRecipeDetailView(event) {
+    console.log(event.target);
+    if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
+        hideAllViews();
+        showElement(recipeDetailView);
+        
+        let currentRecipe = allRecipeStorage.filterById(event.target.id);
+
+        recipeDetailView.innerHTML = `
+        <div class='recipe-card'>
+            <h3 class='recipe-name'>${currentRecipe.name}</h3>
+            <h4>Ingredients</h4>
+            <p>ingredients list</p>
+            <h4>Instructions</h4>
+            <p>instructions list</p>
+            <h4>Total Cost</h4>
+            <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
+        </div>`;
+    }
 }
 
 function hideAllViews() {
@@ -53,9 +75,10 @@ function hideAllViews() {
   hideElement(findByNameView);
   hideElement(findByTagView);
   hideElement(homeView);
+  hideElement(recipeDetailView);
 }
 
-var show = (element) => {
+var showElement = (element) => {
   element.classList.remove("hidden");
 }
 

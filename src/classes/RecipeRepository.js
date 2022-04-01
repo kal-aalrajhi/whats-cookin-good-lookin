@@ -1,11 +1,20 @@
+import { Recipe } from './Recipe';
+
 export class RecipeRepository {
   constructor() {
     this.recipes = [];
   }
 
-  addRecipe(recipe) {
-    this.recipes.push(recipe);
-    console.log(this.recipes)
+  addRecipes(recipeCollection) {
+    if(Array.isArray(recipeCollection)) {
+      recipeCollection.forEach((recipe) => {
+        let recipeObject = new Recipe(recipe);
+        this.recipes.push(recipeObject);
+      });
+    } else {
+      let recipeObject = new Recipe(recipeCollection);
+      this.recipes.push(recipeObject);
+    }
   }
 
   filterByTag(tagToFilter) {
@@ -24,5 +33,12 @@ export class RecipeRepository {
       return recipe.name;
     });
     return justNames;
+  }
+
+  filterById(recipeIdtoFind) {
+    const recipeById = this.recipes.find((recipe) => {
+      return Number(recipeIdtoFind) === recipe.id;
+    });
+    return recipeById;
   }
 }
