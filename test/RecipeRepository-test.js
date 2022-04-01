@@ -44,11 +44,6 @@ describe('Recipe Repository', () => {
     expect(recipeRepository.recipes[2]).to.deep.equal(recipe3);
   });
 
-  it('can add a collection of recipes', () => {
-    recipeRepository.addRecipes(recipeData);
-    expect(recipeRepository.recipes).to.deep.equal(recipeData);
-  });
-
   it('should filter recipe by name', () => {
     recipeRepository.addRecipes(recipe1);
     recipeRepository.addRecipes(recipe2);
