@@ -6,14 +6,14 @@ import './images/turing-logo.png'; // An example of how you tell webpack to use 
 
 // Global Variables
 var recipeData = recipesSampleData;
-var allRecipeStorage = new RecipeRepository();
+var allRecipeStorage = new RecipeRepository(recipeData);
 
 // Query Selectors
 var allRecipeView = document.querySelector("#allRecipeView");
 var homeView = document.querySelector("#homeView");
 var showAllRecipesButton = document.querySelector("#allRecipesBtn");
-var findNameBtn = document.querySelector("#findNameBtn");
-var findTagBtn = document.querySelector("#findTagBtn");
+// var findNameBtn = document.querySelector("#findNameBtn");
+// var findTagBtn = document.querySelector("#findTagBtn");
 var homeBtn = document.querySelector("#homeBtn");
 
 // Event Listeners
@@ -26,13 +26,14 @@ homeBtn.addEventListener("click", loadHomeView);
 function loadAllRecipesView() {
  hideAllViews();
  show(allRecipeView);
-  allRecipeView.innerHTML = '';
-  for(var i = 0; i < recipeData.length; i++) {
-
-    allRecipeView.innerHTML +=
-    `<div class="box recipe-box">
-     <p> Cupcake </p>
-    </div>`
+ allRecipeView.innerHTML = '';
+ console.log(allRecipeStorage.recipes);
+ for(var i = 0; i < recipeData.length; i++) {
+    // allRecipeView.innerHTML += `
+    // <div class="box recipe-box">
+    //     <img id=${character.name} src=${character.img} alt='${character.name} character' />
+    //     <p class='token'>${playerTokens[idx]}</p>
+    // </div>`
   }
 }
 

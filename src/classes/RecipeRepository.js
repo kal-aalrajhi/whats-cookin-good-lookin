@@ -1,6 +1,6 @@
 export class RecipeRepository {
-  constructor() {
-    this.recipes = [];
+  constructor(recipes = []) {
+    this.recipes = recipes;
   }
 
   addRecipes(recipeCollection) {

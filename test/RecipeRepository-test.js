@@ -4,7 +4,7 @@ import { Recipe } from '../src/classes/Recipe';
 import { recipesSampleData } from '../src/data/recipes-sample-data';
 
 describe('Recipe Repository', () => {
-    let recipeRepository;
+    let recipeRepository, recipeRepositoryWithData;
     let recipe1, recipe2, recipe3
     let recipeData;
 
@@ -14,6 +14,7 @@ describe('Recipe Repository', () => {
     recipe2 = new Recipe(recipeData[1]);
     recipe3 = new Recipe(recipeData[2]);
     recipeRepository = new RecipeRepository();
+    recipeRepositoryWithData = new RecipeRepository(recipeData);
 
   });
 
@@ -25,12 +26,16 @@ describe('Recipe Repository', () => {
     expect(recipeRepository.recipes).to.deep.equal([]);
   });
 
-  it('should add a single recipe', () => {
+  it('can be instantiated with an collection of recipes', () => {
+    expect(recipeRepositoryWithData.recipes).to.deep.equal(recipeData);
+  });
+
+  it('can add a single recipe', () => {
     recipeRepository.addRecipes(recipe1);
     expect(recipeRepository.recipes[0]).to.deep.equal(recipe1);
   });
 
-  it('should add multiple recipes', () => {
+  it('can add multiple recipes', () => {
     recipeRepository.addRecipes(recipe1);
     recipeRepository.addRecipes(recipe2);
     recipeRepository.addRecipes(recipe3);
@@ -39,7 +44,7 @@ describe('Recipe Repository', () => {
     expect(recipeRepository.recipes[2]).to.deep.equal(recipe3);
   });
 
-  it('should add an array of recipes', () => {
+  it('can add a collection of recipes', () => {
     recipeRepository.addRecipes(recipeData);
     expect(recipeRepository.recipes).to.deep.equal(recipeData);
   });
