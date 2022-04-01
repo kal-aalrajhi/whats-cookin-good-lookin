@@ -1,4 +1,4 @@
-/* COLORS */
+/* MAIN COLORS */
 /*
 #FF8811
 #F4D06F
@@ -73,8 +73,6 @@ nav {
   width: 100vw;
   height: 100vh;
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
   flex-direction: column;
   max-width: 120rem;
   max-height: 60rem;
@@ -97,7 +95,7 @@ nav {
   display: flex;
 }
 
-.box {
+.meal-box {
   flex-basis: 100%;
   padding-top: 10rem;
   text-align: center;
@@ -105,8 +103,30 @@ nav {
   background-color: #F4D06F;
 }
 
-.box > h3 {
+.meal-box > h3 {
   background-color: #fadc8a;
+}
+
+.view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.box {
+  margin-top: 2rem;
+  flex-basis: 10%;
+  background-color: #F4D06F;
+  border: 0.2rem solid black;
+}
+
+.box > img {
+  width: 25rem;
+  height: 30rem;
+}
+
+.box > p {
+  font-size: 2rem;
 }
 
 .nav-icon {
