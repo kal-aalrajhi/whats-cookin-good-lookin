@@ -27,14 +27,14 @@ function loadAllRecipesView() {
  hideAllViews();
  show(allRecipeView);
  allRecipeView.innerHTML = '';
- console.log(allRecipeStorage.recipes);
- for(var i = 0; i < recipeData.length; i++) {
-    // allRecipeView.innerHTML += `
-    // <div class="box recipe-box">
-    //     <img id=${character.name} src=${character.img} alt='${character.name} character' />
-    //     <p class='token'>${playerTokens[idx]}</p>
-    // </div>`
-  }
+
+ allRecipeStorage.recipes.forEach((recipe) => {
+    allRecipeView.innerHTML += `
+    <div class='box recipe-box'>
+        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+        <p class='recipe-name'>${recipe.name}</p>
+    </div>`
+  });
 }
 
 function loadHomeView() {
