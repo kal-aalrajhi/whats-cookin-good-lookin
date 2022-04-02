@@ -10,7 +10,8 @@ var allIngredientsData =  ingredientsData;
 var allRecipeData = recipeData;
 var allRecipeStorage = new RecipeRepository();
 allRecipeStorage.addRecipes(allRecipeData);
-console.log(allRecipeStorage.recipes)
+// console.log(allRecipeStorage.recipes)
+// console.log(allRecipeStorage.recipes.name)
 // Query Selectors
 var allRecipeView = document.querySelector("#allRecipeView");
 var homeView = document.querySelector("#homeView");
@@ -20,6 +21,7 @@ var homeBtn = document.querySelector("#homeBtn");
 var searchResultView = document.querySelector("#searchResultView");
 var findNameBtn = document.querySelector("#findNameBtn");
 var searchNameInput = document.querySelector("#searchByNameInput");
+var searchNameBtn = document.querySelector("#nameSearchBtn");
 // var findTagBtn = document.querySelector("#findTagBtn");
 
 
@@ -29,17 +31,16 @@ homeBtn.addEventListener("click", loadHomeView);
 searchResultView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadRecipeSearchView);
 searchNameInput.addEventListener("input", grabSearchValue);
+searchNameBtn.addEventListener("click", () => {
+  event.preventDefault()
+  grabSearchValue()
+  // loadRecipeSearchView()
+});
 // findTagButton.addEventListener("click", );
-
-if (filter.className === "show-all") {
-    for (var i in savedIdeas) {
-
-      if((savedIdeas[i].star) && (savedIdeas[i].title.includes(searchInput.value) || savedIdeas[i].body.includes(searchInput.value))){
-        changeInnerHtml(starColor, i)
-      }
-    }
-
-
+// makeBookButton.addEventListener("click", function(event) {
+//   event.preventDefault();
+//   makeBook();
+// });
 
 // Functions
 function loadRecipeSearchView() {
@@ -53,7 +54,18 @@ function grabSearchValue() {
 }
 
 function searchRecipeByName(searchingFor) {
+  var nameResult = allRecipeStorage.recipes.find((recipe) => {
+    return recipe.name.toLowerCase() === searchingFor
+  });
 
+     searchResultView.innerHTML = `
+     <div class='box recipe-box'>
+         <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
+         <h4 class='recipe-name'>${nameResult.name}</h4>
+     </div>`
+
+  console.log('mia barks too much')
+  console.log(nameResult)
 }
 
 function loadHomeView() {
@@ -87,9 +99,6 @@ function loadRecipeDetailView(event) {
           instructionList.push(instruction.instruction)
 
         })
-  // console.log(instructionList)
-  // console.log(instructionList[0])
-// iterate through instructions array for each instruction
         recipeDetailView.innerHTML = `
         <div class='recipe-card'>
             <h3 class='recipe-name'>${currentRecipe.name}</h3>
@@ -100,7 +109,6 @@ function loadRecipeDetailView(event) {
             <h4>Total Cost</h4>
             <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
         </div>`;
-          // console.log(currentRecipe.getInstructions())
     }
 
 }
