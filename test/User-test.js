@@ -48,4 +48,11 @@ describe('User', () => {
     user.addRecipesToCook(recipe1);
     expect(user.recipesToCook).to.deep.equal([recipe1])
   })
+
+  it('should add multiple recipes to cook', () => {
+    user.addRecipesToCook(recipe1);
+    user.addRecipesToCook(recipe2);
+    user.addRecipesToCook(recipe3);
+    expect(user.recipesToCook).to.deep.equal([recipe1, recipe2, recipe3]);
+  })
 });
