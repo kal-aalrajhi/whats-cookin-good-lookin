@@ -10,7 +10,7 @@ var allIngredientsData =  ingredientsData;
 var allRecipeData = recipeData;
 var allRecipeStorage = new RecipeRepository();
 allRecipeStorage.addRecipes(allRecipeData);
-
+console.log(allRecipeStorage.recipes)
 // Query Selectors
 var allRecipeView = document.querySelector("#allRecipeView");
 var homeView = document.querySelector("#homeView");
@@ -19,6 +19,7 @@ var showAllRecipesButton = document.querySelector("#allRecipesBtn");
 var homeBtn = document.querySelector("#homeBtn");
 var searchResultView = document.querySelector("#searchResultView");
 var findNameBtn = document.querySelector("#findNameBtn");
+var searchNameInput = document.querySelector("#searchByNameInput");
 // var findTagBtn = document.querySelector("#findTagBtn");
 
 
@@ -26,13 +27,33 @@ var findNameBtn = document.querySelector("#findNameBtn");
 showAllRecipesButton.addEventListener("click", loadAllRecipesView);
 homeBtn.addEventListener("click", loadHomeView);
 searchResultView.addEventListener("click", loadRecipeDetailView);
-findNameBtn.addEventListener("click", searchRecipeByName);
+findNameBtn.addEventListener("click", loadRecipeSearchView);
+searchNameInput.addEventListener("input", grabSearchValue);
 // findTagButton.addEventListener("click", );
 
+if (filter.className === "show-all") {
+    for (var i in savedIdeas) {
+
+      if((savedIdeas[i].star) && (savedIdeas[i].title.includes(searchInput.value) || savedIdeas[i].body.includes(searchInput.value))){
+        changeInnerHtml(starColor, i)
+      }
+    }
+
+
+
 // Functions
-function searchRecipeByName() {
+function loadRecipeSearchView() {
   hideAllViews();
   showElement(findByNameView);
+}
+
+function grabSearchValue() {
+  var searchingFor = searchNameInput.value.toLowerCase();
+  searchRecipeByName(searchingFor);
+}
+
+function searchRecipeByName(searchingFor) {
+
 }
 
 function loadHomeView() {
