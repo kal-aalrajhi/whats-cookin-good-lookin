@@ -10,9 +10,4 @@ export class User {
   addRecipesToCook(recipe) {
     this.recipesToCook.push(recipe)
   }
-
-//need to filter favoriteRecipes by tag
-//need to filter favoriteRecipes by name
-//should recipes to cook be its own page/view?
-
 }

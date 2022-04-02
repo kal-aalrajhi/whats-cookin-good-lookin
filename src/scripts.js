@@ -38,15 +38,28 @@ homeBtn.addEventListener("click", loadHomeView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
 findTagBtn.addEventListener("click", loadTagSearchView);
-//findTagBtn.addEventListener("dlbclick", );
-//searchResultView
+
+recipeDetailView.addEventListener("click", (event) => {
+  if (event.target.classList.contains("star-icon")) {
+    changeStarIcon(event)
+
+  }
+});
+
+// (event.target.classList.contains("favorite-star")
+
 allRecipeView.addEventListener("click", (event) => {
  loadRecipeDetailView(event);
 });
 
+function changeStarIcon(event) {
+  if (event.target.classList.contains("empty-star")) {
+      event.target.classList.add("hidden")
+  } else {
+    event.target.classList.remove("hidden")
+  }
+}
 
-
-// changeStarIcon(event);
 
 
 searchNameBtn.addEventListener("click", () => {
@@ -145,7 +158,10 @@ function loadRecipeDetailView(event) {
         <p>${instructionList}</p>
         <h4>Total Cost</h4>
         <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
-        <button class="favorite-btn" id="favoriteBtn">Favorite</button>
+        <div class="favorite-star" id=${currentRecipe.id}>
+          <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png">
+          <img class="star-icon full-star hidden" id=${currentRecipe.id} src="./images/star.png">
+        </div>
     </div>`;
   }
 }

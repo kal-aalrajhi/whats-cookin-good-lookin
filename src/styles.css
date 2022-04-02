@@ -22,13 +22,6 @@ floralwhite;
 }
 
 /* GENERAL */
-.favorite-star {
-  max-height: 40px;
-  max-width: 40px;
-  border: 1px solid red;
-
-}
-
 h1,
 h2 {
   margin-bottom: 1rem;
