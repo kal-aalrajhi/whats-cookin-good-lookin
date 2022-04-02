@@ -20,12 +20,14 @@ var findByNameView = document.querySelector("#findByNameView");
 var homeBtn = document.querySelector("#homeBtn");
 var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
 var findNameBtn = document.querySelector("#findNameBtn");
-var findTagBtn = document.querySelector("#findTagBtn");
 var searchNameBtn = document.querySelector("#nameSearchBtn");
 var searchNameInput = document.querySelector("#searchByNameInput");
 var searchResultsView = document.querySelector("#searchResultsView");
-// var searchTagBtn = document.querySelector("#tagSearchBtn");
-// var searchTagInput = document.querySelector("#searchByTagInput");
+
+var findTagBtn = document.querySelector("#findTagBtn");
+var findByTagView = document.querySelector("#findByTagView");
+var searchTagBtn = document.querySelector("#tagSearchBtn");
+var searchTagInput = document.querySelector("#searchByTagInput");
 
 
 // Event Listeners
@@ -34,10 +36,16 @@ homeBtn.addEventListener("click", loadHomeView);
 allRecipeView.addEventListener("click", loadRecipeDetailView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
+findTagBtn.addEventListener("click", loadTagSearchView);
 
 searchNameBtn.addEventListener("click", () => {
-  var searchingForName = grabSearchValue();
+  var searchingForName = grabSearchValue("name");
   searchRecipeByName(searchingForName);
+});
+
+searchTagBtn.addEventListener("click", () => {
+  var searchingForTag = grabSearchValue("tag");
+  searchRecipeByTag(searchingForTag);
 });
 
 // Functions
@@ -69,8 +77,17 @@ function loadNameSearchView() {
   showElement(findByNameView);
 }
 
-function grabSearchValue() { //add conditional to determine if serach by name or by tag
-  return searchNameInput.value.toLowerCase();
+function loadTagSearchView() {
+  hideAllViews();
+  showElement(searchResultView);
+  showElement(findByTagView);
+}
+
+function grabSearchValue(byValue) { //add conditional to determine if serach by name or by tag
+  if (byValue === "name") {
+    return searchNameInput.value.toLowerCase();
+  }
+  return searchTagInput.value.toLowerCase();
 }
 
 function loadAllRecipesView() {
@@ -125,6 +142,28 @@ function searchRecipeByName(searchingFor) {
       <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
       <h4 class='recipe-name'>${nameResult.name}</h4>
   </div>`
+}
+console.log(allRecipeStorage);
+function searchRecipeByTag(searchingFor) {
+  event.preventDefault();
+ console.log("HERE");
 
-  // loadRecipeDetailView();
+  var tagResultRecipes = [];
+  allRecipeStorage.recipes.forEach((recipe) => {
+    var tagResult = recipe.tags.find((tag) => {
+      return tag.toLowerCase() === searchingFor;
+    });
+
+    if(tagResult) {
+      tagResultRecipes.push(recipe);
+    }
+  });
+  console.log(tagResultRecipes);
+  showElement(searchResultsView);
+  searchResultsView.innerHTML = `
+  <div class='box recipe-box'>
+      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
+      <h4 class='recipe-name'>${nameResult.name}</h4>
+      <p class='recipe-tags'>${nameResult.name}</hp>
+  </div>`
 }
