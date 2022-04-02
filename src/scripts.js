@@ -61,7 +61,7 @@ function loadRecipeDetailView(event) {
           instructionList.push(instruction.instruction)
 
         })
-  console.log(instructionList)
+  // console.log(instructionList)
   console.log(instructionList[0])
   console.log('pineapplepizza')
 // iterate through instructions array for each instruction
@@ -71,7 +71,7 @@ function loadRecipeDetailView(event) {
             <h4>Ingredients</h4>
             <p>${currentRecipe.getIngredientNames(allIngredientsData)}</p>
             <h4>Instructions</h4>
-            <p>${currentRecipe.instructionList}</p>
+            <p>${instructionList}</p>
             <h4>Total Cost</h4>
             <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
         </div>`;
