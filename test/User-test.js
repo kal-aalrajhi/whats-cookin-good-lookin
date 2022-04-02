@@ -9,13 +9,15 @@ describe('User', () => {
   let user;
   let userData;
   let recipeData;
-  let recipe1;
+  let recipe1, recipe2, recipe3;
 
   beforeEach(() => {
     user = new User();
     userData = userSampleData;
     recipeData = recipesSampleData;
-    recipe1 = new Recipe(recipeData[0])
+    recipe1 = new Recipe(recipeData[0]);
+    recipe2 = new Recipe(recipeData[1]);
+    recipe3 = new Recipe(recipeData[2]);
   })
 
   it('should create a new instance of User', () => {
@@ -29,6 +31,13 @@ describe('User', () => {
   it('should add a favorite recipe', () => {
     user.addFavoriteRecipe(recipe1);
     expect(user.favoriteRecipes).to.deep.equal([recipe1]);
+  })
+
+  it('should add multiple favorite recipes', () => {
+    user.addFavoriteRecipe(recipe1);
+    user.addFavoriteRecipe(recipe2);
+    user.addFavoriteRecipe(recipe3);
+    expect(user.favoriteRecipes).to.deep.equal([recipe1, recipe2, recipe3]);
   })
 
   it('should start with no recipes to cook', () => {
