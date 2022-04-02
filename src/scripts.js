@@ -31,7 +31,6 @@ var findByTagView = document.querySelector("#findByTagView");
 var searchTagBtn = document.querySelector("#tagSearchBtn");
 var searchTagInput = document.querySelector("#searchByTagInput");
 
-
 // Event Listeners
 showFavoriteBtn.addEventListener("click", loadFavoriteView);
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
@@ -39,12 +38,29 @@ homeBtn.addEventListener("click", loadHomeView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
 findTagBtn.addEventListener("click", loadTagSearchView);
-//findTagBtn.addEventListener("dlbclick", );
-//searchResultView
-allRecipeView.addEventListener("click", () => {
- loadRecipeDetailView();
- // changeStarIcon();
+
+recipeDetailView.addEventListener("click", (event) => {
+  if (event.target.classList.contains("star-icon")) {
+    changeStarIcon(event)
+
+  }
 });
+
+// (event.target.classList.contains("favorite-star")
+
+allRecipeView.addEventListener("click", (event) => {
+ loadRecipeDetailView(event);
+});
+
+function changeStarIcon(event) {
+  if (event.target.classList.contains("empty-star")) {
+      event.target.classList.add("hidden")
+  } else {
+    event.target.classList.remove("hidden")
+  }
+}
+
+
 
 searchNameBtn.addEventListener("click", () => {
   var searchingForName = grabSearchValue("name");
@@ -74,12 +90,6 @@ var showElement = (element) => {
 var hideElement = (element) => {
   element.classList.add("hidden");
 }
-
-// function changeStarIcon() {
-//    if (event.target.src !== './images/star.png') {
-//        event.target.src = './images/star.png'
-//   }
-// }
 
 function loadFavoriteView() {
   hideAllViews();
@@ -122,12 +132,12 @@ function loadAllRecipesView() {
         <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
         <h4 class='recipe-name'>${recipe.name}</h4>
         <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
-        <img class='favorite-star' src='./images/empty-star.png'>
     </div>`
   });
 }
 
 function loadRecipeDetailView(event) {
+  console.log(event)
   if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
     hideAllViews();
     showElement(searchResultView);
@@ -148,6 +158,10 @@ function loadRecipeDetailView(event) {
         <p>${instructionList}</p>
         <h4>Total Cost</h4>
         <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
+        <div class="favorite-star" id=${currentRecipe.id}>
+          <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png">
+          <img class="star-icon full-star hidden" id=${currentRecipe.id} src="./images/star.png">
+        </div>
     </div>`;
   }
 }
