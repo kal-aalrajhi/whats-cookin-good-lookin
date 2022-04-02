@@ -3,7 +3,8 @@ import apiCalls from './apiCalls';
 import { recipeData } from '../src/data/recipes';
 import { ingredientsData } from '../src/data/ingredients';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
-import './images/turing-logo.png'; // An example of how you tell webpack to use an image (also need to link to it in the index.html)
+import './images/star.png';
+import './images/empty-star.png';
 
 // Global Variables
 var allIngredientsData =  ingredientsData;
@@ -19,6 +20,7 @@ var recipeDetailView = document.querySelector("#recipeDetailView")
 var findByNameView = document.querySelector("#findByNameView");
 var homeBtn = document.querySelector("#homeBtn");
 var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
+var showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
 var findNameBtn = document.querySelector("#findNameBtn");
 var searchNameBtn = document.querySelector("#nameSearchBtn");
 var searchNameInput = document.querySelector("#searchByNameInput");
@@ -31,12 +33,18 @@ var searchTagInput = document.querySelector("#searchByTagInput");
 
 
 // Event Listeners
+showFavoriteBtn.addEventListener("click", loadFavoriteView);
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 homeBtn.addEventListener("click", loadHomeView);
-allRecipeView.addEventListener("click", loadRecipeDetailView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
 findTagBtn.addEventListener("click", loadTagSearchView);
+//findTagBtn.addEventListener("dlbclick", );
+//searchResultView
+allRecipeView.addEventListener("click", () => {
+ loadRecipeDetailView();
+ // changeStarIcon();
+});
 
 searchNameBtn.addEventListener("click", () => {
   var searchingForName = grabSearchValue("name");
@@ -65,6 +73,17 @@ var showElement = (element) => {
 
 var hideElement = (element) => {
   element.classList.add("hidden");
+}
+
+// function changeStarIcon() {
+//    if (event.target.src !== './images/star.png') {
+//        event.target.src = './images/star.png'
+//   }
+// }
+
+function loadFavoriteView() {
+  hideAllViews();
+  showElement(favoriteRecipesBtn);
 }
 
 function loadHomeView() {
@@ -103,6 +122,7 @@ function loadAllRecipesView() {
         <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
         <h4 class='recipe-name'>${recipe.name}</h4>
         <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
+        <img class='favorite-star' src='./images/empty-star.png'>
     </div>`
   });
 }
@@ -137,7 +157,7 @@ function searchRecipeByName(searchingFor) {
   var nameResult = allRecipeStorage.recipes.find((recipe) => {
     return recipe.name.toLowerCase() === searchingFor;
   });
-  
+
   showElement(searchResultsView);
   searchResultsView.innerHTML = `
   <div class='box recipe-box'>
