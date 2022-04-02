@@ -1,4 +1,4 @@
-# Pull Request Template
+# Description
 
 Please include a summary of the changes made and if any bugs were fixed/ featured were added.
 
