@@ -3,12 +3,12 @@ export class User {
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
-  addFavoriteRecipe() {
-    favoriteRecipes.push()
+  addFavoriteRecipe(recipe) {
+    this.favoriteRecipes.push(recipe)
   }
 
-  addRecipesToCook() {
-    recipesToCook.push()
+  addRecipesToCook(recipe) {
+    this.recipesToCook.push(recipe)
   }
 
 //need to filter favoriteRecipes by tag

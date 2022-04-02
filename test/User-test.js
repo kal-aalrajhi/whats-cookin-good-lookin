@@ -8,20 +8,35 @@ import { userSampleData } from '../src/data/users-sample-data.js'
 describe('User', () => {
   let user;
   let userData;
+  let recipeData;
+  let recipe1;
 
   beforeEach(() => {
     user = new User();
     userData = userSampleData;
+    recipeData = recipesSampleData;
+    recipe1 = new Recipe(recipeData[0])
   })
 
   it('should create a new instance of User', () => {
     expect(user).to.be.an.instanceof(User);
   })
 
-  
-});
+  it('should start with no favorite recipes', () => {
+    expect(user.favoriteRecipes).to.deep.equal([]);
+  })
 
-//favorite recipe should be an empty array
-//recipes to cook should be an empty array
-//should favorite recipe
-//should add recipes to cook
+  it('should add a favorite recipe', () => {
+    user.addFavoriteRecipe(recipe1);
+    expect(user.favoriteRecipes).to.deep.equal([recipe1]);
+  })
+
+  it('should start with no recipes to cook', () => {
+    expect(user.recipesToCook).to.deep.equal([]);
+  })
+
+  it('should add a recipe to cook', () => {
+    user.addRecipesToCook(recipe1);
+    expect(user.recipesToCook).to.deep.equal([recipe1])
+  })
+});
