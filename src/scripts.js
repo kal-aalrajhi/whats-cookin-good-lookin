@@ -17,7 +17,7 @@ var homeView = document.querySelector("#homeView");
 var recipeDetailView = document.querySelector("#recipeDetailView")
 var showAllRecipesButton = document.querySelector("#allRecipesBtn");
 var homeBtn = document.querySelector("#homeBtn");
-var searchResultView = document.querySelector("#searchResultView"); 
+var searchResultView = document.querySelector("#searchResultView");
 // var findNameBtn = document.querySelector("#findNameBtn");
 // var findTagBtn = document.querySelector("#findTagBtn");
 
@@ -50,24 +50,34 @@ function loadAllRecipesView() {
 }
 
 function loadRecipeDetailView(event) {
-    console.log(event.target);
     if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
         hideAllViews();
         showElement(recipeDetailView);
-        
+
         let currentRecipe = allRecipeStorage.filterById(event.target.id);
 
+        var instructionList = []
+        currentRecipe.instructions.forEach((instruction) => {
+          instructionList.push(instruction.instruction)
+
+        })
+  console.log(instructionList)
+  console.log(instructionList[0])
+  console.log('pineapplepizza')
+// iterate through instructions array for each instruction
         recipeDetailView.innerHTML = `
         <div class='recipe-card'>
             <h3 class='recipe-name'>${currentRecipe.name}</h3>
             <h4>Ingredients</h4>
-            <p>ingredients list</p>
+            <p>${currentRecipe.getIngredientNames(allIngredientsData)}</p>
             <h4>Instructions</h4>
-            <p>instructions list</p>
+            <p>${currentRecipe.instructionList}</p>
             <h4>Total Cost</h4>
             <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
         </div>`;
+          // console.log(currentRecipe.getInstructions())
     }
+
 }
 
 function hideAllViews() {
