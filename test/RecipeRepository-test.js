@@ -4,18 +4,20 @@ import { Recipe } from '../src/classes/Recipe';
 import { recipesSampleData } from '../src/data/recipes-sample-data';
 
 describe('Recipe Repository', () => {
-    let recipeRepository, recipeRepositoryWithData;
-    let recipe1, recipe2, recipe3
+    let recipeRepository;
+    let recipe1, recipe2, recipe3;
+    let recipeObj1, recipeObj2, recipeObj3;
     let recipeData;
 
   beforeEach(() => {
     recipeData = recipesSampleData;
-    recipe1 = new Recipe(recipeData[0]);
-    recipe2 = new Recipe(recipeData[1]);
-    recipe3 = new Recipe(recipeData[2]);
+    recipe1 = recipeData[0]; 
+    recipe2 = recipeData[1];
+    recipe3 = recipeData[2];
+    recipeObj1 = new Recipe(recipeData[0]);
+    recipeObj2 = new Recipe(recipeData[1]);
+    recipeObj3 = new Recipe(recipeData[2]);
     recipeRepository = new RecipeRepository();
-    recipeRepositoryWithData = new RecipeRepository(recipeData);
-
   });
 
   it('should create a new instance of RecipeRepository', () => {
@@ -26,22 +28,23 @@ describe('Recipe Repository', () => {
     expect(recipeRepository.recipes).to.deep.equal([]);
   });
 
-  it('can be instantiated with an collection of recipes', () => {
-    expect(recipeRepositoryWithData.recipes).to.deep.equal(recipeData);
+  it('can take a collection of recipes', () => {
+    recipeRepository.addRecipes(recipeData);
+    expect(recipeRepository.recipes).to.deep.equal([recipeObj1, recipeObj2, recipeObj3]);
   });
 
   it('can add a single recipe', () => {
     recipeRepository.addRecipes(recipe1);
-    expect(recipeRepository.recipes[0]).to.deep.equal(recipe1);
+    expect(recipeRepository.recipes[0]).to.deep.equal(recipeObj1);
   });
 
   it('can add multiple recipes', () => {
     recipeRepository.addRecipes(recipe1);
     recipeRepository.addRecipes(recipe2);
     recipeRepository.addRecipes(recipe3);
-    expect(recipeRepository.recipes[0]).to.deep.equal(recipe1);
-    expect(recipeRepository.recipes[1]).to.deep.equal(recipe2);
-    expect(recipeRepository.recipes[2]).to.deep.equal(recipe3);
+    expect(recipeRepository.recipes[0]).to.deep.equal(recipeObj1);
+    expect(recipeRepository.recipes[1]).to.deep.equal(recipeObj2);
+    expect(recipeRepository.recipes[2]).to.deep.equal(recipeObj3);
   });
 
   it('should filter recipe by name', () => {
@@ -55,7 +58,7 @@ describe('Recipe Repository', () => {
     recipeRepository.addRecipes(recipe1);
     recipeRepository.addRecipes(recipe2);
     recipeRepository.addRecipes(recipe3);
-    expect(recipeRepository.filterByTag('snack')).to.deep.equal([recipe1]);
+    expect(recipeRepository.filterByTag('snack')).to.deep.equal([recipeObj1]);
   });
 
   it('should filter recipe by id', () => {
