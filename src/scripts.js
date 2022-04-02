@@ -18,7 +18,7 @@ var recipeDetailView = document.querySelector("#recipeDetailView")
 var showAllRecipesButton = document.querySelector("#allRecipesBtn");
 var homeBtn = document.querySelector("#homeBtn");
 var searchResultView = document.querySelector("#searchResultView");
-// var findNameBtn = document.querySelector("#findNameBtn");
+var findNameBtn = document.querySelector("#findNameBtn");
 // var findTagBtn = document.querySelector("#findTagBtn");
 
 
@@ -26,10 +26,15 @@ var searchResultView = document.querySelector("#searchResultView");
 showAllRecipesButton.addEventListener("click", loadAllRecipesView);
 homeBtn.addEventListener("click", loadHomeView);
 searchResultView.addEventListener("click", loadRecipeDetailView);
-// findNameButton.addEventListener("click", );
+findNameBtn.addEventListener("click", searchRecipeByName);
 // findTagButton.addEventListener("click", );
 
 // Functions
+function searchRecipeByName() {
+  hideAllViews();
+  showElement(findByNameView);
+}
+
 function loadHomeView() {
   hideAllViews();
   showElement(homeView);
@@ -62,8 +67,7 @@ function loadRecipeDetailView(event) {
 
         })
   // console.log(instructionList)
-  console.log(instructionList[0])
-  console.log('pineapplepizza')
+  // console.log(instructionList[0])
 // iterate through instructions array for each instruction
         recipeDetailView.innerHTML = `
         <div class='recipe-card'>
