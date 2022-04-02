@@ -10,115 +10,53 @@ var allIngredientsData =  ingredientsData;
 var allRecipeData = recipeData;
 var allRecipeStorage = new RecipeRepository();
 allRecipeStorage.addRecipes(allRecipeData);
-// console.log(allRecipeStorage.recipes)
-// console.log(allRecipeStorage.recipes.name)
+
 // Query Selectors
-var allRecipeView = document.querySelector("#allRecipeView");
 var homeView = document.querySelector("#homeView");
-var recipeDetailView = document.querySelector("#recipeDetailView")
-var showAllRecipesButton = document.querySelector("#allRecipesBtn");
-var homeBtn = document.querySelector("#homeBtn");
 var searchResultView = document.querySelector("#searchResultView");
+var allRecipeView = document.querySelector("#allRecipeView");
+var recipeDetailView = document.querySelector("#recipeDetailView")
+var findByNameView = document.querySelector("#findByNameView");
+var homeBtn = document.querySelector("#homeBtn");
+var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
 var findNameBtn = document.querySelector("#findNameBtn");
-var searchNameInput = document.querySelector("#searchByNameInput");
 var searchNameBtn = document.querySelector("#nameSearchBtn");
-// var findTagBtn = document.querySelector("#findTagBtn");
+var searchNameInput = document.querySelector("#searchByNameInput");
+var searchResultsView = document.querySelector("#searchResultsView");
+
+var findTagBtn = document.querySelector("#findTagBtn");
+var findByTagView = document.querySelector("#findByTagView");
+var searchTagBtn = document.querySelector("#tagSearchBtn");
+var searchTagInput = document.querySelector("#searchByTagInput");
 
 
 // Event Listeners
-showAllRecipesButton.addEventListener("click", loadAllRecipesView);
+showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 homeBtn.addEventListener("click", loadHomeView);
-searchResultView.addEventListener("click", loadRecipeDetailView);
-findNameBtn.addEventListener("click", loadRecipeSearchView);
-searchNameInput.addEventListener("input", grabSearchValue);
+allRecipeView.addEventListener("click", loadRecipeDetailView);
+searchResultsView.addEventListener("click", loadRecipeDetailView);
+findNameBtn.addEventListener("click", loadNameSearchView);
+findTagBtn.addEventListener("click", loadTagSearchView);
+
 searchNameBtn.addEventListener("click", () => {
-  event.preventDefault()
-  grabSearchValue()
-  // loadRecipeSearchView()
+  var searchingForName = grabSearchValue("name");
+  searchRecipeByName(searchingForName);
 });
-// findTagButton.addEventListener("click", );
-// makeBookButton.addEventListener("click", function(event) {
-//   event.preventDefault();
-//   makeBook();
-// });
+
+searchTagBtn.addEventListener("click", () => {
+  var searchingForTag = grabSearchValue("tag");
+  searchRecipeByTag(searchingForTag);
+});
 
 // Functions
-function loadRecipeSearchView() {
-  hideAllViews();
-  showElement(findByNameView);
-}
-
-function grabSearchValue() {
-  var searchingFor = searchNameInput.value.toLowerCase();
-  searchRecipeByName(searchingFor);
-}
-
-function searchRecipeByName(searchingFor) {
-  var nameResult = allRecipeStorage.recipes.find((recipe) => {
-    return recipe.name.toLowerCase() === searchingFor
-  });
-
-     searchResultView.innerHTML = `
-     <div class='box recipe-box'>
-         <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
-         <h4 class='recipe-name'>${nameResult.name}</h4>
-     </div>`
-
-  console.log('mia barks too much')
-  console.log(nameResult)
-}
-
-function loadHomeView() {
-  hideAllViews();
-  showElement(homeView);
-}
-
-function loadAllRecipesView() {
- hideAllViews();
- showElement(allRecipeView);
- allRecipeView.innerHTML = '';
-
- allRecipeStorage.recipes.forEach((recipe) => {
-    allRecipeView.innerHTML += `
-    <div class='box recipe-box'>
-        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
-        <h4 class='recipe-name'>${recipe.name}</h4>
-    </div>`
-  });
-}
-
-function loadRecipeDetailView(event) {
-    if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
-        hideAllViews();
-        showElement(recipeDetailView);
-
-        let currentRecipe = allRecipeStorage.filterById(event.target.id);
-
-        var instructionList = []
-        currentRecipe.instructions.forEach((instruction) => {
-          instructionList.push(instruction.instruction)
-
-        })
-        recipeDetailView.innerHTML = `
-        <div class='recipe-card'>
-            <h3 class='recipe-name'>${currentRecipe.name}</h3>
-            <h4>Ingredients</h4>
-            <p>${currentRecipe.getIngredientNames(allIngredientsData)}</p>
-            <h4>Instructions</h4>
-            <p>${instructionList}</p>
-            <h4>Total Cost</h4>
-            <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
-        </div>`;
-    }
-
-}
-
 function hideAllViews() {
+  hideElement(homeView);
+  hideElement(searchResultView);
   hideElement(allRecipeView);
   hideElement(findByNameView);
   hideElement(findByTagView);
-  hideElement(homeView);
   hideElement(recipeDetailView);
+  hideElement(searchResultsView);
 }
 
 var showElement = (element) => {
@@ -127,4 +65,108 @@ var showElement = (element) => {
 
 var hideElement = (element) => {
   element.classList.add("hidden");
+}
+
+function loadHomeView() {
+  hideAllViews();
+  showElement(homeView);
+}
+
+function loadNameSearchView() {
+  hideAllViews();
+  showElement(searchResultView);
+  showElement(findByNameView);
+}
+
+function loadTagSearchView() {
+  hideAllViews();
+  showElement(searchResultView);
+  showElement(findByTagView);
+}
+
+function grabSearchValue(byValue) { //add conditional to determine if serach by name or by tag
+  if (byValue === "name") {
+    return searchNameInput.value.toLowerCase();
+  }
+  return searchTagInput.value.toLowerCase();
+}
+
+function loadAllRecipesView() {
+ hideAllViews();
+ showElement(searchResultView);
+ showElement(allRecipeView);
+ allRecipeView.innerHTML = '';
+
+ allRecipeStorage.recipes.forEach((recipe) => {
+    allRecipeView.innerHTML += `
+    <div class='box recipe-box'>
+        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+        <h4 class='recipe-name'>${recipe.name}</h4>
+        <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
+    </div>`
+  });
+}
+
+function loadRecipeDetailView(event) {
+  if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
+    hideAllViews();
+    showElement(searchResultView);
+    showElement(recipeDetailView);
+
+    let currentRecipe = allRecipeStorage.filterById(event.target.id);
+    var instructionList = []
+    currentRecipe.instructions.forEach((instruction) => {
+      instructionList.push(instruction.instruction);
+    });
+
+    recipeDetailView.innerHTML = `
+    <div class='recipe-card'>
+        <h3 class='recipe-name'>${currentRecipe.name}</h3>
+        <h4>Ingredients</h4>
+        <p>${currentRecipe.getIngredientNames(allIngredientsData)}</p>
+        <h4>Instructions</h4>
+        <p>${instructionList}</p>
+        <h4>Total Cost</h4>
+        <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
+    </div>`;
+  }
+}
+
+function searchRecipeByName(searchingFor) {
+  event.preventDefault();
+  var nameResult = allRecipeStorage.recipes.find((recipe) => {
+    return recipe.name.toLowerCase() === searchingFor;
+  });
+  
+  showElement(searchResultsView);
+  searchResultsView.innerHTML = `
+  <div class='box recipe-box'>
+      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
+      <h4 class='recipe-name'>${nameResult.name}</h4>
+  </div>`
+}
+
+function searchRecipeByTag(searchingFor) {
+  event.preventDefault();
+
+  var tagResultRecipes = [];
+  allRecipeStorage.recipes.forEach((recipe) => {
+    var tagResult = recipe.tags.find((tag) => {
+      return tag.toLowerCase() === searchingFor;
+    });
+    if(tagResult) {
+      tagResultRecipes.push(recipe);
+    }
+  });
+
+  showElement(searchResultsView);
+  searchResultsView.innerHTML = '';
+  tagResultRecipes.forEach((recipe) => {
+    searchResultsView.innerHTML += `
+    <div class='box recipe-box'>
+        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+        <h4 class='recipe-name'>${recipe.name}</h4>
+        <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
+    </div>`
+  });
 }
