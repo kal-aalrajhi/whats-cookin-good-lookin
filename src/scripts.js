@@ -36,12 +36,15 @@ var searchTagInput = document.querySelector("#searchByTagInput");
 showFavoriteBtn.addEventListener("click", loadFavoriteView);
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 homeBtn.addEventListener("click", loadHomeView);
-allRecipeView.addEventListener("click", loadRecipeDetailView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
 findTagBtn.addEventListener("click", loadTagSearchView);
 //findTagBtn.addEventListener("dlbclick", );
 //searchResultView
+allRecipeView.addEventListener("click", () => {
+ loadRecipeDetailView();
+ // changeStarIcon();
+});
 
 searchNameBtn.addEventListener("click", () => {
   var searchingForName = grabSearchValue("name");
@@ -71,6 +74,13 @@ var showElement = (element) => {
 var hideElement = (element) => {
   element.classList.add("hidden");
 }
+
+// function changeStarIcon() {
+//    if (event.target.src !== './images/star.png') {
+//        event.target.src = './images/star.png'
+//   }
+// }
+
 function loadFavoriteView() {
   hideAllViews();
   showElement(favoriteRecipesBtn);
