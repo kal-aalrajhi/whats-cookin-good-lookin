@@ -1,3 +1,4 @@
+//  defines our rules for stylistic conventions we want our code to follow
 {
   "env": {
     "browser": true,

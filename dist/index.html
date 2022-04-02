@@ -1,12 +1,70 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Whats Cookin</title>
+    <title>Whats Cookin' Good Lookin'</title>
   </head>
-  <body>
-    <h1>Whats Cookin</h1>
-  </body>
-  <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
+<body>
+  <!--NAVIGATION-->
+  <nav>
+    <h1>Whats Cookin' Good Lookin'</h1>
+    <ul class="nav-list">
+      <li class="nav-item"><img class="nav-icon" id="homeBtn" src="https://icons.iconarchive.com/icons/icons8/android/256/Food-Vegeterian-Food-icon.png"></li>
+      <li class="nav-item">
+        <button class="nav-btn" id="allRecipesBtn">All Recipes</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-btn" id="savedRecipesBtn">Saved Recipes</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-btn" id="findNameBtn">Find by Name</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-btn" id="findTagBtn">Find by Tag</button>
+      </li>
+    </ul>
+  </nav>
+  <!--MAIN SCREEN-->
+  <main class="main">
+    <!--LANDING VIEW-->
+    <section class="home-view" id="homeView">
+      <img class="recipe-image" src="https://www.kitchensanctuary.com/wp-content/uploads/2021/11/Deep-Dish-Apple-Pie-square-FS-84.jpg">
+      <h2 class="explore-recipe">Explore Recipes</h2>
+      <section class="recipe-details">
+        <section class="meal-box breakfast-box">
+          <h3>breakfast</h3>
+        </section>
+        <section class="meal-box lunch-box">
+          <h3>lunch</h3>
+        </section>
+        <section class="meal-box dinner-box">
+          <h3>dinner</h3>
+        </section>
+        <section class="meal-box dessert-box">
+          <h3>dessert</h3>
+        </section>
+      </section>
+    </section>
+    <!--SEARCH RESULT VIEWS-->
+    <section class="search-result-view" id="searchResultView">
+      <section class="view all-recipes-view hidden" id="allRecipeView">
+        <!-- view all recipes appears -->
+      </section>
+    </section>
+      <section class="view name-recipe-view hidden" id="findByNameView">
+        <form>
+          <label>Search by name</label>
+          <input class="search-by-name-input" id="searchByNameInput"/>
+          <button id="nameSearchBtn">Search</button>
+        </form>
+        <!-- recipe by name appears -->
+      </section>
+      <section class="view tag-recipes-view hidden" id="findByTagView">
+        <!-- recipes by tag appear -->
+      </section>
+      <section class="view recipe-detail-view hidden" id="recipeDetailView">
+        <!-- recipes by tag appear -->
+      </section>
+  </main>
+</body>
   <script src="bundle.js"></script>
 </html>
