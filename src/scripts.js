@@ -54,6 +54,7 @@ function hideAllViews() {
   hideElement(searchResultView);
   hideElement(allRecipeView);
   hideElement(findByNameView);
+  hideElement(findByTagView);
   hideElement(recipeDetailView);
   hideElement(searchResultsView);
 }
@@ -101,6 +102,7 @@ function loadAllRecipesView() {
     <div class='box recipe-box'>
         <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
         <h4 class='recipe-name'>${recipe.name}</h4>
+        <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
     </div>`
   });
 }
@@ -143,27 +145,28 @@ function searchRecipeByName(searchingFor) {
       <h4 class='recipe-name'>${nameResult.name}</h4>
   </div>`
 }
-console.log(allRecipeStorage);
+
 function searchRecipeByTag(searchingFor) {
   event.preventDefault();
- console.log("HERE");
 
   var tagResultRecipes = [];
   allRecipeStorage.recipes.forEach((recipe) => {
     var tagResult = recipe.tags.find((tag) => {
       return tag.toLowerCase() === searchingFor;
     });
-
     if(tagResult) {
       tagResultRecipes.push(recipe);
     }
   });
-  console.log(tagResultRecipes);
+
   showElement(searchResultsView);
-  searchResultsView.innerHTML = `
-  <div class='box recipe-box'>
-      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
-      <h4 class='recipe-name'>${nameResult.name}</h4>
-      <p class='recipe-tags'>${nameResult.name}</hp>
-  </div>`
+  searchResultsView.innerHTML = '';
+  tagResultRecipes.forEach((recipe) => {
+    searchResultsView.innerHTML += `
+    <div class='box recipe-box'>
+        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+        <h4 class='recipe-name'>${recipe.name}</h4>
+        <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
+    </div>`
+  });
 }
