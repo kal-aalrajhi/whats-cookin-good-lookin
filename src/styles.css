@@ -49,6 +49,10 @@ p {
   font-size: 1.5rem;
 }
 
+li {
+  margin-top: 0.5rem;
+}
+
 /* NAVIGATION */
 nav {
   background-color: #9DD9D2;
@@ -77,9 +81,16 @@ nav {
 
 .nav-icon {
   cursor: pointer;
-  height: 5rem;
-  margin-left: 1.5rem;
-  width: 5rem;
+  height: 6.5rem;
+  margin-left: 2rem;
+  width: 6.5rem;
+}
+
+.nav-icon:hover {
+  border-radius: 10rem;
+  border: 0.3rem solid #FFF8F0;
+  background-color: #9DD9D2;
+  transform: translateY(-0.25em);
 }
 
 /* MAIN ELEMENTS */
@@ -98,6 +109,10 @@ nav {
   object-fit: cover;
 }
 
+.recipe-tags {
+  margin: 1rem 0.5rem;
+}
+
 .explore-recipe {
   background-color: #FF8811;
   border: 0.3rem solid #f4a14f;
@@ -107,6 +122,35 @@ nav {
 .recipe-details {
   display: flex;
   flex-basis: 50%;
+}
+
+.recipe-detail-view {
+  display:flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-evenly;
+}
+
+.recipe-card {
+  background-color: #f9dd92;
+  flex-basis: 45%;
+  margin-top: 2rem;
+  padding: 2rem;
+}
+
+.recipe-card > h4 {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.recipe-card > ol {
+  font-size: 1.5rem;
+  margin-left: 2rem;
+}
+
+.star-icon {
+  height: 4rem;
+  margin-top: 1rem 0 0 0.5rem;
+  width: 4rem;
 }
 
 .meal-box {
@@ -145,17 +189,6 @@ nav {
 .box > img {
   height: 30rem;
   width: 25rem;
-}
-
-.recipe-card {
-  background-color: #F4D06F;
-  border: 0.2rem solid #333333;
-  flex-basis: 50%;
-  margin-top: 2rem;
-}
-
-.recipe-card > h4 {
-  font-size: 2rem;
 }
 
 .search-input {

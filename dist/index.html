@@ -8,7 +8,9 @@
   <nav>
     <h1>Whats Cookin' Good Lookin'</h1>
     <ul class="nav-list">
-      <li class="nav-item"><img class="nav-icon" id="homeBtn" src="https://icons.iconarchive.com/icons/icons8/android/256/Food-Vegeterian-Food-icon.png"></li>
+      <li class="nav-item">
+        <img class="nav-icon" id="homeBtn" src="./images/food-icon-light.png" alt="food-icon-home">
+      </li>
       <li class="nav-item">
         <button class="nav-btn" id="allRecipesBtn">All Recipes</button>
       </li>
@@ -46,12 +48,15 @@
     </section>
     <!--SEARCH RESULT VIEWS-->
     <section class="search-result-view" id="searchResultView">
+      <!--VIEW ALL RECIPES -->
       <section class="view all-recipes-view hidden" id="allRecipeView">
         <!-- view all recipes appears -->
       </section>
+      <!--VIEW FAVORITE RECIPES-->
       <section class="view favorite-recipe-view" id="favoriteRecipeView">
         <!-- view saved recipes appears -->
       </section>
+      <!--SEARCH BY RECIPE VIEW -->
       <section class="view name-recipe-view hidden" id="findByNameView">
         <form class="search-form">
           <label class="search-label">Search by Name: </label>
@@ -59,6 +64,7 @@
           <button class="search-btn" id="nameSearchBtn">Search</button>
         </form>
       </section>
+      <!--SEARCH BY TAG VIEW -->
       <section class="view tag-recipes-view hidden" id="findByTagView">
         <form class="search-form">
           <label class="search-label">Search by Tag: </label>
@@ -66,11 +72,21 @@
           <button class="search-btn" id="tagSearchBtn">Search</button>
         </form>
       </section>
+      <!--SEARCH RESULTS VIEW -->
       <section class="view search-results-view hidden" id="searchResultsView">
         <!-- search results appear-->
-         <!-- recipes by tag appear -->
+        <!-- recipes by tag appear -->
       </section>
-      <section class="view recipe-detail-view hidden" id="recipeDetailView">
+      <!--RECIPE DETAIL VIEW-->
+      <section class="recipe-detail-view hidden" id="recipeDetailView">
+        <article class='recipe-card' id="recipeDetailCard">
+          <!-- list recipe details here-->
+        </article>
+        <article class="recipe-card" id="instructionsCard">
+          <ol class="instructions-list" id="instructionsList" >
+            <!-- list instructions here-->
+          </ol>
+        </article>
       </section>
     </section>
   </main>
