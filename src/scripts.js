@@ -79,15 +79,13 @@ function changeStarIcon(event) {
   var result = userRecipes.favoriteRecipes.find(recipe => {
       return recipe.id === Number(event.target.id)
    })
-   if (!!result) {
-   } else {
-   userRecipes.favoriteRecipes.push(recipe)
+   if (!result) {
+     userRecipes.favoriteRecipes.push(recipe)
  }
+ console.log(userRecipes.favoriteRecipes)
 }
 
 function favoriteCurrentRecipe() {
-  hideAllViews();
-  showElement(favoriteRecipeView);
 
    favoriteRecipesView.innerHTML = '';
   userRecipes.favoriteRecipes.forEach((recipe) => {
@@ -141,6 +139,7 @@ var hideElement = (element) => {
 
 function loadFavoriteView() {
   hideAllViews();
+  showElement(searchResultView);
   showElement(favoriteRecipeView);
 }
 
@@ -161,7 +160,7 @@ function loadTagSearchView() {
   showElement(findByTagView);
 }
 
-function grabSearchValue(byValue) { 
+function grabSearchValue(byValue) {
   if (byValue === "name") {
     return searchNameInput.value.toLowerCase();
   }
