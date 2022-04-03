@@ -40,11 +40,13 @@ var findTagBtn = document.querySelector("#findTagBtn");
 var searchNameBtn = document.querySelector("#nameSearchBtn");
 var searchTagBtn = document.querySelector("#tagSearchBtn");
 var searchFavNameBtn = document.querySelector("#favNameSearchBtn");
+var searchFavTagBtn = document.querySelector("#favTagSearchBtn");
 
 // Search Inputs
 var searchNameInput = document.querySelector("#searchByNameInput");
 var searchTagInput = document.querySelector("#searchByTagInput");
 var searchFavNameInput = document.querySelector("#favSearchByNameInput");
+var searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
 window.addEventListener('load', () => {
