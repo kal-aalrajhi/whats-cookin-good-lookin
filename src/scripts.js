@@ -37,6 +37,7 @@ var findTagBtn = document.querySelector("#findTagBtn");
 var findByTagView = document.querySelector("#findByTagView");
 var searchTagBtn = document.querySelector("#tagSearchBtn");
 var searchTagInput = document.querySelector("#searchByTagInput");
+var searchFavorites = document.querySelector("#favSearchBar")
 
 // Event Listeners
 window.addEventListener('load', () => {
@@ -82,7 +83,6 @@ function changeStarIcon(event) {
    if (!result) {
      userRecipes.favoriteRecipes.push(recipe)
  }
- console.log(userRecipes.favoriteRecipes)
 }
 
 function favoriteCurrentRecipe() {
@@ -127,6 +127,7 @@ function hideAllViews() {
   hideElement(recipeDetailView);
   hideElement(searchResultsView);
   hideElement(favoriteRecipeView);
+  hideElement(searchFavorites);
 }
 
 var showElement = (element) => {
@@ -141,6 +142,7 @@ function loadFavoriteView() {
   hideAllViews();
   showElement(searchResultView);
   showElement(favoriteRecipeView);
+  showElement(searchFavorites)
 }
 
 function loadHomeView() {
