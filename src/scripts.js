@@ -67,6 +67,12 @@ recipeDetailView.addEventListener("click", (event) => {
   }
 });
 
+favoriteRecipesView.addEventListener("click", (event) => {
+  // deleteRecipe(event);
+  loadRecipeDetailView(event)
+});
+
+
 allRecipeView.addEventListener("click", (event) => {
  loadRecipeDetailView(event);
 });
@@ -235,6 +241,7 @@ function searchRecipeByName(searchingFor) {
   <div class='box recipe-box'>
       <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
       <h4 class='recipe-name'>${nameResult.name}</h4>
+      <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
   </div>`
 }
 
@@ -248,6 +255,7 @@ function searchFavRecipeByName(searchingFor) {
   <div class='box recipe-box'>
       <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
       <h4 class='recipe-name'>${nameResult.name}</h4>
+      <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
   </div>`
 }
 
