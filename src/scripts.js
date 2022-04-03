@@ -79,7 +79,8 @@ function grabSearchValue(byValue) {
     return searchTagInput.value.toLowerCase();
   } else if (byValue === "favorite name") {
     return searchFavNameInput.value.toLowerCase();
-  }
+  } else if (byValue === "favorite tag") {
+    return searchFavTagInput.value.toLowerCase();
 }
 
 searchNameBtn.addEventListener("click", () => {
@@ -97,7 +98,10 @@ searchFavNameBtn.addEventListener("click", () => {
   searchFavRecipeByName(searchingForFavName);
 });
 
-
+searchFavTagBtn.addEventListener("click", () => {
+  var searchingForFavTag = grabSearchValue("favorite tag");
+  searchFavRecipeByTag(searchingForFavTag);
+});
 
 // Functions
 function hideAllViews() {
