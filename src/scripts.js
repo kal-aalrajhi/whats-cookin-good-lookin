@@ -37,6 +37,8 @@ var findTagBtn = document.querySelector("#findTagBtn");
 var findByTagView = document.querySelector("#findByTagView");
 var searchTagBtn = document.querySelector("#tagSearchBtn");
 var searchTagInput = document.querySelector("#searchByTagInput");
+var searchFavorites = document.querySelector("#favSearchBar")
+var searchFavNameBtn = document.querySelector("#favNameSearchBtn")
 
 // Event Listeners
 window.addEventListener('load', () => {
@@ -49,6 +51,7 @@ homeBtn.addEventListener("click", loadHomeView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
 findTagBtn.addEventListener("click", loadTagSearchView);
+// searchFavNameBtn.addEventListener("click", loadNameSearchView);
 
 recipeDetailView.addEventListener("click", (event) => {
   if (event.target.classList.contains("star-icon")) {
@@ -64,50 +67,6 @@ showFavoriteBtn.addEventListener("click", () => {
  loadFavoriteView();
  favoriteCurrentRecipe();
 });
-
-
-// function deleteRecipe(event) {
-//   if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
-// favoriteRecipes.slice(event)
-
-function changeStarIcon(event) {
-  var emptyStar = document.querySelector(".empty-star");
-  emptyStar.src = './images/star.png'
-  var recipe = allRecipeData.find(recipe => {
-     return recipe.id === Number(event.target.id)
-   })
-  var result = userRecipes.favoriteRecipes.find(recipe => {
-      return recipe.id === Number(event.target.id)
-   })
-   if (!!result) {
-   } else {
-   userRecipes.favoriteRecipes.push(recipe)
- }
-}
-
-function favoriteCurrentRecipe() {
-  hideAllViews();
-  showElement(favoriteRecipeView);
-
-   favoriteRecipesView.innerHTML = '';
-  userRecipes.favoriteRecipes.forEach((recipe) => {
-   favoriteRecipesView.innerHTML += `
-   <div class='box recipe-box'>
-       <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
-       <h4 class='recipe-name'>${recipe.name}</h4>
-       <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
-   </div>`
- });
- console.log(userRecipes.favoriteRecipes)
-}
-
-// <div class='box recipe-box'>
-//     <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
-//     <h4 class='recipe-name'>${recipe.name}</h4>
-//     <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
-// </div>`
-// });
-// }
 
 searchNameBtn.addEventListener("click", () => {
   var searchingForName = grabSearchValue("name");
@@ -129,6 +88,7 @@ function hideAllViews() {
   hideElement(recipeDetailView);
   hideElement(searchResultsView);
   hideElement(favoriteRecipeView);
+  hideElement(searchFavorites);
 }
 
 var showElement = (element) => {
@@ -141,12 +101,20 @@ var hideElement = (element) => {
 
 function loadFavoriteView() {
   hideAllViews();
+  showElement(searchResultView);
   showElement(favoriteRecipeView);
+  showElement(searchFavorites)
 }
 
 function loadHomeView() {
   hideAllViews();
   showElement(homeView);
+}
+
+function loadFavNameSearchView() {
+  hideAllViews();
+  showElement(searchResultView);
+  showElement(favoriteRecipeView);
 }
 
 function loadNameSearchView() {
@@ -161,11 +129,41 @@ function loadTagSearchView() {
   showElement(findByTagView);
 }
 
-function grabSearchValue(byValue) { 
+// function deleteRecipe(event) {
+//   if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
+// favoriteRecipes.slice(event)
+
+function grabSearchValue(byValue) {
   if (byValue === "name") {
     return searchNameInput.value.toLowerCase();
   }
   return searchTagInput.value.toLowerCase();
+}
+
+function changeStarIcon(event) {
+  var emptyStar = document.querySelector(".empty-star");
+  emptyStar.src = './images/star.png'
+  var recipe = allRecipeData.find(recipe => {
+     return recipe.id === Number(event.target.id)
+   })
+  var result = userRecipes.favoriteRecipes.find(recipe => {
+      return recipe.id === Number(event.target.id)
+   })
+   if (!result) {
+     userRecipes.favoriteRecipes.push(recipe)
+ }
+}
+
+function favoriteCurrentRecipe() {
+   favoriteRecipesView.innerHTML = '';
+  userRecipes.favoriteRecipes.forEach((recipe) => {
+   favoriteRecipesView.innerHTML += `
+   <div class='box recipe-box'>
+       <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+       <h4 class='recipe-name'>${recipe.name}</h4>
+       <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
+   </div>`
+ });
 }
 
 function loadAllRecipesView() {
@@ -226,10 +224,22 @@ function searchRecipeByName(searchingFor) {
   </div>`
 }
 
-function searchRecipeByTag(searchingFor) {
+function searchFavRecipeByName(searchingFor) {
   event.preventDefault();
+  var nameResult = userRecipes.favoriteRecipes.find((recipe) => {
+    return recipe.name.toLowerCase() === searchingFor;
+  });
+  showElement(favoriteRecipeView);
+  favoriteRecipeView.innerHTML = `
+  <div class='box recipe-box'>
+      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
+      <h4 class='recipe-name'>${nameResult.name}</h4>
+  </div>`
+}
 
-  var tagResultRecipes = [];
+function searchRecipeByTag(searchingFor) {
+    event.preventDefault();
+    var tagResultRecipes = [];
   allRecipeStorage.recipes.forEach((recipe) => {
     var tagResult = recipe.tags.find((tag) => {
       return tag.toLowerCase() === searchingFor;

@@ -53,8 +53,21 @@
         <!-- view all recipes appears -->
       </section>
       <!--VIEW FAVORITE RECIPES-->
-      <section class="view favorite-recipe-view" id="favoriteRecipeView">
-        <!-- view saved recipes appears -->
+    <div class="fav-search-bar hidden" id="favSearchBar">
+      <form class="search-form">
+        <label class="search-label"> Favorite by Name: </label>
+        <input class="search-by-name-input search-input" id="favSearchByNameInput"/>
+        <button class="search-btn" id="favNameSearchBtn">Search</button>
+      </form>
+      <form class="search-form">
+        <label class="search-label"> Favorite by Tag: </label>
+        <input class="search-by-tag-input search-input" id="favSearchByTagInput"/>
+        <button class="search-btn" id="favTagSearchBtn">Search</button>
+      </form>
+    </div>
+      <section class="view favorite-recipe-view hidden" id="favoriteRecipeView">
+        <!-- <h3> Favorite Recipes </h3> -->
+        <!-- view favorite recipes appears -->
       </section>
       <!--SEARCH BY RECIPE VIEW -->
       <section class="view name-recipe-view hidden" id="findByNameView">
