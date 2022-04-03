@@ -14,7 +14,6 @@ var allIngredientsData =  ingredientsData;
 var allRecipeData = recipeData;
 var allRecipeStorage = new RecipeRepository();
 var userRecipes = new User(usersData);
-allRecipeStorage.addRecipes(allRecipeData);
 // allfavoriteRecipes.addFavoriteRecipe(allFavoriteData);
 
 // Query Selectors
@@ -40,6 +39,10 @@ var searchTagBtn = document.querySelector("#tagSearchBtn");
 var searchTagInput = document.querySelector("#searchByTagInput");
 
 // Event Listeners
+window.addEventListener('load', () => {
+  // ON page load we must LOAD A RANDOM USER
+  allRecipeStorage.addRecipes(allRecipeData);
+});
 
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 homeBtn.addEventListener("click", loadHomeView);
