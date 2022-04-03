@@ -6,7 +6,6 @@
 #9DD9D2
 #392F5A
 floralwhite;
-#
 */
 :root {
   background-color: #FFF8F0;
@@ -160,14 +159,37 @@ nav {
   cursor: pointer;
 }
 
+/* // new */
+.search-form {
+  background-color: #9DD9D2;
+  height: 10rem;
+  width: 100rem;
+  border-radius: 10rem;
+  padding-top: 3rem;
+  padding-left: 4rem;
+  margin: 8rem 0 4rem;
+}
+
+/* // new */
+input {
+  height: 4rem;
+  width: 60rem;
+  font-size: 2.5rem;
+  padding: 1rem 1rem;
+}
+/* // new */
+label {
+  font-size: 2.5rem;
+}
+
 /* BUTTONS */
 .nav-btn {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 2rem;
   background: #82b2ad;
-  color: white;
+  color: floralwhite;
   border: none;
-  border-radius:1rem;
+  border-radius: 1rem;
   padding: 0.8rem 1.1rem;
   cursor: pointer;
   transition: all 200ms ease-in
@@ -175,6 +197,22 @@ nav {
 
 .nav-btn:hover {
   background: #392F5A;
+}
+
+/* // new */
+.search-btn {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  background: #f3cb9d;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.8rem 1.1rem;
+  cursor: pointer;
+  transition: all 200ms ease-in
+}
+/* // new */
+.search-btn:hover {
+  background: floralwhite;
 }
 
 /* FUNCTIONALITY */
