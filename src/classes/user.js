@@ -1,8 +1,12 @@
 export class User {
-  constructor() {
+  constructor(userData) {
+    this.id = userData.id;
+    this.name = userData.name;
+    this.pantry = userData.pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
+
   addFavoriteRecipe(recipe) {
     this.favoriteRecipes.push(recipe)
   }
