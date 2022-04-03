@@ -46,12 +46,15 @@
     </section>
     <!--SEARCH RESULT VIEWS-->
     <section class="search-result-view" id="searchResultView">
+      <!--VIEW ALL RECIPES -->
       <section class="view all-recipes-view hidden" id="allRecipeView">
         <!-- view all recipes appears -->
       </section>
+      <!--VIEW FAVORITE RECIPES-->
       <section class="view favorite-recipe-view" id="favoriteRecipeView">
         <!-- view saved recipes appears -->
       </section>
+      <!--SEARCH BY RECIPE VIEW -->
       <section class="view name-recipe-view hidden" id="findByNameView">
         <form class="search-form">
           <label class="search-label">Search by Name: </label>
@@ -59,6 +62,7 @@
           <button class="search-btn" id="nameSearchBtn">Search</button>
         </form>
       </section>
+      <!--SEARCH BY TAG VIEW -->
       <section class="view tag-recipes-view hidden" id="findByTagView">
         <form class="search-form">
           <label class="search-label">Search by Tag: </label>
@@ -66,11 +70,21 @@
           <button class="search-btn" id="tagSearchBtn">Search</button>
         </form>
       </section>
+      <!--SEARCH RESULTS VIEW -->
       <section class="view search-results-view hidden" id="searchResultsView">
         <!-- search results appear-->
-         <!-- recipes by tag appear -->
+        <!-- recipes by tag appear -->
       </section>
-      <section class="view recipe-detail-view hidden" id="recipeDetailView">
+      <!--RECIPE DETAIL VIEW-->
+      <section class="recipe-detail-view hidden" id="recipeDetailView">
+        <article class='recipe-card' id="recipeDetailCard">
+          <!-- list recipe details here-->
+        </article>
+        <article class="recipe-card" id="instructionsCard">
+          <ol class="instructions-list" id="instructionsList" >
+            <!-- list instructions here-->
+          </ol>
+        </article>
       </section>
     </section>
   </main>

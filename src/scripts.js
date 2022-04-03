@@ -29,7 +29,9 @@ var findNameBtn = document.querySelector("#findNameBtn");
 var searchNameBtn = document.querySelector("#nameSearchBtn");
 var searchNameInput = document.querySelector("#searchByNameInput");
 var searchResultsView = document.querySelector("#searchResultsView");
-var favoriteRecipesView = document.querySelector("#favoriteRecipeView")
+var favoriteRecipesView = document.querySelector("#favoriteRecipeView");
+var instructionsList = document.querySelector("#instructionsList");
+var recipeDetailCard = document.querySelector("#recipeDetailCard");
 
 var findTagBtn = document.querySelector("#findTagBtn");
 var findByTagView = document.querySelector("#findByTagView");
@@ -155,7 +157,7 @@ function loadTagSearchView() {
   showElement(findByTagView);
 }
 
-function grabSearchValue(byValue) { //add conditional to determine if serach by name or by tag
+function grabSearchValue(byValue) { 
   if (byValue === "name") {
     return searchNameInput.value.toLowerCase();
   }
@@ -185,26 +187,25 @@ function loadRecipeDetailView(event) {
     showElement(recipeDetailView);
    }
     let currentRecipe = allRecipeStorage.filterById(event.target.id);
-    var instructionList = []
+
+    recipeDetailCard.innerHTML = `
+      <h3 class='recipe-name'>${currentRecipe.name}</h3>
+      <h4>Ingredients</h4>
+      <p>${currentRecipe.getIngredientNames(allIngredientsData)}</p>
+      <h4>Total Cost</h4>
+      <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
+      <h4>Favorite</h4>
+      <div class="favorite-star" id=${currentRecipe.id}>
+        <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png">
+        <img class="star-icon full-star hidden" id=${currentRecipe.id} src="./images/star.png">
+      </div>`;
+
+    instructionsList.innerHTML = '<h3>Instructions</h3>';
     currentRecipe.instructions.forEach((instruction) => {
-      instructionList.push(instruction.instruction);
-
+      instructionsList.innerHTML += `
+        <li>${instruction.instruction}</li>
+      `
     });
-
-    recipeDetailView.innerHTML = `
-    <div class='recipe-card'>
-        <h3 class='recipe-name'>${currentRecipe.name}</h3>
-        <h4>Ingredients</h4>
-        <p>${currentRecipe.getIngredientNames(allIngredientsData)}</p>
-        <h4>Instructions</h4>
-        <p>${instructionList}</p>
-        <h4>Total Cost</h4>
-        <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
-        <div class="favorite-star" id=${currentRecipe.id}>
-          <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png">
-          <img class="star-icon full-star hidden" id=${currentRecipe.id} src="./images/star.png">
-        </div>
-    </div>`;
 }
 
 function searchRecipeByName(searchingFor) {
@@ -241,7 +242,7 @@ function searchRecipeByTag(searchingFor) {
     <div class='box recipe-box'>
         <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
         <h4 class='recipe-name'>${recipe.name}</h4>
-        <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
+        <p class='recipe-tags'>Tags: ${recipe.tags}</p>
     </div>`
   });
 }
