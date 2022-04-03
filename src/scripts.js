@@ -81,6 +81,7 @@ function grabSearchValue(byValue) {
     return searchFavNameInput.value.toLowerCase();
   } else if (byValue === "favorite tag") {
     return searchFavTagInput.value.toLowerCase();
+  }
 }
 
 searchNameBtn.addEventListener("click", () => {
@@ -252,15 +253,26 @@ function searchFavRecipeByName(searchingFor) {
 
 function searchFavRecipeByTag(searchingFor) {
   event.preventDefault();
-  var nameResult = userRecipes.favoriteRecipes.find((recipe) => {
-    return recipe.name.toLowerCase() === searchingFor;
-  });
-  showElement(favoriteRecipeView);
-  favoriteRecipeView.innerHTML = `
+  var tagResultRecipes = [];
+  userRecipes.favoriteRecipes.forEach((recipe) => {
+    var tagResult = recipe.tags.find((tag) => {
+      return tag.toLowerCase() === searchingFor;
+    });
+      if(tagResult) {
+        tagResultRecipes.push(recipe);
+      }
+    });
+
+showElement(favoriteRecipeView);
+favoriteRecipeView.innerHTML = '';
+tagResultRecipes.forEach((recipe) => {
+  favoriteRecipeView.innerHTML += `
   <div class='box recipe-box'>
-      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
-      <h4 class='recipe-name'>${nameResult.name}</h4>
+      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+      <h4 class='recipe-name'>${recipe.name}</h4>
+      <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
   </div>`
+});
 }
 
 function searchRecipeByTag(searchingFor) {
