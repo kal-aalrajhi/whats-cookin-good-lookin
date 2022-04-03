@@ -67,6 +67,12 @@ recipeDetailView.addEventListener("click", (event) => {
   }
 });
 
+favoriteRecipesView.addEventListener("click", (event) => {
+  // deleteRecipe(event);
+  loadRecipeDetailView(event)
+});
+
+
 allRecipeView.addEventListener("click", (event) => {
  loadRecipeDetailView(event);
 });
@@ -150,9 +156,21 @@ function loadTagSearchView() {
   showElement(findByTagView);
 }
 
-// function deleteRecipe(event) {
-//   if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
-// favoriteRecipes.slice(event)
+// function deleteRecipe(e) {
+// if (e.target.className === "delete-button") {
+//   for loop instead for (var i in savedIdeas) {
+//     if ((savedIdeas[i].id.toString() === e.target.id) && (e.target.className === "")) {
+//       userData.favoriteRecipes.splice(i, 1)
+//     }
+//     if (filter.className === "") {
+//       loadFavoriteView()
+//     }
+//     else if (filter.className === ""){
+//       loadHomeView()
+//    }
+//   }
+//  }
+// }
 
 function changeStarIcon(event) {
   var emptyStar = document.querySelector(".empty-star");
@@ -235,6 +253,7 @@ function searchRecipeByName(searchingFor) {
   <div class='box recipe-box'>
       <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
       <h4 class='recipe-name'>${nameResult.name}</h4>
+      <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
   </div>`
 }
 
@@ -248,6 +267,7 @@ function searchFavRecipeByName(searchingFor) {
   <div class='box recipe-box'>
       <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
       <h4 class='recipe-name'>${nameResult.name}</h4>
+      <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
   </div>`
 }
 
