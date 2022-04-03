@@ -27,6 +27,14 @@ describe('User', () => {
     expect(user.name).to.equal('Saige O\'Kon');
   });
 
+  it('should have an id', () => {
+    expect(user.id).to.equal(1);
+  });
+
+  it('should have a pantry with ingredients and amounts', () => {
+    expect(user.pantry).to.deep.equal(userData[0].pantry);
+  });
+
   it('should start with no favorite recipes', () => {
     expect(user.favoriteRecipes).to.deep.equal([]);
   });
