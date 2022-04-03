@@ -22,23 +22,29 @@ var searchResultView = document.querySelector("#searchResultView");
 var allRecipeView = document.querySelector("#allRecipeView");
 var recipeDetailView = document.querySelector("#recipeDetailView")
 var findByNameView = document.querySelector("#findByNameView");
-var homeBtn = document.querySelector("#homeBtn");
-var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
-var showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
-var findNameBtn = document.querySelector("#findNameBtn");
-var searchNameBtn = document.querySelector("#nameSearchBtn");
-var searchNameInput = document.querySelector("#searchByNameInput");
 var searchResultsView = document.querySelector("#searchResultsView");
 var favoriteRecipesView = document.querySelector("#favoriteRecipeView");
 var instructionsList = document.querySelector("#instructionsList");
 var recipeDetailCard = document.querySelector("#recipeDetailCard");
-
-var findTagBtn = document.querySelector("#findTagBtn");
 var findByTagView = document.querySelector("#findByTagView");
+var searchFavBarsView = document.querySelector("#favSearchBar")
+
+// Navigation Buttons
+var homeBtn = document.querySelector("#homeBtn");
+var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
+var showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
+var findNameBtn = document.querySelector("#findNameBtn");
+var findTagBtn = document.querySelector("#findTagBtn");
+
+// Search Buttons
+var searchNameBtn = document.querySelector("#nameSearchBtn");
 var searchTagBtn = document.querySelector("#tagSearchBtn");
+var searchFavNameBtn = document.querySelector("#favNameSearchBtn");
+
+// Search Inputs
+var searchNameInput = document.querySelector("#searchByNameInput");
 var searchTagInput = document.querySelector("#searchByTagInput");
-var searchFavorites = document.querySelector("#favSearchBar")
-var searchFavNameBtn = document.querySelector("#favNameSearchBtn")
+var searchFavNameInput = document.querySelector("#favSearchByNameInput");
 
 // Event Listeners
 window.addEventListener('load', () => {
@@ -51,7 +57,7 @@ homeBtn.addEventListener("click", loadHomeView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
 findTagBtn.addEventListener("click", loadTagSearchView);
-// searchFavNameBtn.addEventListener("click", loadNameSearchView);
+showFavoriteBtn.addEventListener("click", loadFavoriteView);
 
 recipeDetailView.addEventListener("click", (event) => {
   if (event.target.classList.contains("star-icon")) {
@@ -63,10 +69,16 @@ allRecipeView.addEventListener("click", (event) => {
  loadRecipeDetailView(event);
 });
 
-showFavoriteBtn.addEventListener("click", () => {
- loadFavoriteView();
- favoriteCurrentRecipe();
-});
+// Search Button Execution
+function grabSearchValue(byValue) {
+  if (byValue === "name") {
+    return searchNameInput.value.toLowerCase();
+  } else if (byValue === "tag") {
+    return searchTagInput.value.toLowerCase();
+  } else if (byValue === "favorite name") {
+    return searchFavNameInput.value.toLowerCase();
+  }
+}
 
 searchNameBtn.addEventListener("click", () => {
   var searchingForName = grabSearchValue("name");
@@ -78,6 +90,13 @@ searchTagBtn.addEventListener("click", () => {
   searchRecipeByTag(searchingForTag);
 });
 
+searchFavNameBtn.addEventListener("click", () => {
+  var searchingForFavName = grabSearchValue("favorite name");
+  searchFavRecipeByName(searchingForFavName);
+});
+
+
+
 // Functions
 function hideAllViews() {
   hideElement(homeView);
@@ -88,7 +107,7 @@ function hideAllViews() {
   hideElement(recipeDetailView);
   hideElement(searchResultsView);
   hideElement(favoriteRecipeView);
-  hideElement(searchFavorites);
+  hideElement(searchFavBarsView);
 }
 
 var showElement = (element) => {
@@ -103,18 +122,13 @@ function loadFavoriteView() {
   hideAllViews();
   showElement(searchResultView);
   showElement(favoriteRecipeView);
-  showElement(searchFavorites)
+  showElement(searchFavBarsView)
+  favoriteCurrentRecipe();
 }
 
 function loadHomeView() {
   hideAllViews();
   showElement(homeView);
-}
-
-function loadFavNameSearchView() {
-  hideAllViews();
-  showElement(searchResultView);
-  showElement(favoriteRecipeView);
 }
 
 function loadNameSearchView() {
@@ -133,13 +147,6 @@ function loadTagSearchView() {
 //   if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
 // favoriteRecipes.slice(event)
 
-function grabSearchValue(byValue) {
-  if (byValue === "name") {
-    return searchNameInput.value.toLowerCase();
-  }
-  return searchTagInput.value.toLowerCase();
-}
-
 function changeStarIcon(event) {
   var emptyStar = document.querySelector(".empty-star");
   emptyStar.src = './images/star.png'
@@ -155,7 +162,7 @@ function changeStarIcon(event) {
 }
 
 function favoriteCurrentRecipe() {
-   favoriteRecipesView.innerHTML = '';
+  favoriteRecipesView.innerHTML = '';
   userRecipes.favoriteRecipes.forEach((recipe) => {
    favoriteRecipesView.innerHTML += `
    <div class='box recipe-box'>
