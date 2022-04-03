@@ -156,9 +156,21 @@ function loadTagSearchView() {
   showElement(findByTagView);
 }
 
-// function deleteRecipe(event) {
-//   if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
-// favoriteRecipes.slice(event)
+// function deleteRecipe(e) {
+// if (e.target.className === "delete-button") {
+//   for loop instead for (var i in savedIdeas) {
+//     if ((savedIdeas[i].id.toString() === e.target.id) && (e.target.className === "")) {
+//       userData.favoriteRecipes.splice(i, 1)
+//     }
+//     if (filter.className === "") {
+//       loadFavoriteView()
+//     }
+//     else if (filter.className === ""){
+//       loadHomeView()
+//    }
+//   }
+//  }
+// }
 
 function changeStarIcon(event) {
   var emptyStar = document.querySelector(".empty-star");
