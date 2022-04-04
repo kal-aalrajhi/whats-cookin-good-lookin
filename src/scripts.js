@@ -1,8 +1,5 @@
 import './styles.css';
 import apiCalls from './apiCalls';
-import { recipeData } from '../src/data/recipes';
-import { ingredientsData } from '../src/data/ingredients';
-import { usersData } from '../src/data/users';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from '../src/classes/User';
 import { Recipe } from '../src/classes/Recipe';
@@ -10,12 +7,38 @@ import './images/star.png';
 import './images/empty-star.png';
 import './images/food-icon-light.png';
 
+//current user isnt defined-228, and recipe-192/86
+
 // Global Variables
-var allIngredientsData =  ingredientsData;
-var allRecipeData = recipeData;
+var allIngredientsData = [];
 var allRecipeStorage = new RecipeRepository();
-var currentUser = new User(usersData);
-// allfavoriteRecipes.addFavoriteRecipe(allFavoriteData);
+// var userRecipes = {}
+var allRecipeData = []
+var usersData = []
+var currentUser = [];
+
+window.addEventListener('load', () => {
+   fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
+    .then(response => response.json())
+    .then(data => {
+      allRecipeData = data.recipeData;
+      allRecipeStorage.addRecipes(allRecipeData)
+    });
+
+   fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
+    .then(response => response.json())
+    .then(data => {
+      usersData = data.usersData;
+      currentUser = new User(usersData);
+    });
+
+   fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
+    .then(response => response.json())
+    .then(data => {
+      allIngredientsData = data.ingredientsData;
+    });
+ });
+
 
 // Query Selectors
 var homeView = document.querySelector("#homeView");
@@ -199,7 +222,7 @@ function removeFavoriteRecipe(event) {
    });
    if (result) {
      var recipeIdx = currentUser.favoriteRecipes.indexOf(result);
-     console.log(recipeIdx);
+     // console.log(recipeIdx);
      recipeIdx = currentUser.favoriteRecipes.splice(recipeIdx, 1);
   }
 }
