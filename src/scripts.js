@@ -10,33 +10,31 @@ import './images/empty-star.png';
 import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
 
+// API
+import { allRecipeDataPromise } from './apiCalls';
+import { allUsersPromise } from './apiCalls';
+import { allIngredientsPromise } from './apiCalls';
+
 // Global Variables
 var allIngredientsData = [];
 var allRecipeStorage = new RecipeRepository();
-var allRecipeData = []
-var usersData = []
+var allRecipeData = [];
+var usersData = [];
 var currentUser = {};
 
 window.addEventListener('load', () => {
-   apiCalls;
-   fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
-    .then(response => response.json())
-    .then(data => {
+  allRecipeDataPromise().then(data => {
       allRecipeData = data.recipeData;
       allRecipeStorage.addRecipes(allRecipeData)
     });
 
-   fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
-    .then(response => response.json())
-    .then(data => {
+    allUsersPromise().then(data => {
       usersData = data.usersData;
       const randomIndex = Math.floor(Math.random() * usersData.length)
       currentUser = new User(usersData[randomIndex]);
     });
 
-   fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
-    .then(response => response.json())
-    .then(data => {
+    allIngredientsPromise().then(data => {
       allIngredientsData = data.ingredientsData;
     });
  });
