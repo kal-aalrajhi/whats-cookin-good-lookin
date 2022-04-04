@@ -147,11 +147,14 @@ nav {
   margin-left: 2rem;
 }
 
-.star-icon {
+.star-icon,
+.to-cook-icon {
   height: 4rem;
-  margin-top: 1rem 0 0 0.5rem;
+  margin: 1rem 0 0 0.5rem;
   width: 4rem;
 }
+
+
 
 .meal-box {
   background-color: #F4D06F;
