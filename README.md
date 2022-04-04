@@ -43,6 +43,7 @@ If you would like to filter by name or tag, go ahead and click the **Find By Nam
 - Mocha
 - Chai
 - Webpack
+- fetch API
 
 #### Instructions on Use
 - Click on individual recipes to show more info about them.
