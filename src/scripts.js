@@ -343,11 +343,11 @@ function loadRecipeDetailView(event) {
       <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
       <h4>Favorite</h4>
       <div class="favorite-star" id=${currentRecipe.id}>
-        <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png" alt="${currentRecipe.name} image"/>
+        <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png" alt="empty star image"/>
       </div>
       <h4>To Cook</h4>
       <div class="to-cook-tool" id=${currentRecipe.id}>
-        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="./images/empty-to-cook.png" alt="${currentRecipe.name} image"/>
+        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="./images/empty-to-cook.png" alt="empty tocook image"/>
       </div>`;
 
     instructionsList.innerHTML = '<h3>Instructions</h3>';
