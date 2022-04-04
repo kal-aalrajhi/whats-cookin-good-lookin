@@ -39,7 +39,6 @@ export class RecipeRepository {
     const recipeById = this.recipes.find((recipe) => {
       return Number(recipeIdtoFind) === recipe.id;
     });
-    console.log(recipeIdtoFind)
     return recipeById;
   }
 }
