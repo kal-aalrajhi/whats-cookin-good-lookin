@@ -43,7 +43,7 @@ window.addEventListener('load', () => {
 var homeView = document.querySelector("#homeView");
 var searchResultView = document.querySelector("#searchResultView");
 var allRecipeView = document.querySelector("#allRecipeView");
-var recipeDetailView = document.querySelector("#recipeDetailView")
+var recipeDetailView = document.querySelector("#recipeDetailView");
 var findByNameView = document.querySelector("#findByNameView");
 var searchResultsView = document.querySelector("#searchResultsView");
 var favoriteRecipesView = document.querySelector("#favoriteRecipeView");
@@ -51,7 +51,7 @@ var toCookView = document.querySelector("#toCookView");
 var instructionsList = document.querySelector("#instructionsList");
 var recipeDetailCard = document.querySelector("#recipeDetailCard");
 var findByTagView = document.querySelector("#findByTagView");
-var searchFavBarsView = document.querySelector("#favSearchBar")
+var searchFavBarsView = document.querySelector("#favSearchBar");
 
 // Navigation Buttons
 var homeBtnIcon = document.querySelector("#homeBtnIcon");
@@ -99,7 +99,7 @@ recipeDetailView.addEventListener("click", (event) => {
 });
 
 favoriteRecipesView.addEventListener("click", (event) => {
-  loadRecipeDetailView(event)
+  loadRecipeDetailView(event);
 });
 
 toCookView.addEventListener("click", (event) => {
@@ -111,17 +111,6 @@ allRecipeView.addEventListener("click", (event) => {
 });
 
 // Search Button Execution
-function grabSearchValue(byValue) {
-  if (byValue === "name") {
-    return searchNameInput.value.toLowerCase();
-  } else if (byValue === "tag") {
-    return searchTagInput.value.toLowerCase();
-  } else if (byValue === "favorite name") {
-    return searchFavNameInput.value.toLowerCase();
-  } else if (byValue === "favorite tag") {
-    return searchFavTagInput.value.toLowerCase();
-  }
-}
 
 searchNameBtn.addEventListener("click", () => {
   var searchingForName = grabSearchValue("name");
@@ -144,6 +133,18 @@ searchFavTagBtn.addEventListener("click", () => {
 });
 
 // Functions
+function grabSearchValue(byValue) {
+  if (byValue === "name") {
+    return searchNameInput.value.toLowerCase();
+  } else if (byValue === "tag") {
+    return searchTagInput.value.toLowerCase();
+  } else if (byValue === "favorite name") {
+    return searchFavNameInput.value.toLowerCase();
+  } else if (byValue === "favorite tag") {
+    return searchFavTagInput.value.toLowerCase();
+  }
+}
+
 function hideAllViews() {
   hideElement(homeView);
   hideElement(searchResultView);
@@ -206,7 +207,7 @@ function addFavoriteRecipe(event) {
   // Adds a fav recipe
   var recipeToAdd = allRecipeData.find(recipe => {
      return recipe.id === Number(event.target.id)
-   })
+   });
    recipeToAdd = new Recipe(recipeToAdd);
    recipeToAdd.favorite = true;
   var result = currentUser.favoriteRecipes.find(recipe => {
@@ -409,7 +410,7 @@ tagResultRecipes.forEach((recipe) => {
       <h4 class='recipe-name'>${recipe.name}</h4>
       <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
   </div>`
-});
+ });
 }
 
 function searchRecipeByTag(searchingFor) {

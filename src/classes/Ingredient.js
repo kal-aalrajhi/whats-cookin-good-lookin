@@ -3,9 +3,9 @@ export class Ingredient {
     this.id = ingredient.id;
     this.name = ingredient.name;
     this.estimatedCostInCents = ingredient.estimatedCostInCents;
-  }
+  };
 
   getCost() {
     return this.estimatedCostInCents;
-  }
+  };
 };
