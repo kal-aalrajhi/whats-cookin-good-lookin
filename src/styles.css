@@ -9,7 +9,7 @@ floralwhite;
 */
 :root {
   background-color: #FFF8F0;
-  font-size: 62.5%; /* about 10px */
+  font-size: 62.5%;
 }
 * {
   box-sizing: border-box;
@@ -17,7 +17,6 @@ floralwhite;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
-  /* border: 0.1rem solid red; */
 }
 
 /* TEXT */
@@ -54,7 +53,7 @@ li {
 }
 
 .page-title {
- 
+
   text-align: center;
  margin-left: 2.2rem;
  margin-top: 3rem;
@@ -133,7 +132,6 @@ nav {
 
 .recipe-detail-view {
   display:flex;
-  /* flex-wrap: wrap; */
   justify-content: space-evenly;
 }
 
