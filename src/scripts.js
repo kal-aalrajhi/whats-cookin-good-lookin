@@ -1,23 +1,24 @@
 import './styles.css';
 import apiCalls from './apiCalls';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
-import { User } from '../src/classes/User';
+import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
+import './images/apple-pie-home.jpg';
+import './images/food-icon-light.png';
 import './images/star.png';
 import './images/empty-star.png';
-import './images/food-icon-light.png';
-
-//current user isnt defined-228, and recipe-192/86
+import './images/full-to-cook.png';
+import './images/empty-to-cook.png';
 
 // Global Variables
 var allIngredientsData = [];
 var allRecipeStorage = new RecipeRepository();
-// var userRecipes = {}
 var allRecipeData = []
 var usersData = []
 var currentUser = {};
 
 window.addEventListener('load', () => {
+   apiCalls;
    fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
     .then(response => response.json())
     .then(data => {
@@ -48,17 +49,20 @@ var recipeDetailView = document.querySelector("#recipeDetailView")
 var findByNameView = document.querySelector("#findByNameView");
 var searchResultsView = document.querySelector("#searchResultsView");
 var favoriteRecipesView = document.querySelector("#favoriteRecipeView");
+var toCookView = document.querySelector("#toCookView");
 var instructionsList = document.querySelector("#instructionsList");
 var recipeDetailCard = document.querySelector("#recipeDetailCard");
 var findByTagView = document.querySelector("#findByTagView");
 var searchFavBarsView = document.querySelector("#favSearchBar")
 
 // Navigation Buttons
+var homeBtnIcon = document.querySelector("#homeBtnIcon");
 var homeBtn = document.querySelector("#homeBtn");
 var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
 var showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
 var findNameBtn = document.querySelector("#findNameBtn");
 var findTagBtn = document.querySelector("#findTagBtn");
+var toCookBtn = document.querySelector("#toCookBtn");
 
 // Search Buttons
 var searchNameBtn = document.querySelector("#nameSearchBtn");
@@ -74,11 +78,13 @@ var searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
+homeBtnIcon.addEventListener("click", loadHomeView);
 homeBtn.addEventListener("click", loadHomeView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
 findTagBtn.addEventListener("click", loadTagSearchView);
 showFavoriteBtn.addEventListener("click", loadFavoriteView);
+toCookBtn.addEventListener("click", loadToCookView);
 
 recipeDetailView.addEventListener("click", (event) => {
   if (event.target.classList.contains("empty-star")) {
@@ -86,13 +92,21 @@ recipeDetailView.addEventListener("click", (event) => {
   } else if (event.target.classList.contains("full-star")) {
     removeFavoriteRecipe(event);
   }
+
+  if (event.target.classList.contains("empty-to-cook")) {
+    addToCookRecipe(event);
+  } else if (event.target.classList.contains("full-to-cook")) {
+    removeToCookRecipe(event);
+  }
 });
 
 favoriteRecipesView.addEventListener("click", (event) => {
-  // deleteRecipe(event);
   loadRecipeDetailView(event)
 });
 
+toCookView.addEventListener("click", (event) => {
+  loadRecipeDetailView(event);
+ });
 
 allRecipeView.addEventListener("click", (event) => {
  loadRecipeDetailView(event);
@@ -142,6 +156,7 @@ function hideAllViews() {
   hideElement(searchResultsView);
   hideElement(favoriteRecipeView);
   hideElement(searchFavBarsView);
+  hideElement(toCookView);
 }
 
 var showElement = (element) => {
@@ -156,15 +171,21 @@ function loadFavoriteView() {
   hideAllViews();
   showElement(searchResultView);
   showElement(favoriteRecipeView);
-  showElement(searchFavBarsView)
+  showElement(searchFavBarsView);
   favoriteCurrentRecipe();
+}
+
+function loadToCookView() {
+  hideAllViews();
+  showElement(searchResultView);
+  showElement(toCookView);
+  toCookCurrentRecipe();
 }
 
 function loadHomeView() {
   hideAllViews();
   showElement(homeView);
 }
-
 function loadNameSearchView() {
   hideAllViews();
   showElement(searchResultView);
@@ -195,7 +216,7 @@ function addFavoriteRecipe(event) {
    });
    // Check for duplicates
    if (!result) {
-     currentUser.favoriteRecipes.push(recipeToAdd);
+     currentUser.addFavoriteRecipe(recipeToAdd);
  }
 }
 
@@ -217,7 +238,7 @@ function removeFavoriteRecipe(event) {
    });
    if (result) {
      var recipeIdx = currentUser.favoriteRecipes.indexOf(result);
-     recipeIdx = currentUser.favoriteRecipes.splice(recipeIdx, 1);
+     currentUser.favoriteRecipes.splice(recipeIdx, 1);
   }
 }
 
@@ -231,6 +252,62 @@ function favoriteCurrentRecipe() {
        <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
    </div>`
  });
+}
+
+function addToCookRecipe(event) {
+  // Change icon to full
+  var toCookIcon = document.querySelector(".to-cook-icon");
+  toCookIcon.src = './images/full-to-cook.png';
+  toCookIcon.classList.remove("empty-to-cook");
+  toCookIcon.classList.add("full-to-cook");
+
+  // Adds a to cook recipe
+  var recipeToAdd = allRecipeData.find(recipe => {
+     return recipe.id === Number(event.target.id)
+   });
+   recipeToAdd = new Recipe(recipeToAdd);
+   recipeToAdd.toCook = true;
+  var result = currentUser.recipesToCook.find(recipe => {
+      return recipe.id === Number(event.target.id)
+   });
+   // Check for duplicates
+   if (!result) {
+     currentUser.addRecipesToCook(recipeToAdd);
+ }
+}
+
+function toCookCurrentRecipe() {
+  toCookView.innerHTML = '<h3 class="page-title">Recipes To Cook:</h3>';
+  currentUser.recipesToCook.forEach((recipe) => {
+   toCookView.innerHTML += `
+   <div class='box recipe-box'>
+       <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+       <h4 class='recipe-name'>${recipe.name}</h4>
+       <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
+   </div>`
+ });
+}
+
+function removeToCookRecipe(event) {
+  // Change icon to full
+  var toCookIcon = document.querySelector(".to-cook-icon");
+  toCookIcon.src = './images/empty-to-cook.png';
+  toCookIcon.classList.remove("full-to-cook");
+  toCookIcon.classList.add("empty-to-cook");
+
+  // Removes a fav recipe
+  var recipeToRemove = allRecipeData.find(recipe => {
+     return recipe.id === Number(event.target.id)
+   });
+  recipeToRemove.favorite = false;
+  var recipeIdx;
+  var result = currentUser.recipesToCook.find(recipe => {
+    return recipe.id === Number(event.target.id)
+   });
+   if (result) {
+     var recipeIdx = currentUser.recipesToCook.indexOf(result);
+     currentUser.recipesToCook.splice(recipeIdx, 1);
+  }
 }
 
 function loadAllRecipesView() {
@@ -250,13 +327,18 @@ function loadAllRecipesView() {
 }
 
 function loadRecipeDetailView(event) {
+  console.log('event', event)
+  console.log('target', event.target)
+  console.log('id', event.target.id)
   if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
     hideAllViews();
     showElement(searchResultView);
     showElement(recipeDetailView);
    }
-    let currentRecipe = allRecipeStorage.filterById(event.target.id);
-
+   let currentRecipe = "";
+   if(event.target.id) {
+    currentRecipe = allRecipeStorage.filterById(event.target.id);
+   
     recipeDetailCard.innerHTML = `
       <h3 class='recipe-name'>${currentRecipe.name}</h3>
       <h4>Ingredients</h4>
@@ -266,7 +348,12 @@ function loadRecipeDetailView(event) {
       <h4>Favorite</h4>
       <div class="favorite-star" id=${currentRecipe.id}>
         <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png">
+      </div>
+      <h4>To Cook</h4>
+      <div class="to-cook-tool" id=${currentRecipe.id}>
+        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="./images/empty-to-cook.png">
       </div>`;
+      /*Issue here is that we default to empty... */
 
     instructionsList.innerHTML = '<h3>Instructions</h3>';
     currentRecipe.instructions.forEach((instruction) => {
@@ -274,6 +361,7 @@ function loadRecipeDetailView(event) {
         <li>${instruction.instruction}</li>
       `
     });
+  }
 }
 
 function searchRecipeByName(searchingFor) {

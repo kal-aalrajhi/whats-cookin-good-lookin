@@ -9,6 +9,7 @@ export class Recipe {
         this.name = recipe.name;
         this.tags = recipe.tags;
         this.favorite = false;
+        this.toCook = false;
     }
 
     getIngredientDetails(ingredientsData) {
