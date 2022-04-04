@@ -3,6 +3,7 @@ import apiCalls from './apiCalls';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
+import './images/apple-pie-home.jpg';
 import './images/food-icon-light.png';
 import './images/star.png';
 import './images/empty-star.png';
@@ -17,6 +18,7 @@ var usersData = []
 var currentUser = {};
 
 window.addEventListener('load', () => {
+   apiCalls;
    fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
     .then(response => response.json())
     .then(data => {
@@ -54,6 +56,7 @@ var findByTagView = document.querySelector("#findByTagView");
 var searchFavBarsView = document.querySelector("#favSearchBar")
 
 // Navigation Buttons
+var homeBtnIcon = document.querySelector("#homeBtnIcon");
 var homeBtn = document.querySelector("#homeBtn");
 var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
 var showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
@@ -75,14 +78,13 @@ var searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
+homeBtnIcon.addEventListener("click", loadHomeView);
 homeBtn.addEventListener("click", loadHomeView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
 findTagBtn.addEventListener("click", loadTagSearchView);
 showFavoriteBtn.addEventListener("click", loadFavoriteView);
 toCookBtn.addEventListener("click", loadToCookView);
-// button should add to recipes to cook array
-// recipes to cook array should display said recipes
 
 recipeDetailView.addEventListener("click", (event) => {
   if (event.target.classList.contains("empty-star")) {
@@ -275,7 +277,7 @@ function addToCookRecipe(event) {
 }
 
 function toCookCurrentRecipe() {
-  toCookView.innerHTML = '';
+  toCookView.innerHTML = '<h3 class="page-title">Recipes To Cook:</h3>';
   currentUser.recipesToCook.forEach((recipe) => {
    toCookView.innerHTML += `
    <div class='box recipe-box'>

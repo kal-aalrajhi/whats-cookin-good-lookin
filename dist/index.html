@@ -9,7 +9,10 @@
     <h1>Whats Cookin' Good Lookin'</h1>
     <ul class="nav-list">
       <li class="nav-item">
-        <img class="nav-icon" id="homeBtn" src="./images/food-icon-light.png" alt="food-icon-home">
+        <img class="nav-icon" id="homeBtnIcon" src="./images/food-icon-light.png" alt="food-icon-home">
+      </li>
+      <li class="nav-item">
+        <button class="nav-btn" id="homeBtn">Home</button>
       </li>
       <li class="nav-item">
         <button class="nav-btn" id="allRecipesBtn">All Recipes</button>
@@ -32,7 +35,7 @@
   <main class="main">
     <!--LANDING VIEW-->
     <section class="home-view" id="homeView">
-      <img class="recipe-image" src="https://www.kitchensanctuary.com/wp-content/uploads/2021/11/Deep-Dish-Apple-Pie-square-FS-84.jpg">
+      <img class="recipe-image" src="./images/apple-pie-home.jpg">
       <h2 class="explore-recipe">Explore Recipes</h2>
       <section class="recipe-details">
         <section class="meal-box breakfast-box">
@@ -57,17 +60,18 @@
       </section>
     <!--FAVORITE RECIPES VIEW-->
     <div class="fav-search-bar hidden" id="favSearchBar">
-      <form class="search-form">
-        <label class="search-label"> Favorite by Name: </label>
-        <input class="search-by-name-input search-input" id="favSearchByNameInput"/>
-        <button class="search-btn" id="favNameSearchBtn">Search</button>
+      <form class="search-form-fav">
+        <label class="search-label search-fav"> Favorite by Name: </label>
+        <input class="search-by-name-input search-input-fav" id="favSearchByNameInput"/>
+        <button class="search-btn btn-fav" id="favNameSearchBtn">Search</button>
       </form>
-      <form class="search-form">
-        <label class="search-label"> Favorite by Tag: </label>
-        <input class="search-by-tag-input search-input" id="favSearchByTagInput"/>
-        <button class="search-btn" id="favTagSearchBtn">Search</button>
+      <form class="search-form-fav">
+        <label class="search-label search-fav"> Favorite by Tag: </label>
+        <input class="search-by-tag-input search-input-fav" id="favSearchByTagInput"/>
+        <button class="search-btn btn-fav" id="favTagSearchBtn">Search</button>
       </form>
-    </div>
+      <h3 class="page-title">Favorite Recipes:</h3>
+     </div>
       <section class="view favorite-recipe-view hidden" id="favoriteRecipeView">
         <!-- view favorite recipes appears -->
       </section>
