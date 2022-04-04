@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import { Recipe } from '../src/classes/Recipe';
 import { recipesSampleData } from '../src/data/recipes-sample-data';
-import { ingredientsData } from '../src/data/ingredients';
+import { ingredientsSampleData } from '../src/data/ingredients-sample-data';
     
 describe('Recipe', () => {
     let allIngredientsData;
     let recipe;
     let recipeData;
     beforeEach(() => {
-        allIngredientsData = ingredientsData;
+        allIngredientsData = ingredientsSampleData;
         recipeData = recipesSampleData[0];
         recipe = new Recipe(recipeData);
     });
@@ -29,22 +29,6 @@ describe('Recipe', () => {
         expect(recipe.recipeIngredients).to.equal(recipeData.ingredients); 
     });
 
-    it('should get ingredient names', () => {
-        expect(recipe.getIngredientNames(allIngredientsData)).to.deep.equal([
-            'wheat flour',
-            'bicarbonate of soda',
-            'eggs',
-            'sucrose',
-            'instant vanilla pudding',
-            'brown sugar',
-            'salt',
-            'fine sea salt',
-            'semi sweet chips',
-            'unsalted butter',
-            'vanilla'
-          ]); 
-    });
-
     it('should get instructions', () => {
         expect(recipe.instructions).to.equal(recipeData.instructions);
     });
@@ -57,8 +41,26 @@ describe('Recipe', () => {
         expect(recipe.tags).to.equal(recipeData.tags);
     });
 
-    it('should get total costs', () => {
-        expect(recipe.getTotalCostInDollars(allIngredientsData)).to.equal('177.76'); 
+    it('should be unfavorited by default', () => {
+        expect(recipe.favorite).to.equal(false);
+    });
+
+    it('can be favorited', () => {
+        recipe.favorite = true;
+        expect(recipe.favorite).to.equal(true);
+    });
+
+    it('recipe is not to cook by default', () => {
+        expect(recipe.toCook).to.equal(false);
+    });
+
+    it('recipe is to cook', () => {
+        recipe.toCook = true;
+        expect(recipe.toCook).to.equal(true);
+    });
+
+    it('should get total cost in dollars', () => {
+        expect(recipe.getTotalCostInDollars(allIngredientsData)).to.equal('34.07'); 
     });
 
     it('should get ingredient instructions', () => {
