@@ -5,13 +5,13 @@ export class User {
     this.pantry = userData.pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
-  }
+  };
 
   addFavoriteRecipe(recipe) {
     this.favoriteRecipes.push(recipe)
-  }
+  };
 
   addRecipesToCook(recipe) {
     this.recipesToCook.push(recipe)
-  }
-}
+  };
+};
