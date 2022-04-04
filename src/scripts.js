@@ -15,7 +15,7 @@ var allRecipeStorage = new RecipeRepository();
 // var userRecipes = {}
 var allRecipeData = []
 var usersData = []
-var currentUser = [];
+var currentUser = {};
 
 window.addEventListener('load', () => {
    fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
@@ -29,7 +29,8 @@ window.addEventListener('load', () => {
     .then(response => response.json())
     .then(data => {
       usersData = data.usersData;
-      currentUser = new User(usersData);
+      const randomIndex = Math.floor(Math.random() * usersData.length)
+      currentUser = new User(usersData[randomIndex]);
     });
 
    fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
@@ -38,7 +39,6 @@ window.addEventListener('load', () => {
       allIngredientsData = data.ingredientsData;
     });
  });
-
 
 // Query Selectors
 var homeView = document.querySelector("#homeView");
@@ -73,11 +73,6 @@ var searchFavNameInput = document.querySelector("#favSearchByNameInput");
 var searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
-window.addEventListener('load', () => {
-  // ON page load we must LOAD A RANDOM USER
-  allRecipeStorage.addRecipes(allRecipeData);
-});
-
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 homeBtn.addEventListener("click", loadHomeView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
@@ -222,7 +217,6 @@ function removeFavoriteRecipe(event) {
    });
    if (result) {
      var recipeIdx = currentUser.favoriteRecipes.indexOf(result);
-     // console.log(recipeIdx);
      recipeIdx = currentUser.favoriteRecipes.splice(recipeIdx, 1);
   }
 }
