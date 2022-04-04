@@ -5,6 +5,7 @@ import { ingredientsData } from '../src/data/ingredients';
 import { usersData } from '../src/data/users';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from '../src/classes/User';
+import { Recipe } from '../src/classes/Recipe';
 import './images/star.png';
 import './images/empty-star.png';
 import './images/food-icon-light.png';
@@ -13,7 +14,7 @@ import './images/food-icon-light.png';
 var allIngredientsData =  ingredientsData;
 var allRecipeData = recipeData;
 var allRecipeStorage = new RecipeRepository();
-var userRecipes = new User(usersData);
+var currentUser = new User(usersData);
 // allfavoriteRecipes.addFavoriteRecipe(allFavoriteData);
 
 // Query Selectors
@@ -62,8 +63,10 @@ findTagBtn.addEventListener("click", loadTagSearchView);
 showFavoriteBtn.addEventListener("click", loadFavoriteView);
 
 recipeDetailView.addEventListener("click", (event) => {
-  if (event.target.classList.contains("star-icon")) {
-    changeStarIcon(event)
+  if (event.target.classList.contains("empty-star")) {
+    addFavoriteRecipe(event);
+  } else if (event.target.classList.contains("full-star")) {
+    removeFavoriteRecipe(event);
   }
 });
 
@@ -156,39 +159,54 @@ function loadTagSearchView() {
   showElement(findByTagView);
 }
 
-// function deleteRecipe(e) {
-// if (e.target.className === "delete-button") {
-//   for loop instead for (var i in savedIdeas) {
-//     if ((savedIdeas[i].id.toString() === e.target.id) && (e.target.className === "")) {
-//       userData.favoriteRecipes.splice(i, 1)
-//     }
-//     if (filter.className === "") {
-//       loadFavoriteView()
-//     }
-//     else if (filter.className === ""){
-//       loadHomeView()
-//    }
-//   }
-//  }
-// }
+function addFavoriteRecipe(event) {
+  // Change star to full
+  var starIcon = document.querySelector(".star-icon");
+  starIcon.src = './images/star.png';
+  starIcon.classList.remove("empty-star");
+  starIcon.classList.add("full-star");
 
-function changeStarIcon(event) {
-  var emptyStar = document.querySelector(".empty-star");
-  emptyStar.src = './images/star.png'
-  var recipe = allRecipeData.find(recipe => {
+  // Adds a fav recipe
+  var recipeToAdd = allRecipeData.find(recipe => {
      return recipe.id === Number(event.target.id)
    })
-  var result = userRecipes.favoriteRecipes.find(recipe => {
+   recipeToAdd = new Recipe(recipeToAdd);
+   recipeToAdd.favorite = true;
+  var result = currentUser.favoriteRecipes.find(recipe => {
       return recipe.id === Number(event.target.id)
-   })
+   });
+   // Check for duplicates
    if (!result) {
-     userRecipes.favoriteRecipes.push(recipe)
+     currentUser.favoriteRecipes.push(recipeToAdd);
  }
+}
+
+function removeFavoriteRecipe(event) {
+  // Change star to empty
+  var starIcon = document.querySelector(".star-icon");
+  starIcon.src = './images/empty-star.png';
+  starIcon.classList.remove("full-star");
+  starIcon.classList.add("empty-star");
+
+  // Removes a fav recipe
+  var recipeToRemove = allRecipeData.find(recipe => {
+     return recipe.id === Number(event.target.id)
+   });
+  recipeToRemove.favorite = false;
+  var recipeIdx;
+  var result = currentUser.favoriteRecipes.find(recipe => {
+    return recipe.id === Number(event.target.id)
+   });
+   if (result) {
+     var recipeIdx = currentUser.favoriteRecipes.indexOf(result);
+     console.log(recipeIdx);
+     recipeIdx = currentUser.favoriteRecipes.splice(recipeIdx, 1);
+  }
 }
 
 function favoriteCurrentRecipe() {
   favoriteRecipesView.innerHTML = '';
-  userRecipes.favoriteRecipes.forEach((recipe) => {
+  currentUser.favoriteRecipes.forEach((recipe) => {
    favoriteRecipesView.innerHTML += `
    <div class='box recipe-box'>
        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
@@ -231,7 +249,6 @@ function loadRecipeDetailView(event) {
       <h4>Favorite</h4>
       <div class="favorite-star" id=${currentRecipe.id}>
         <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png">
-        <img class="star-icon full-star hidden" id=${currentRecipe.id} src="./images/star.png">
       </div>`;
 
     instructionsList.innerHTML = '<h3>Instructions</h3>';
@@ -259,7 +276,7 @@ function searchRecipeByName(searchingFor) {
 
 function searchFavRecipeByName(searchingFor) {
   event.preventDefault();
-  var nameResult = userRecipes.favoriteRecipes.find((recipe) => {
+  var nameResult = currentUser.favoriteRecipes.find((recipe) => {
     return recipe.name.toLowerCase() === searchingFor;
   });
   showElement(favoriteRecipeView);
@@ -274,7 +291,7 @@ function searchFavRecipeByName(searchingFor) {
 function searchFavRecipeByTag(searchingFor) {
   event.preventDefault();
   var tagResultRecipes = [];
-  userRecipes.favoriteRecipes.forEach((recipe) => {
+  currentUser.favoriteRecipes.forEach((recipe) => {
     var tagResult = recipe.tags.find((tag) => {
       return tag.toLowerCase() === searchingFor;
     });
