@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import { Recipe } from '../src/classes/Recipe';
 import { recipesSampleData } from '../src/data/recipes-sample-data';
-import { User } from '../src/classes/User.js'
-import { usersSampleData } from '../src/data/users-sample-data.js'
+import { User } from '../src/classes/User.js';
+import { usersSampleData } from '../src/data/users-sample-data.js';
 
 describe('User', () => {
   let user;
@@ -57,7 +57,7 @@ describe('User', () => {
 
   it('should add a recipe to cook', () => {
     user.addRecipesToCook(recipe1);
-    expect(user.recipesToCook).to.deep.equal([recipe1])
+    expect(user.recipesToCook).to.deep.equal([recipe1]);
   });
 
   it('should add multiple recipes to cook', () => {
