@@ -1,12 +1,16 @@
 # What's Cookin' Good Lookin'
 
 1. Clone the repo from github.
-2. Cd into the directory from your terminal.
-3. Run npm start in the terminal
+2. Cd into the directory from your terminal and install the project dependencies:
+- Run `npm install` or `npm i` in the terminal
+3. To see the HTML page:
+- Run `npm start` in the terminal
+- Press `ctrl/cmd + c` to exit
 4. Copy the local host address from your terminal and add to your web browser to see the HTML page
+5. To see the tests:
+- Run `npm test` in the terminal
 
 # Kal, Lourdes, and Kyles Recipe Repository
-## *Recipes!*
 
 ### Table of Contents
 - [About the Project](#about-the-project)
@@ -89,7 +93,6 @@ Hope you enjoy using our website!
 - Being able to type a recipe in the search bar and have it show up
 
 #### Project Overview And Goals
-
 - Build an interactive recipe website that will show you many different types of recipes.
 - Be able to see all recipe ingredients and the cost of individual ingredients and the total cost for the recipe.
 - Be able to favorite recipes to save for later.
