@@ -5,12 +5,10 @@ import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
 import './images/apple-pie-home.jpg';
 import './images/food-icon-light.png';
-import './images/star.png';
+import './images/full-star.png';
 import './images/empty-star.png';
 import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
-
-// API
 import { allRecipeDataPromise } from './apiCalls';
 import { allUsersPromise } from './apiCalls';
 import { allIngredientsPromise } from './apiCalls';
@@ -22,6 +20,37 @@ var allRecipeData = [];
 var usersData = [];
 var currentUser = {};
 
+// Query Selectors
+var homeView = document.querySelector("#homeView");
+var searchResultView = document.querySelector("#searchResultView");
+var allRecipeView = document.querySelector("#allRecipeView");
+var recipeDetailView = document.querySelector("#recipeDetailView");
+var findByNameView = document.querySelector("#findByNameView");
+var searchResultsView = document.querySelector("#searchResultsView");
+var favoriteRecipesView = document.querySelector("#favoriteRecipeView");
+var toCookView = document.querySelector("#toCookView");
+var searchFavBarsView = document.querySelector("#favSearchBar");
+var findByTagView = document.querySelector("#findByTagView");
+var recipeDetailCard = document.querySelector("#recipeDetailCard");
+var instructionsList = document.querySelector("#instructionsList");
+
+var homeBtnIcon = document.querySelector("#homeBtnIcon");
+var homeBtn = document.querySelector("#homeBtn");
+var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
+var showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
+var findNameBtn = document.querySelector("#findNameBtn");
+var findTagBtn = document.querySelector("#findTagBtn");
+var toCookBtn = document.querySelector("#toCookBtn");
+var searchNameBtn = document.querySelector("#nameSearchBtn");
+var searchTagBtn = document.querySelector("#tagSearchBtn");
+var searchFavNameBtn = document.querySelector("#favNameSearchBtn");
+var searchFavTagBtn = document.querySelector("#favTagSearchBtn");
+var searchNameInput = document.querySelector("#searchByNameInput");
+var searchTagInput = document.querySelector("#searchByTagInput");
+var searchFavNameInput = document.querySelector("#favSearchByNameInput");
+var searchFavTagInput = document.querySelector("#favSearchByTagInput");
+
+// Event Listeners
 window.addEventListener('load', () => {
   allRecipeDataPromise().then(data => {
       allRecipeData = data.recipeData;
@@ -39,50 +68,14 @@ window.addEventListener('load', () => {
     });
  });
 
-// Query Selectors
-var homeView = document.querySelector("#homeView");
-var searchResultView = document.querySelector("#searchResultView");
-var allRecipeView = document.querySelector("#allRecipeView");
-var recipeDetailView = document.querySelector("#recipeDetailView");
-var findByNameView = document.querySelector("#findByNameView");
-var searchResultsView = document.querySelector("#searchResultsView");
-var favoriteRecipesView = document.querySelector("#favoriteRecipeView");
-var toCookView = document.querySelector("#toCookView");
-var instructionsList = document.querySelector("#instructionsList");
-var recipeDetailCard = document.querySelector("#recipeDetailCard");
-var findByTagView = document.querySelector("#findByTagView");
-var searchFavBarsView = document.querySelector("#favSearchBar");
-
-// Navigation Buttons
-var homeBtnIcon = document.querySelector("#homeBtnIcon");
-var homeBtn = document.querySelector("#homeBtn");
-var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
-var showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
-var findNameBtn = document.querySelector("#findNameBtn");
-var findTagBtn = document.querySelector("#findTagBtn");
-var toCookBtn = document.querySelector("#toCookBtn");
-
-// Search Buttons
-var searchNameBtn = document.querySelector("#nameSearchBtn");
-var searchTagBtn = document.querySelector("#tagSearchBtn");
-var searchFavNameBtn = document.querySelector("#favNameSearchBtn");
-var searchFavTagBtn = document.querySelector("#favTagSearchBtn");
-
-// Search Inputs
-var searchNameInput = document.querySelector("#searchByNameInput");
-var searchTagInput = document.querySelector("#searchByTagInput");
-var searchFavNameInput = document.querySelector("#favSearchByNameInput");
-var searchFavTagInput = document.querySelector("#favSearchByTagInput");
-
-// Event Listeners
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
-homeBtnIcon.addEventListener("click", loadHomeView);
-homeBtn.addEventListener("click", loadHomeView);
-searchResultsView.addEventListener("click", loadRecipeDetailView);
 findNameBtn.addEventListener("click", loadNameSearchView);
 findTagBtn.addEventListener("click", loadTagSearchView);
 showFavoriteBtn.addEventListener("click", loadFavoriteView);
+homeBtn.addEventListener("click", loadHomeView);
+homeBtnIcon.addEventListener("click", loadHomeView);
 toCookBtn.addEventListener("click", loadToCookView);
+searchResultsView.addEventListener("click", loadRecipeDetailView);
 
 recipeDetailView.addEventListener("click", (event) => {
   if (event.target.classList.contains("empty-star")) {
@@ -109,8 +102,6 @@ toCookView.addEventListener("click", (event) => {
 allRecipeView.addEventListener("click", (event) => {
  loadRecipeDetailView(event);
 });
-
-// Search Button Execution
 
 searchNameBtn.addEventListener("click", () => {
   var searchingForName = grabSearchValue("name");
@@ -158,11 +149,11 @@ function hideAllViews() {
   hideElement(toCookView);
 }
 
-var showElement = (element) => {
+const showElement = (element) => {
   element.classList.remove("hidden");
 }
 
-var hideElement = (element) => {
+const hideElement = (element) => {
   element.classList.add("hidden");
 }
 
@@ -197,14 +188,22 @@ function loadTagSearchView() {
   showElement(findByTagView);
 }
 
-function addFavoriteRecipe(event) {
-  // Change star to full
-  var starIcon = document.querySelector(".star-icon");
-  starIcon.src = './images/star.png';
-  starIcon.classList.remove("empty-star");
-  starIcon.classList.add("full-star");
+function iconToFull(iconName) {
+  var icon = document.querySelector(`.${iconName}-icon`);
+  icon.src = `./images/full-${iconName}.png`;
+  icon.classList.remove(`empty-${iconName}`);
+  icon.classList.add(`full-${iconName}`);
+}
 
-  // Adds a fav recipe
+function iconToEmpty(iconName) {
+  var icon = document.querySelector(`.${iconName}-icon`);
+  icon.src = `./images/empty-${iconName}.png`;
+  icon.classList.remove(`full-${iconName}`);
+  icon.classList.add(`empty-${iconName}`);
+}
+
+function addFavoriteRecipe(event) {
+  iconToFull('star');
   var recipeToAdd = allRecipeData.find(recipe => {
      return recipe.id === Number(event.target.id)
    });
@@ -213,20 +212,13 @@ function addFavoriteRecipe(event) {
   var result = currentUser.favoriteRecipes.find(recipe => {
       return recipe.id === Number(event.target.id)
    });
-   // Check for duplicates
    if (!result) {
      currentUser.addFavoriteRecipe(recipeToAdd);
  }
 }
 
 function removeFavoriteRecipe(event) {
-  // Change star to empty
-  var starIcon = document.querySelector(".star-icon");
-  starIcon.src = './images/empty-star.png';
-  starIcon.classList.remove("full-star");
-  starIcon.classList.add("empty-star");
-
-  // Removes a fav recipe
+  iconToEmpty('star');
   var recipeToRemove = allRecipeData.find(recipe => {
      return recipe.id === Number(event.target.id)
    });
@@ -254,13 +246,7 @@ function favoriteCurrentRecipe() {
 }
 
 function addToCookRecipe(event) {
-  // Change icon to full
-  var toCookIcon = document.querySelector(".to-cook-icon");
-  toCookIcon.src = './images/full-to-cook.png';
-  toCookIcon.classList.remove("empty-to-cook");
-  toCookIcon.classList.add("full-to-cook");
-
-  // Adds a to cook recipe
+  iconToFull('to-cook');
   var recipeToAdd = allRecipeData.find(recipe => {
      return recipe.id === Number(event.target.id)
    });
@@ -269,7 +255,6 @@ function addToCookRecipe(event) {
   var result = currentUser.recipesToCook.find(recipe => {
       return recipe.id === Number(event.target.id)
    });
-   // Check for duplicates
    if (!result) {
      currentUser.addRecipesToCook(recipeToAdd);
  }
@@ -288,13 +273,7 @@ function toCookCurrentRecipe() {
 }
 
 function removeToCookRecipe(event) {
-  // Change icon to full
-  var toCookIcon = document.querySelector(".to-cook-icon");
-  toCookIcon.src = './images/empty-to-cook.png';
-  toCookIcon.classList.remove("full-to-cook");
-  toCookIcon.classList.add("empty-to-cook");
-
-  // Removes a fav recipe
+  iconToEmpty('to-cook');
   var recipeToRemove = allRecipeData.find(recipe => {
      return recipe.id === Number(event.target.id)
    });
@@ -313,8 +292,8 @@ function loadAllRecipesView() {
  hideAllViews();
  showElement(searchResultView);
  showElement(allRecipeView);
- allRecipeView.innerHTML = '';
 
+ allRecipeView.innerHTML = '';
  allRecipeStorage.recipes.forEach((recipe) => {
     allRecipeView.innerHTML += `
     <div class='box recipe-box'>
@@ -331,6 +310,7 @@ function loadRecipeDetailView(event) {
     showElement(searchResultView);
     showElement(recipeDetailView);
    }
+
    let currentRecipe = "";
    if(event.target.id) {
     currentRecipe = allRecipeStorage.filterById(event.target.id);
@@ -413,25 +393,25 @@ tagResultRecipes.forEach((recipe) => {
 }
 
 function searchRecipeByTag(searchingFor) {
-    event.preventDefault();
-    var tagResultRecipes = [];
+  event.preventDefault();
+  var tagResultRecipes = [];
   allRecipeStorage.recipes.forEach((recipe) => {
     var tagResult = recipe.tags.find((tag) => {
-      return tag.toLowerCase() === searchingFor;
+    return tag.toLowerCase() === searchingFor;
     });
     if(tagResult) {
       tagResultRecipes.push(recipe);
     }
   });
-
   showElement(searchResultsView);
   searchResultsView.innerHTML = '';
+
   tagResultRecipes.forEach((recipe) => {
     searchResultsView.innerHTML += `
     <div class='box recipe-box'>
-        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-        <h4 class='recipe-name'>${recipe.name}</h4>
-        <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
+      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
+      <h4 class='recipe-name'>${recipe.name}</h4>
+      <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
     </div>`
   });
 }
