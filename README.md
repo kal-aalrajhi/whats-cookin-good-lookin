@@ -32,9 +32,9 @@ If you would like to filter by name or tag, go ahead and click the **Find By Nam
 
 
 #### Contributors
- - Kal
- - Lourdes
- - Kyle
+ - [Kal](https://github.com/kal-aalrajhi)
+ - [Lourdes](https://github.com/lourdesbnts)
+ - [Kyle](https://github.com/K-Howard)
 
 #### Technologies Used
 - Javascript
@@ -50,11 +50,39 @@ If you would like to filter by name or tag, go ahead and click the **Find By Nam
 - Click the image on the top left the navigation bar to go to the home page.
 - Click on the filter buttons to filter by name or tag.
 
+### Demo of What's Cookin' Good Lookin'
+
+1. Upon loading the website, you are able to click 'All Recipes' button to view all options, then favorite/unfavorite and click/un-click 'To Cook' button.
+
+![Gif 1](https://media.giphy.com/media/tmTMzmkIbZg28FOcvX/giphy.gif)
+
+2. You're able to view all favorite recipes under 'Favorite Recipes' and search within your favorites by name.
+
+![Gif 2](https://media.giphy.com/media/MGZvSE5YDlPKXk0QjW/giphy.gif)
+
+3. As well as search within your favorites by tag.
+
+![Gif 3](https://media.giphy.com/media/WT1cVK2yZCz1cj6H96/giphy.gif)
+
+4. You can view your selected to cook favorites under 'To Cook' button.
+
+![Gif 4](https://media.giphy.com/media/sgFiBTleoMkZM2EU2A/giphy.gif)
+
+5. You can search through all the recipes specifically by name.
+
+![Gif 5](https://media.giphy.com/media/Xs45bfYmLVn1tD4kht/giphy.gif)
+
+6. Finally, you are able to sort through all recipes by tag.
+
+![Gif 6](https://media.giphy.com/media/RzcgbgN6Ep5ZJ0pzAj/giphy.gif)
+
+Hope you enjoy using our website!
+
 #### Challenges and Wins
 
 ##### Challenges
 - Using Fetch APIs to be able to get our data
-- Coverting strings to numbers in order to compare
+- Converting strings to numbers in order to compare
 
 ##### Wins
 - Having a favorited recipe add to the favorite section with correct html and details

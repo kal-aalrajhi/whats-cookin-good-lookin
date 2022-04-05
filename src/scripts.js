@@ -343,13 +343,12 @@ function loadRecipeDetailView(event) {
       <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
       <h4>Favorite</h4>
       <div class="favorite-star" id=${currentRecipe.id}>
-        <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png">
+        <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png" alt="empty star image"/>
       </div>
       <h4>To Cook</h4>
       <div class="to-cook-tool" id=${currentRecipe.id}>
-        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="./images/empty-to-cook.png">
+        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="./images/empty-to-cook.png" alt="empty tocook image"/>
       </div>`;
-      /*Issue here is that we default to empty... */
 
     instructionsList.innerHTML = '<h3>Instructions</h3>';
     currentRecipe.instructions.forEach((instruction) => {
@@ -369,7 +368,7 @@ function searchRecipeByName(searchingFor) {
   showElement(searchResultsView);
   searchResultsView.innerHTML = `
   <div class='box recipe-box'>
-      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
+      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
       <h4 class='recipe-name'>${nameResult.name}</h4>
       <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
   </div>`
@@ -383,7 +382,7 @@ function searchFavRecipeByName(searchingFor) {
   showElement(favoriteRecipeView);
   favoriteRecipeView.innerHTML = `
   <div class='box recipe-box'>
-      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image' />
+      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
       <h4 class='recipe-name'>${nameResult.name}</h4>
       <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
   </div>`
@@ -406,7 +405,7 @@ favoriteRecipeView.innerHTML = '';
 tagResultRecipes.forEach((recipe) => {
   favoriteRecipeView.innerHTML += `
   <div class='box recipe-box'>
-      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
       <h4 class='recipe-name'>${recipe.name}</h4>
       <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
   </div>`
@@ -430,7 +429,7 @@ function searchRecipeByTag(searchingFor) {
   tagResultRecipes.forEach((recipe) => {
     searchResultsView.innerHTML += `
     <div class='box recipe-box'>
-        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
         <h4 class='recipe-name'>${recipe.name}</h4>
         <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
     </div>`
