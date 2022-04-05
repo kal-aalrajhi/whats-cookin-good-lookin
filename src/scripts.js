@@ -223,7 +223,6 @@ function removeFavoriteRecipe(event) {
     return recipe.id === Number(event.target.id)
   });
   recipeToRemove.favorite = false;
-  let recipeIdx;
   let result = currentUser.favoriteRecipes.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -261,7 +260,7 @@ function addToCookRecipe(event) {
 }
 
 function toCookCurrentRecipe() {
-  toCookView.innerHTML = '<h3 class="page-title">Recipes To Cook:</h3>';
+  toCookView.innerHTML = `<h3 class="page-title">Recipes for ${currentUser.name} To Cook:</h3>`;
   currentUser.recipesToCook.forEach((recipe) => {
   toCookView.innerHTML += `
     <div class='box recipe-box'>
@@ -278,7 +277,6 @@ function removeToCookRecipe(event) {
     return recipe.id === Number(event.target.id)
   });
   recipeToRemove.favorite = false;
-  let recipeIdx;
   let result = currentUser.recipesToCook.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
