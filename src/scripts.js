@@ -14,41 +14,41 @@ import { allUsersPromise } from './apiCalls';
 import { allIngredientsPromise } from './apiCalls';
 
 // Global Variables
-var allIngredientsData = [];
-var allRecipeStorage = new RecipeRepository();
-var allRecipeData = [];
-var usersData = [];
-var currentUser = {};
+let allIngredientsData = [];
+let allRecipeStorage = new RecipeRepository();
+let allRecipeData = [];
+let usersData = [];
+let currentUser = {};
 
 // Query Selectors
-var homeView = document.querySelector("#homeView");
-var searchResultView = document.querySelector("#searchResultView");
-var allRecipeView = document.querySelector("#allRecipeView");
-var recipeDetailView = document.querySelector("#recipeDetailView");
-var findByNameView = document.querySelector("#findByNameView");
-var searchResultsView = document.querySelector("#searchResultsView");
-var favoriteRecipesView = document.querySelector("#favoriteRecipeView");
-var toCookView = document.querySelector("#toCookView");
-var searchFavBarsView = document.querySelector("#favSearchBar");
-var findByTagView = document.querySelector("#findByTagView");
-var recipeDetailCard = document.querySelector("#recipeDetailCard");
-var instructionsList = document.querySelector("#instructionsList");
+const homeView = document.querySelector("#homeView");
+const searchResultView = document.querySelector("#searchResultView");
+const allRecipeView = document.querySelector("#allRecipeView");
+const recipeDetailView = document.querySelector("#recipeDetailView");
+const findByNameView = document.querySelector("#findByNameView");
+const searchResultsView = document.querySelector("#searchResultsView");
+const favoriteRecipesView = document.querySelector("#favoriteRecipeView");
+const toCookView = document.querySelector("#toCookView");
+const searchFavBarsView = document.querySelector("#favSearchBar");
+const findByTagView = document.querySelector("#findByTagView");
+const recipeDetailCard = document.querySelector("#recipeDetailCard");
+const instructionsList = document.querySelector("#instructionsList");
 
-var homeBtnIcon = document.querySelector("#homeBtnIcon");
-var homeBtn = document.querySelector("#homeBtn");
-var showAllRecipesBtn = document.querySelector("#allRecipesBtn");
-var showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
-var findNameBtn = document.querySelector("#findNameBtn");
-var findTagBtn = document.querySelector("#findTagBtn");
-var toCookBtn = document.querySelector("#toCookBtn");
-var searchNameBtn = document.querySelector("#nameSearchBtn");
-var searchTagBtn = document.querySelector("#tagSearchBtn");
-var searchFavNameBtn = document.querySelector("#favNameSearchBtn");
-var searchFavTagBtn = document.querySelector("#favTagSearchBtn");
-var searchNameInput = document.querySelector("#searchByNameInput");
-var searchTagInput = document.querySelector("#searchByTagInput");
-var searchFavNameInput = document.querySelector("#favSearchByNameInput");
-var searchFavTagInput = document.querySelector("#favSearchByTagInput");
+const homeBtnIcon = document.querySelector("#homeBtnIcon");
+const homeBtn = document.querySelector("#homeBtn");
+const showAllRecipesBtn = document.querySelector("#allRecipesBtn");
+const showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
+const findNameBtn = document.querySelector("#findNameBtn");
+const findTagBtn = document.querySelector("#findTagBtn");
+const toCookBtn = document.querySelector("#toCookBtn");
+const searchNameBtn = document.querySelector("#nameSearchBtn");
+const searchTagBtn = document.querySelector("#tagSearchBtn");
+const searchFavNameBtn = document.querySelector("#favNameSearchBtn");
+const searchFavTagBtn = document.querySelector("#favTagSearchBtn");
+const searchNameInput = document.querySelector("#searchByNameInput");
+const searchTagInput = document.querySelector("#searchByTagInput");
+const searchFavNameInput = document.querySelector("#favSearchByNameInput");
+const searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
 window.addEventListener('load', () => {
@@ -104,22 +104,22 @@ allRecipeView.addEventListener("click", (event) => {
 });
 
 searchNameBtn.addEventListener("click", () => {
-  var searchingForName = grabSearchValue("name");
+  let searchingForName = grabSearchValue("name");
   searchRecipeByName(searchingForName);
 });
 
 searchTagBtn.addEventListener("click", () => {
-  var searchingForTag = grabSearchValue("tag");
+  let searchingForTag = grabSearchValue("tag");
   searchRecipeByTag(searchingForTag);
 });
 
 searchFavNameBtn.addEventListener("click", () => {
-  var searchingForFavName = grabSearchValue("favorite name");
+  let searchingForFavName = grabSearchValue("favorite name");
   searchFavRecipeByName(searchingForFavName);
 });
 
 searchFavTagBtn.addEventListener("click", () => {
-  var searchingForFavTag = grabSearchValue("favorite tag");
+  let searchingForFavTag = grabSearchValue("favorite tag");
   searchFavRecipeByTag(searchingForFavTag);
 });
 
@@ -144,7 +144,7 @@ function hideAllViews() {
   hideElement(findByTagView);
   hideElement(recipeDetailView);
   hideElement(searchResultsView);
-  hideElement(favoriteRecipeView);
+  hideElement(favoriteRecipesView);
   hideElement(searchFavBarsView);
   hideElement(toCookView);
 }
@@ -160,7 +160,7 @@ const hideElement = (element) => {
 function loadFavoriteView() {
   hideAllViews();
   showElement(searchResultView);
-  showElement(favoriteRecipeView);
+  showElement(favoriteRecipesView);
   showElement(searchFavBarsView);
   favoriteCurrentRecipe();
 }
@@ -189,14 +189,14 @@ function loadTagSearchView() {
 }
 
 function iconToFull(iconName) {
-  var icon = document.querySelector(`.${iconName}-icon`);
+  let icon = document.querySelector(`.${iconName}-icon`);
   icon.src = `./images/full-${iconName}.png`;
   icon.classList.remove(`empty-${iconName}`);
   icon.classList.add(`full-${iconName}`);
 }
 
 function iconToEmpty(iconName) {
-  var icon = document.querySelector(`.${iconName}-icon`);
+  let icon = document.querySelector(`.${iconName}-icon`);
   icon.src = `./images/empty-${iconName}.png`;
   icon.classList.remove(`full-${iconName}`);
   icon.classList.add(`empty-${iconName}`);
@@ -204,12 +204,12 @@ function iconToEmpty(iconName) {
 
 function addFavoriteRecipe(event) {
   iconToFull('star');
-  var recipeToAdd = allRecipeData.find(recipe => {
+  let recipeToAdd = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
   recipeToAdd = new Recipe(recipeToAdd);
   recipeToAdd.favorite = true;
-  var result = currentUser.favoriteRecipes.find(recipe => {
+  let result = currentUser.favoriteRecipes.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
   if (!result) {
@@ -219,16 +219,16 @@ function addFavoriteRecipe(event) {
 
 function removeFavoriteRecipe(event) {
   iconToEmpty('star');
-  var recipeToRemove = allRecipeData.find(recipe => {
+  let recipeToRemove = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
   recipeToRemove.favorite = false;
-  var recipeIdx;
-  var result = currentUser.favoriteRecipes.find(recipe => {
+  let recipeIdx;
+  let result = currentUser.favoriteRecipes.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
   if (result) {
-    var recipeIdx = currentUser.favoriteRecipes.indexOf(result);
+    let recipeIdx = currentUser.favoriteRecipes.indexOf(result);
     currentUser.favoriteRecipes.splice(recipeIdx, 1);
   }
 }
@@ -274,16 +274,16 @@ function toCookCurrentRecipe() {
 
 function removeToCookRecipe(event) {
   iconToEmpty('to-cook');
-  var recipeToRemove = allRecipeData.find(recipe => {
+  let recipeToRemove = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
   recipeToRemove.favorite = false;
-  var recipeIdx;
-  var result = currentUser.recipesToCook.find(recipe => {
+  let recipeIdx;
+  let result = currentUser.recipesToCook.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
   if (result) {
-    var recipeIdx = currentUser.recipesToCook.indexOf(result);
+    let recipeIdx = currentUser.recipesToCook.indexOf(result);
     currentUser.recipesToCook.splice(recipeIdx, 1);
   }
 }
@@ -338,7 +338,7 @@ function loadRecipeDetailView(event) {
 
 function searchRecipeByName(searchingFor) {
   event.preventDefault();
-  var nameResult = allRecipeStorage.recipes.find((recipe) => {
+  let nameResult = allRecipeStorage.recipes.find((recipe) => {
     return recipe.name.toLowerCase() === searchingFor;
   });
   showElement(searchResultsView);
@@ -352,11 +352,11 @@ function searchRecipeByName(searchingFor) {
 
 function searchFavRecipeByName(searchingFor) {
   event.preventDefault();
-  var nameResult = currentUser.favoriteRecipes.find((recipe) => {
+  let nameResult = currentUser.favoriteRecipes.find((recipe) => {
     return recipe.name.toLowerCase() === searchingFor;
   });
-  showElement(favoriteRecipeView);
-  favoriteRecipeView.innerHTML = `
+  showElement(favoriteRecipesView);
+  favoriteRecipesView.innerHTML = `
     <div class='box recipe-box'>
       <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
       <h4 class='recipe-name'>${nameResult.name}</h4>
@@ -366,16 +366,16 @@ function searchFavRecipeByName(searchingFor) {
 
 function searchFavRecipeByTag(searchingFor) {
   event.preventDefault();
-  var tagResultRecipes = [];
+  let tagResultRecipes = [];
   currentUser.favoriteRecipes.forEach((recipe) => {
-    var tagResult = recipe.tags.find((tag) => {
+    let tagResult = recipe.tags.find((tag) => {
       return tag.toLowerCase() === searchingFor;
     });
     if(tagResult) {
         tagResultRecipes.push(recipe);
     }
   });
-  showElement(favoriteRecipeView);
+  showElement(favoriteRecipesView);
   favoriteRecipesView.innerHTML = '';
   tagResultRecipes.forEach((recipe) => {
   favoriteRecipesView.innerHTML += `
@@ -389,9 +389,9 @@ function searchFavRecipeByTag(searchingFor) {
 
 function searchRecipeByTag(searchingFor) {
   event.preventDefault();
-  var tagResultRecipes = [];
+  let tagResultRecipes = [];
   allRecipeStorage.recipes.forEach((recipe) => {
-    var tagResult = recipe.tags.find((tag) => {
+    let tagResult = recipe.tags.find((tag) => {
     return tag.toLowerCase() === searchingFor;
     });
     if(tagResult) {
