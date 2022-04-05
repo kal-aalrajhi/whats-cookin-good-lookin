@@ -53,20 +53,20 @@ var searchFavTagInput = document.querySelector("#favSearchByTagInput");
 // Event Listeners
 window.addEventListener('load', () => {
   allRecipeDataPromise().then(data => {
-      allRecipeData = data.recipeData;
-      allRecipeStorage.addRecipes(allRecipeData)
-    });
+    allRecipeData = data.recipeData;
+    allRecipeStorage.addRecipes(allRecipeData)
+  });
 
-    allUsersPromise().then(data => {
-      usersData = data.usersData;
-      const randomIndex = Math.floor(Math.random() * usersData.length)
-      currentUser = new User(usersData[randomIndex]);
-    });
+  allUsersPromise().then(data => {
+    usersData = data.usersData;
+    const randomIndex = Math.floor(Math.random() * usersData.length)
+    currentUser = new User(usersData[randomIndex]);
+  });
 
-    allIngredientsPromise().then(data => {
-      allIngredientsData = data.ingredientsData;
-    });
- });
+  allIngredientsPromise().then(data => {
+    allIngredientsData = data.ingredientsData;
+  });
+});
 
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 findNameBtn.addEventListener("click", loadNameSearchView);
@@ -97,7 +97,7 @@ favoriteRecipesView.addEventListener("click", (event) => {
 
 toCookView.addEventListener("click", (event) => {
   loadRecipeDetailView(event);
- });
+});
 
 allRecipeView.addEventListener("click", (event) => {
  loadRecipeDetailView(event);
@@ -205,116 +205,115 @@ function iconToEmpty(iconName) {
 function addFavoriteRecipe(event) {
   iconToFull('star');
   var recipeToAdd = allRecipeData.find(recipe => {
-     return recipe.id === Number(event.target.id)
-   });
-   recipeToAdd = new Recipe(recipeToAdd);
-   recipeToAdd.favorite = true;
+    return recipe.id === Number(event.target.id)
+  });
+  recipeToAdd = new Recipe(recipeToAdd);
+  recipeToAdd.favorite = true;
   var result = currentUser.favoriteRecipes.find(recipe => {
-      return recipe.id === Number(event.target.id)
-   });
-   if (!result) {
-     currentUser.addFavoriteRecipe(recipeToAdd);
- }
+    return recipe.id === Number(event.target.id)
+  });
+  if (!result) {
+    currentUser.addFavoriteRecipe(recipeToAdd);
+  }
 }
 
 function removeFavoriteRecipe(event) {
   iconToEmpty('star');
   var recipeToRemove = allRecipeData.find(recipe => {
-     return recipe.id === Number(event.target.id)
-   });
+    return recipe.id === Number(event.target.id)
+  });
   recipeToRemove.favorite = false;
   var recipeIdx;
   var result = currentUser.favoriteRecipes.find(recipe => {
     return recipe.id === Number(event.target.id)
-   });
-   if (result) {
-     var recipeIdx = currentUser.favoriteRecipes.indexOf(result);
-     currentUser.favoriteRecipes.splice(recipeIdx, 1);
+  });
+  if (result) {
+    var recipeIdx = currentUser.favoriteRecipes.indexOf(result);
+    currentUser.favoriteRecipes.splice(recipeIdx, 1);
   }
 }
 
 function favoriteCurrentRecipe() {
   favoriteRecipesView.innerHTML = '';
   currentUser.favoriteRecipes.forEach((recipe) => {
-   favoriteRecipesView.innerHTML += `
-   <div class='box recipe-box'>
-       <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
-       <h4 class='recipe-name'>${recipe.name}</h4>
-       <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
-   </div>`
- });
+    favoriteRecipesView.innerHTML += `
+      <div class='box recipe-box'>
+          <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+          <h4 class='recipe-name'>${recipe.name}</h4>
+          <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
+      </div>`
+  });
 }
 
 function addToCookRecipe(event) {
   iconToFull('to-cook');
   var recipeToAdd = allRecipeData.find(recipe => {
-     return recipe.id === Number(event.target.id)
-   });
-   recipeToAdd = new Recipe(recipeToAdd);
-   recipeToAdd.toCook = true;
+    return recipe.id === Number(event.target.id)
+  });
+  recipeToAdd = new Recipe(recipeToAdd);
+  recipeToAdd.toCook = true;
   var result = currentUser.recipesToCook.find(recipe => {
-      return recipe.id === Number(event.target.id)
-   });
-   if (!result) {
-     currentUser.addRecipesToCook(recipeToAdd);
- }
+    return recipe.id === Number(event.target.id)
+  });
+  if (!result) {
+    currentUser.addRecipesToCook(recipeToAdd);
+  }
 }
 
 function toCookCurrentRecipe() {
   toCookView.innerHTML = '<h3 class="page-title">Recipes To Cook:</h3>';
   currentUser.recipesToCook.forEach((recipe) => {
-   toCookView.innerHTML += `
-   <div class='box recipe-box'>
-       <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
-       <h4 class='recipe-name'>${recipe.name}</h4>
-       <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
-   </div>`
- });
+  toCookView.innerHTML += `
+    <div class='box recipe-box'>
+      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+      <h4 class='recipe-name'>${recipe.name}</h4>
+      <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
+    </div>`
+  });
 }
 
 function removeToCookRecipe(event) {
   iconToEmpty('to-cook');
   var recipeToRemove = allRecipeData.find(recipe => {
-     return recipe.id === Number(event.target.id)
-   });
+    return recipe.id === Number(event.target.id)
+  });
   recipeToRemove.favorite = false;
   var recipeIdx;
   var result = currentUser.recipesToCook.find(recipe => {
     return recipe.id === Number(event.target.id)
-   });
-   if (result) {
-     var recipeIdx = currentUser.recipesToCook.indexOf(result);
-     currentUser.recipesToCook.splice(recipeIdx, 1);
+  });
+  if (result) {
+    var recipeIdx = currentUser.recipesToCook.indexOf(result);
+    currentUser.recipesToCook.splice(recipeIdx, 1);
   }
 }
 
 function loadAllRecipesView() {
- hideAllViews();
- showElement(searchResultView);
- showElement(allRecipeView);
+  hideAllViews();
+  showElement(searchResultView);
+  showElement(allRecipeView);
 
- allRecipeView.innerHTML = '';
- allRecipeStorage.recipes.forEach((recipe) => {
+  allRecipeView.innerHTML = '';
+  allRecipeStorage.recipes.forEach((recipe) => {
     allRecipeView.innerHTML += `
-    <div class='box recipe-box'>
+      <div class='box recipe-box'>
         <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
         <h4 class='recipe-name'>${recipe.name}</h4>
         <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
-    </div>`
+      </div>`
   });
 }
 
 function loadRecipeDetailView(event) {
-  if(event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
+  if (event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
     hideAllViews();
     showElement(searchResultView);
     showElement(recipeDetailView);
-   }
-
-   let currentRecipe = "";
-   if(event.target.id) {
+  }
+  let currentRecipe = "";
+   
+  if (event.target.id) {
     currentRecipe = allRecipeStorage.filterById(event.target.id);
-
     recipeDetailCard.innerHTML = `
       <h3 class='recipe-name'>${currentRecipe.name}</h3>
       <h4>Ingredients</h4>
@@ -323,18 +322,16 @@ function loadRecipeDetailView(event) {
       <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
       <h4>Favorite</h4>
       <div class="favorite-star" id=${currentRecipe.id}>
-        <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png" alt="empty star image"/>
+        <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png" alt="star icon"/>
       </div>
       <h4>To Cook</h4>
       <div class="to-cook-tool" id=${currentRecipe.id}>
-        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="./images/empty-to-cook.png" alt="empty tocook image"/>
+        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="./images/empty-to-cook.png" alt="chef tools icon"/>
       </div>`;
-
     instructionsList.innerHTML = '<h3>Instructions</h3>';
     currentRecipe.instructions.forEach((instruction) => {
       instructionsList.innerHTML += `
-        <li>${instruction.instruction}</li>
-      `
+        <li>${instruction.instruction}</li>`
     });
   }
 }
@@ -344,14 +341,13 @@ function searchRecipeByName(searchingFor) {
   var nameResult = allRecipeStorage.recipes.find((recipe) => {
     return recipe.name.toLowerCase() === searchingFor;
   });
-
   showElement(searchResultsView);
   searchResultsView.innerHTML = `
-  <div class='box recipe-box'>
-      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
-      <h4 class='recipe-name'>${nameResult.name}</h4>
-      <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
-  </div>`
+    <div class='box recipe-box'>
+        <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
+        <h4 class='recipe-name'>${nameResult.name}</h4>
+        <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
+    </div>`
 }
 
 function searchFavRecipeByName(searchingFor) {
@@ -361,11 +357,11 @@ function searchFavRecipeByName(searchingFor) {
   });
   showElement(favoriteRecipeView);
   favoriteRecipeView.innerHTML = `
-  <div class='box recipe-box'>
+    <div class='box recipe-box'>
       <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
       <h4 class='recipe-name'>${nameResult.name}</h4>
       <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
-  </div>`
+    </div>`
 }
 
 function searchFavRecipeByTag(searchingFor) {
@@ -381,7 +377,6 @@ function searchFavRecipeByTag(searchingFor) {
   });
   showElement(favoriteRecipeView);
   favoriteRecipesView.innerHTML = '';
-
   tagResultRecipes.forEach((recipe) => {
   favoriteRecipesView.innerHTML += `
     <div class='box recipe-box'>
@@ -389,7 +384,6 @@ function searchFavRecipeByTag(searchingFor) {
       <h4 class='recipe-name'>${recipe.name}</h4>
       <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
     </div>`
-    
  });
 }
 
@@ -406,13 +400,12 @@ function searchRecipeByTag(searchingFor) {
   });
   showElement(searchResultsView);
   searchResultsView.innerHTML = '';
-
   tagResultRecipes.forEach((recipe) => {
     searchResultsView.innerHTML += `
-    <div class='box recipe-box'>
-      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-      <h4 class='recipe-name'>${recipe.name}</h4>
-      <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
-    </div>`
+      <div class='box recipe-box'>
+        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
+        <h4 class='recipe-name'>${recipe.name}</h4>
+        <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
+      </div>`
   });
 }

@@ -18,7 +18,7 @@ export class Recipe {
                 let currentIngredient = new Ingredient(idMatch);
                 return currentIngredient;
             });
-            return ingredientDetails;
+        return ingredientDetails;
     };
 
     getIngredientNames(ingredientsData) {
