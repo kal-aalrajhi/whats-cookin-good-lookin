@@ -157,7 +157,7 @@ nav {
   width: 4rem;
 }
 
-.meal-box {
+.word-box {
   background-color: #F4D06F;
   border: 0.1rem solid #fde193;
   flex-basis: 100%;
@@ -165,7 +165,7 @@ nav {
   text-align: center;
 }
 
-.meal-box > h3 {
+.word-box > h3 {
   background-color: #fadc8a;
 }
 

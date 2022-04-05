@@ -375,20 +375,21 @@ function searchFavRecipeByTag(searchingFor) {
     var tagResult = recipe.tags.find((tag) => {
       return tag.toLowerCase() === searchingFor;
     });
-      if(tagResult) {
+    if(tagResult) {
         tagResultRecipes.push(recipe);
-      }
-    });
+    }
+  });
+  showElement(favoriteRecipeView);
+  favoriteRecipesView.innerHTML = '';
 
-showElement(favoriteRecipeView);
-favoriteRecipeView.innerHTML = '';
-tagResultRecipes.forEach((recipe) => {
-  favoriteRecipeView.innerHTML += `
-  <div class='box recipe-box'>
+  tagResultRecipes.forEach((recipe) => {
+  favoriteRecipesView.innerHTML += `
+    <div class='box recipe-box'>
       <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
       <h4 class='recipe-name'>${recipe.name}</h4>
       <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
-  </div>`
+    </div>`
+    
  });
 }
 
