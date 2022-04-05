@@ -18,7 +18,7 @@ export class Recipe {
                 let currentIngredient = new Ingredient(idMatch);
                 return currentIngredient;
             });
-            return ingredientDetails;
+        return ingredientDetails;
     };
 
     getIngredientNames(ingredientsData) {
@@ -32,7 +32,7 @@ export class Recipe {
         let totalCostInCents = ingredientDetails.reduce((total, ingredientDetail, idx) => {
         return total + (ingredientDetail.estimatedCostInCents * this.recipeIngredients[idx].quantity.amount);
         }, 0);
-        var totalCostInDollars = (totalCostInCents / 100).toFixed(2);
+        let totalCostInDollars = (totalCostInCents / 100).toFixed(2);
         return totalCostInDollars;
     };
 
