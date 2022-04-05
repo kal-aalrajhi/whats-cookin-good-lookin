@@ -32,9 +32,9 @@ If you would like to filter by name or tag, go ahead and click the **Find By Nam
 
 
 #### Contributors
- - [Kal]
- - [Lourdes]
- - [Kyle]
+ - [Kal](https://github.com/kal-aalrajhi)
+ - [Lourdes](https://github.com/lourdesbnts)
+ - [Kyle](https://github.com/K-Howard)
 
 #### Technologies Used
 - Javascript
