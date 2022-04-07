@@ -210,7 +210,7 @@ function addFavoriteRecipe(event) {
   recipeToAdd = new Recipe(recipeToAdd);
   recipeToAdd.favorite = true;
   let result = currentUser.favoriteRecipes.find(recipe => {
-    return recipe.id === Number(event.target.id)
+    return recipe.id === Number(event.target.id);
   });
   if (!result) {
     currentUser.addFavoriteRecipe(recipeToAdd);
@@ -309,9 +309,17 @@ function loadRecipeDetailView(event) {
     showElement(recipeDetailView);
   }
   let currentRecipe = "";
-   
+
   if (event.target.id) {
     currentRecipe = allRecipeStorage.filterById(event.target.id);
+    
+    let isFavorite = currentUser.favoriteRecipes.some(recipe => {
+      return recipe.id === currentRecipe.id;
+    });
+    let isWantingToCook = currentUser.recipesToCook.some(recipe => {
+      return recipe.id === currentRecipe.id;
+    });
+
     recipeDetailCard.innerHTML = `
       <h3 class='recipe-name'>${currentRecipe.name}</h3>
       <h4>Ingredients</h4>
@@ -320,17 +328,29 @@ function loadRecipeDetailView(event) {
       <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
       <h4>Favorite</h4>
       <div class="favorite-star" id=${currentRecipe.id}>
-        <img class="star-icon empty-star" id=${currentRecipe.id} src="./images/empty-star.png" alt="star icon"/>
+        <img class="star-icon empty-star" id=${currentRecipe.id} src="" alt="star icon"/>
       </div>
       <h4>To Cook</h4>
       <div class="to-cook-tool" id=${currentRecipe.id}>
-        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="./images/empty-to-cook.png" alt="chef tools icon"/>
+        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="" alt="chef tools icon"/>
       </div>`;
     instructionsList.innerHTML = '<h3>Instructions</h3>';
     currentRecipe.instructions.forEach((instruction) => {
       instructionsList.innerHTML += `
         <li>${instruction.instruction}</li>`
     });
+
+    if(isFavorite) {
+      iconToFull('star');
+    } else {
+      iconToEmpty('star');
+    }
+
+    if(isWantingToCook) {
+      iconToFull('to-cook');
+    } else {
+      iconToEmpty('to-cook');
+    }
   }
 }
 
