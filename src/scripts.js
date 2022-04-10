@@ -52,20 +52,26 @@ const searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
 window.addEventListener('load', () => {
-  allRecipeDataPromise().then(data => {
-    allRecipeData = data.recipeData;
-    allRecipeStorage.addRecipes(allRecipeData)
-  });
+  allRecipeDataPromise()
+    .then(data => {
+      allRecipeData = data.recipeData;
+      allRecipeStorage.addRecipes(allRecipeData)
+    })
+    .catch((err) => console.log(err));
 
-  allUsersPromise().then(data => {
-    usersData = data.usersData;
-    const randomIndex = Math.floor(Math.random() * usersData.length)
-    currentUser = new User(usersData[randomIndex]);
-  });
+  allUsersPromise()
+    .then(data => {
+      usersData = data.usersData;
+      const randomIndex = Math.floor(Math.random() * usersData.length)
+      currentUser = new User(usersData[randomIndex]);
+    })
+    .catch((err) => console.log(err));
 
-  allIngredientsPromise().then(data => {
-    allIngredientsData = data.ingredientsData;
-  });
+  allIngredientsPromise()
+    .then(data => {
+      allIngredientsData = data.ingredientsData;
+    })
+    .catch((err) => console.log(err));
 });
 
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
@@ -106,21 +112,25 @@ allRecipeView.addEventListener("click", (event) => {
 searchNameBtn.addEventListener("click", () => {
   let searchingForName = grabSearchValue("name");
   searchRecipeByName(searchingForName);
+  searchNameInput.value = "";
 });
 
 searchTagBtn.addEventListener("click", () => {
   let searchingForTag = grabSearchValue("tag");
   searchRecipeByTag(searchingForTag);
+  searchTagInput.value = "";
 });
 
 searchFavNameBtn.addEventListener("click", () => {
   let searchingForFavName = grabSearchValue("favorite name");
   searchFavRecipeByName(searchingForFavName);
+  searchFavNameInput.value = "";
 });
 
 searchFavTagBtn.addEventListener("click", () => {
   let searchingForFavTag = grabSearchValue("favorite tag");
   searchFavRecipeByTag(searchingForFavTag);
+  searchFavTagInput.value = "";
 });
 
 // Functions
@@ -360,12 +370,16 @@ function searchRecipeByName(searchingFor) {
     return recipe.name.toLowerCase() === searchingFor;
   });
   showElement(searchResultsView);
-  searchResultsView.innerHTML = `
-    <div class='box recipe-box'>
-        <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
-        <h4 class='recipe-name'>${nameResult.name}</h4>
-        <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
-    </div>`
+  if(!nameResult) {
+    searchResultsView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
+  } else {
+    searchResultsView.innerHTML = `
+      <div class='box recipe-box'>
+          <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
+          <h4 class='recipe-name'>${nameResult.name}</h4>
+          <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
+      </div>`
+  }
 }
 
 function searchFavRecipeByName(searchingFor) {
@@ -374,12 +388,16 @@ function searchFavRecipeByName(searchingFor) {
     return recipe.name.toLowerCase() === searchingFor;
   });
   showElement(favoriteRecipesView);
-  favoriteRecipesView.innerHTML = `
-    <div class='box recipe-box'>
-      <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
-      <h4 class='recipe-name'>${nameResult.name}</h4>
-      <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
-    </div>`
+  if(!nameResult) {
+    favoriteRecipesView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
+  } else {
+    favoriteRecipesView.innerHTML = `
+      <div class='box recipe-box'>
+        <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
+        <h4 class='recipe-name'>${nameResult.name}</h4>
+        <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
+      </div>`
+  }
 }
 
 function searchFavRecipeByTag(searchingFor) {
@@ -395,14 +413,18 @@ function searchFavRecipeByTag(searchingFor) {
   });
   showElement(favoriteRecipesView);
   favoriteRecipesView.innerHTML = '';
-  tagResultRecipes.forEach((recipe) => {
-  favoriteRecipesView.innerHTML += `
-    <div class='box recipe-box'>
-      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-      <h4 class='recipe-name'>${recipe.name}</h4>
-      <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
-    </div>`
- });
+  if(!tagResultRecipes.length) {
+    favoriteRecipesView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
+  } else {
+    tagResultRecipes.forEach((recipe) => {
+    favoriteRecipesView.innerHTML += `
+      <div class='box recipe-box'>
+        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
+        <h4 class='recipe-name'>${recipe.name}</h4>
+        <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
+      </div>`
+    });
+  }
 }
 
 function searchRecipeByTag(searchingFor) {
@@ -417,13 +439,17 @@ function searchRecipeByTag(searchingFor) {
     }
   });
   showElement(searchResultsView);
-  searchResultsView.innerHTML = '';
-  tagResultRecipes.forEach((recipe) => {
-    searchResultsView.innerHTML += `
-      <div class='box recipe-box'>
-        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-        <h4 class='recipe-name'>${recipe.name}</h4>
-        <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
-      </div>`
-  });
+  if(!tagResultRecipes.length) {
+    searchResultsView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
+  } else {
+    searchResultsView.innerHTML = '';
+    tagResultRecipes.forEach((recipe) => {
+      searchResultsView.innerHTML += `
+        <div class='box recipe-box'>
+          <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
+          <h4 class='recipe-name'>${recipe.name}</h4>
+          <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
+        </div>`
+    });
+  }
 }
