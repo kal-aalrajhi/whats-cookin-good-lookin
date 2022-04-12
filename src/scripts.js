@@ -9,9 +9,7 @@ import './images/full-star.png';
 import './images/empty-star.png';
 import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
-import { allRecipeDataPromise } from './apiCalls';
-import { allUsersPromise } from './apiCalls';
-import { allIngredientsPromise } from './apiCalls';
+import { getPromise } from './apiCalls';
 
 // Global Variables
 let allIngredientsData = [];
@@ -52,14 +50,14 @@ const searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
 window.addEventListener('load', () => {
-  whatsCookinPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
+  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
     .then(data => {
       allRecipeData = data.recipeData;
       allRecipeStorage.addRecipes(allRecipeData)
     })
     .catch((err) => console.log(err));
 
-  whatsCookinPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
+  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
     .then(data => {
       usersData = data.usersData;
       const randomIndex = Math.floor(Math.random() * usersData.length)
@@ -67,7 +65,7 @@ window.addEventListener('load', () => {
     })
     .catch((err) => console.log(err));
 
-  whatsCookinPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
+  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
     .then(data => {
       allIngredientsData = data.ingredientsData;
     })

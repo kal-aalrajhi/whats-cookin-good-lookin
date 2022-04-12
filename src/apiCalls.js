@@ -1,4 +1,4 @@
-export const whatsCookinPromise = (url) => {
+export const getPromise = (url) => {
     return fetch(url)
         .then(response => {
             if (!response.ok) {
