@@ -18,6 +18,7 @@ export class Recipe {
                 let currentIngredient = new Ingredient(idMatch);
                 return currentIngredient;
             });
+            console.log('another cs', ingredientDetails)
         return ingredientDetails;
     };
 

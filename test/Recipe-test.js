@@ -54,6 +54,16 @@ describe('Recipe', () => {
         expect(recipe.toCook).to.equal(false);
     });
 
+    it('should be able to get ingredients details', () => {
+        expect(recipe.recipeIngredients).to.deep.equal([
+            { id: 20081, quantity: { amount: 1.5, unit: 'c' } },
+            { id: 18372, quantity: { amount: 0.5, unit: 'tsp' } },
+            { id: 1123, quantity: { amount: 1, unit: 'large' } },
+            { id: 19335, quantity: { amount: 0.5, unit: 'c' } },
+            { id: 19206, quantity: { amount: 3, unit: 'Tbsp' } }
+          ])
+    });
+
     it('recipe is to cook', () => {
         recipe.toCook = true;
         expect(recipe.toCook).to.equal(true);
