@@ -9,7 +9,7 @@ import './images/full-star.png';
 import './images/empty-star.png';
 import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
-import { getPromise } from './apiCalls';
+import { fetchResponse } from './apiCalls';
 
 // Global Variables
 let allIngredientsData = [];
@@ -111,29 +111,48 @@ searchFavTagBtn.addEventListener("click", () => {
 });
 
 // Functions
-
 function loadData() {
-  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
-  .then(data => {
-    allRecipeData = data.recipeData;
-    allRecipeStorage.addRecipes(allRecipeData)
+  const fetchRecipes = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes');
+  const fetchUsers = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users');
+  const fetchIngredients = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients');
+
+  Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
+    console.log(data);
+    allRecipeData = data[0].recipeData;
+    allRecipeStorage.addRecipes(allRecipeData);
+
+    usersData = data[1].usersData;
+    const randomIndex = Math.floor(Math.random() * usersData.length)
+    currentUser = new User(usersData[randomIndex]);
+
+    allIngredientsData = data[2].ingredientsData;
   })
   .catch((err) => console.log(err));
-
-  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
-    .then(data => {
-      usersData = data.usersData;
-      const randomIndex = Math.floor(Math.random() * usersData.length)
-      currentUser = new User(usersData[randomIndex]);
-    })
-    .catch((err) => console.log(err));
-
-  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
-    .then(data => {
-      allIngredientsData = data.ingredientsData;
-    })
-    .catch((err) => console.log(err));
 }
+
+
+// function loadData() {
+//   fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
+//   .then(data => {
+//     allRecipeData = data.recipeData;
+//     allRecipeStorage.addRecipes(allRecipeData)
+//   })
+//   .catch((err) => console.log(err));
+
+//   fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
+//     .then(data => {
+//       usersData = data.usersData;
+//       const randomIndex = Math.floor(Math.random() * usersData.length)
+//       currentUser = new User(usersData[randomIndex]);
+//     })
+//     .catch((err) => console.log(err));
+
+//   fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
+//     .then(data => {
+//       allIngredientsData = data.ingredientsData;
+//     })
+//     .catch((err) => console.log(err));
+// }
 
 function grabSearchValue(byValue) {
   if (byValue === "name") {

@@ -1,4 +1,4 @@
-export const getPromise = (url) => {
+export const fetchResponse = (url) => {
     return fetch(url)
         .then(response => {
             if (!response.ok) {
