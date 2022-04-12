@@ -1,5 +1,5 @@
+// import apiCalls from './apiCalls';
 import './styles.css';
-import apiCalls from './apiCalls';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
@@ -9,9 +9,7 @@ import './images/full-star.png';
 import './images/empty-star.png';
 import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
-import { allRecipeDataPromise } from './apiCalls';
-import { allUsersPromise } from './apiCalls';
-import { allIngredientsPromise } from './apiCalls';
+import { fetchResponse } from './apiCalls';
 
 // Global Variables
 let allIngredientsData = [];
@@ -51,28 +49,7 @@ const searchFavNameInput = document.querySelector("#favSearchByNameInput");
 const searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
-window.addEventListener('load', () => {
-  allRecipeDataPromise()
-    .then(data => {
-      allRecipeData = data.recipeData;
-      allRecipeStorage.addRecipes(allRecipeData)
-    })
-    .catch((err) => console.log(err));
-
-  allUsersPromise()
-    .then(data => {
-      usersData = data.usersData;
-      const randomIndex = Math.floor(Math.random() * usersData.length)
-      currentUser = new User(usersData[randomIndex]);
-    })
-    .catch((err) => console.log(err));
-
-  allIngredientsPromise()
-    .then(data => {
-      allIngredientsData = data.ingredientsData;
-    })
-    .catch((err) => console.log(err));
-});
+window.addEventListener('load', loadData);
 
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 findNameBtn.addEventListener("click", loadNameSearchView);
@@ -134,6 +111,24 @@ searchFavTagBtn.addEventListener("click", () => {
 });
 
 // Functions
+function loadData() {
+  const fetchRecipes = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes');
+  const fetchUsers = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users');
+  const fetchIngredients = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients');
+
+  Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
+    allRecipeData = data[0].recipeData;
+    allRecipeStorage.addRecipes(allRecipeData);
+
+    usersData = data[1].usersData;
+    const randomIndex = Math.floor(Math.random() * usersData.length)
+    currentUser = new User(usersData[randomIndex]);
+
+    allIngredientsData = data[2].ingredientsData;
+  })
+  .catch((err) => console.log(err));
+}
+
 function grabSearchValue(byValue) {
   if (byValue === "name") {
     return searchNameInput.value.toLowerCase();
@@ -364,39 +359,44 @@ function loadRecipeDetailView(event) {
   }
 }
 
+function getRecipeBox(recipe) {
+  return `
+  <div class='box recipe-box'>
+      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
+      <h4 class='recipe-name'>${recipe.name}</h4>
+      <p class='recipe-tags'>Tags: ${recipe.tags}</p>
+  </div>`
+}
+
 function searchRecipeByName(searchingFor) {
   event.preventDefault();
-  let nameResult = allRecipeStorage.recipes.find((recipe) => {
-    return recipe.name.toLowerCase() === searchingFor;
+  let nameResults = allRecipeStorage.recipes.filter((recipe) => {
+    return recipe.name.toLowerCase().includes(searchingFor);
   });
   showElement(searchResultsView);
-  if(!nameResult) {
+  searchResultsView.innerHTML = "";
+  if(!nameResults.length) {
     searchResultsView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
   } else {
-    searchResultsView.innerHTML = `
-      <div class='box recipe-box'>
-          <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
-          <h4 class='recipe-name'>${nameResult.name}</h4>
-          <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
-      </div>`
+    nameResults.forEach((recipe) => {
+      searchResultsView.innerHTML += getRecipeBox(recipe);
+    });
   }
 }
 
 function searchFavRecipeByName(searchingFor) {
   event.preventDefault();
-  let nameResult = currentUser.favoriteRecipes.find((recipe) => {
-    return recipe.name.toLowerCase() === searchingFor;
+  let nameResults = currentUser.favoriteRecipes.filter((recipe) => {
+    return recipe.name.toLowerCase().includes(searchingFor);
   });
   showElement(favoriteRecipesView);
-  if(!nameResult) {
+  favoriteRecipesView.innerHTML = "";
+  if(!nameResults.length) {
     favoriteRecipesView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
   } else {
-    favoriteRecipesView.innerHTML = `
-      <div class='box recipe-box'>
-        <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
-        <h4 class='recipe-name'>${nameResult.name}</h4>
-        <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
-      </div>`
+    nameResults.forEach((recipe) => {
+      favoriteRecipesView.innerHTML += getRecipeBox(recipe);
+    });
   }
 }
 
@@ -411,18 +411,14 @@ function searchFavRecipeByTag(searchingFor) {
         tagResultRecipes.push(recipe);
     }
   });
+  
   showElement(favoriteRecipesView);
   favoriteRecipesView.innerHTML = '';
   if(!tagResultRecipes.length) {
     favoriteRecipesView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
   } else {
     tagResultRecipes.forEach((recipe) => {
-    favoriteRecipesView.innerHTML += `
-      <div class='box recipe-box'>
-        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-        <h4 class='recipe-name'>${recipe.name}</h4>
-        <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
-      </div>`
+      favoriteRecipesView.innerHTML += getRecipeBox(recipe);
     });
   }
 }
@@ -438,18 +434,14 @@ function searchRecipeByTag(searchingFor) {
       tagResultRecipes.push(recipe);
     }
   });
+
   showElement(searchResultsView);
   if(!tagResultRecipes.length) {
     searchResultsView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
   } else {
     searchResultsView.innerHTML = '';
     tagResultRecipes.forEach((recipe) => {
-      searchResultsView.innerHTML += `
-        <div class='box recipe-box'>
-          <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-          <h4 class='recipe-name'>${recipe.name}</h4>
-          <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
-        </div>`
+      searchResultsView.innerHTML += getRecipeBox(recipe);
     });
   }
 }
