@@ -1,5 +1,5 @@
+// import apiCalls from './apiCalls';
 import './styles.css';
-import apiCalls from './apiCalls';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
@@ -117,7 +117,6 @@ function loadData() {
   const fetchIngredients = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients');
 
   Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
-    console.log(data);
     allRecipeData = data[0].recipeData;
     allRecipeStorage.addRecipes(allRecipeData);
 
@@ -129,30 +128,6 @@ function loadData() {
   })
   .catch((err) => console.log(err));
 }
-
-
-// function loadData() {
-//   fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
-//   .then(data => {
-//     allRecipeData = data.recipeData;
-//     allRecipeStorage.addRecipes(allRecipeData)
-//   })
-//   .catch((err) => console.log(err));
-
-//   fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
-//     .then(data => {
-//       usersData = data.usersData;
-//       const randomIndex = Math.floor(Math.random() * usersData.length)
-//       currentUser = new User(usersData[randomIndex]);
-//     })
-//     .catch((err) => console.log(err));
-
-//   fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
-//     .then(data => {
-//       allIngredientsData = data.ingredientsData;
-//     })
-//     .catch((err) => console.log(err));
-// }
 
 function grabSearchValue(byValue) {
   if (byValue === "name") {
@@ -384,6 +359,15 @@ function loadRecipeDetailView(event) {
   }
 }
 
+function getRecipeBox(recipe) {
+  return `
+  <div class='box recipe-box'>
+      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
+      <h4 class='recipe-name'>${recipe.name}</h4>
+      <p class='recipe-tags'>Tags: ${recipe.tags}</p>
+  </div>`
+}
+
 function searchRecipeByName(searchingFor) {
   event.preventDefault();
   let nameResult = allRecipeStorage.recipes.find((recipe) => {
@@ -393,12 +377,7 @@ function searchRecipeByName(searchingFor) {
   if(!nameResult) {
     searchResultsView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
   } else {
-    searchResultsView.innerHTML = `
-      <div class='box recipe-box'>
-          <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
-          <h4 class='recipe-name'>${nameResult.name}</h4>
-          <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
-      </div>`
+    searchResultsView.innerHTML = getRecipeBox(nameResult);
   }
 }
 
@@ -411,12 +390,7 @@ function searchFavRecipeByName(searchingFor) {
   if(!nameResult) {
     favoriteRecipesView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
   } else {
-    favoriteRecipesView.innerHTML = `
-      <div class='box recipe-box'>
-        <img id=${nameResult.id} src=${nameResult.image} alt='${nameResult.name} image'/>
-        <h4 class='recipe-name'>${nameResult.name}</h4>
-        <p class='recipe-tags'>Tags: ${nameResult.tags}</p>
-      </div>`
+    favoriteRecipesView.innerHTML = getRecipeBox(nameResult);
   }
 }
 
@@ -437,12 +411,7 @@ function searchFavRecipeByTag(searchingFor) {
     favoriteRecipesView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
   } else {
     tagResultRecipes.forEach((recipe) => {
-    favoriteRecipesView.innerHTML += `
-      <div class='box recipe-box'>
-        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-        <h4 class='recipe-name'>${recipe.name}</h4>
-        <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
-      </div>`
+      favoriteRecipesView.innerHTML += getRecipeBox(recipe);
     });
   }
 }
@@ -464,12 +433,7 @@ function searchRecipeByTag(searchingFor) {
   } else {
     searchResultsView.innerHTML = '';
     tagResultRecipes.forEach((recipe) => {
-      searchResultsView.innerHTML += `
-        <div class='box recipe-box'>
-          <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-          <h4 class='recipe-name'>${recipe.name}</h4>
-          <p class='recipe-tags'><strong>Tags:</strong> ${recipe.tags}</p>
-        </div>`
+      searchResultsView.innerHTML += getRecipeBox(recipe);
     });
   }
 }
