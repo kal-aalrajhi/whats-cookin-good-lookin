@@ -61,7 +61,6 @@ describe('Recipe', () => {
     });
 
     it('should be able to get ingredients details', () => {
-        console.log('INVOKE', recipe.getIngredientDetails(allIngredientsData))
         expect(recipe.getIngredientDetails(allIngredientsData)).to.deep.equal([
              {
               id: 20081,
@@ -84,7 +83,13 @@ describe('Recipe', () => {
     });
 
     it('should be able to get ingredients names', () => {
-        // expect(recipe.getIngredientNames()).to.equal(ingredientNames);
+        expect(recipe.getIngredientNames(allIngredientsData)).to.deep.equal([
+            'wheat flour',
+            'bicarbonate of soda',
+            'eggs',
+            'sucrose',
+            'instant vanilla pudding'
+          ])
     });
 
     it('should get total cost in dollars', () => {

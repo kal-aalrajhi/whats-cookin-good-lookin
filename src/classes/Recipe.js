@@ -25,9 +25,9 @@ export class Recipe {
     };
 
     getIngredientNames(ingredientsData) {
+        
         let ingredientDetails = this.getIngredientDetails(ingredientsData)
         let ingredientNames = ingredientDetails.map(ingredientDetail => ingredientDetail.name);
-        // console.log('ingredientNAMES', ingredientNames);
         return ingredientNames;
     };
  
