@@ -80,13 +80,12 @@ describe('Recipe', () => {
               name: 'instant vanilla pudding',
               estimatedCostInCents: 660
             }
-          ]
-          )
+          ])
     });
 
-    // it('should be able to get ingredients names', () => {
-    //     // expect(recipe.getIngredientNames()).to.equal(ingredientNames);
-    // });
+    it('should be able to get ingredients names', () => {
+        // expect(recipe.getIngredientNames()).to.equal(ingredientNames);
+    });
 
     it('should get total cost in dollars', () => {
         expect(recipe.getTotalCostInDollars(allIngredientsData)).to.equal('34.07'); 
