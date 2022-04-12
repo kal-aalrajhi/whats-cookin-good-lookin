@@ -370,27 +370,33 @@ function getRecipeBox(recipe) {
 
 function searchRecipeByName(searchingFor) {
   event.preventDefault();
-  let nameResult = allRecipeStorage.recipes.find((recipe) => {
-    return recipe.name.toLowerCase() === searchingFor;
+  let nameResults = allRecipeStorage.recipes.filter((recipe) => {
+    return recipe.name.toLowerCase().includes(searchingFor);
   });
   showElement(searchResultsView);
-  if(!nameResult) {
+  searchResultsView.innerHTML = "";
+  if(!nameResults.length) {
     searchResultsView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
   } else {
-    searchResultsView.innerHTML = getRecipeBox(nameResult);
+    nameResults.forEach((recipe) => {
+      searchResultsView.innerHTML += getRecipeBox(recipe);
+    });
   }
 }
 
 function searchFavRecipeByName(searchingFor) {
   event.preventDefault();
-  let nameResult = currentUser.favoriteRecipes.find((recipe) => {
-    return recipe.name.toLowerCase() === searchingFor;
+  let nameResults = currentUser.favoriteRecipes.filter((recipe) => {
+    return recipe.name.toLowerCase().includes(searchingFor);
   });
   showElement(favoriteRecipesView);
-  if(!nameResult) {
+  favoriteRecipesView.innerHTML = "";
+  if(!nameResults.length) {
     favoriteRecipesView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
   } else {
-    favoriteRecipesView.innerHTML = getRecipeBox(nameResult);
+    nameResults.forEach((recipe) => {
+      favoriteRecipesView.innerHTML += getRecipeBox(recipe);
+    });
   }
 }
 
@@ -405,6 +411,7 @@ function searchFavRecipeByTag(searchingFor) {
         tagResultRecipes.push(recipe);
     }
   });
+  
   showElement(favoriteRecipesView);
   favoriteRecipesView.innerHTML = '';
   if(!tagResultRecipes.length) {
@@ -427,6 +434,7 @@ function searchRecipeByTag(searchingFor) {
       tagResultRecipes.push(recipe);
     }
   });
+
   showElement(searchResultsView);
   if(!tagResultRecipes.length) {
     searchResultsView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
