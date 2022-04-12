@@ -52,14 +52,14 @@ const searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
 window.addEventListener('load', () => {
-  allRecipeDataPromise()
+  whatsCookinPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
     .then(data => {
       allRecipeData = data.recipeData;
       allRecipeStorage.addRecipes(allRecipeData)
     })
     .catch((err) => console.log(err));
 
-  allUsersPromise()
+  whatsCookinPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
     .then(data => {
       usersData = data.usersData;
       const randomIndex = Math.floor(Math.random() * usersData.length)
@@ -67,7 +67,7 @@ window.addEventListener('load', () => {
     })
     .catch((err) => console.log(err));
 
-  allIngredientsPromise()
+  whatsCookinPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
     .then(data => {
       allIngredientsData = data.ingredientsData;
     })
