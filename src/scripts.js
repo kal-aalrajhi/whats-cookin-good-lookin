@@ -49,28 +49,7 @@ const searchFavNameInput = document.querySelector("#favSearchByNameInput");
 const searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
-window.addEventListener('load', () => {
-  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
-    .then(data => {
-      allRecipeData = data.recipeData;
-      allRecipeStorage.addRecipes(allRecipeData)
-    })
-    .catch((err) => console.log(err));
-
-  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
-    .then(data => {
-      usersData = data.usersData;
-      const randomIndex = Math.floor(Math.random() * usersData.length)
-      currentUser = new User(usersData[randomIndex]);
-    })
-    .catch((err) => console.log(err));
-
-  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
-    .then(data => {
-      allIngredientsData = data.ingredientsData;
-    })
-    .catch((err) => console.log(err));
-});
+window.addEventListener('load', loadData);
 
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 findNameBtn.addEventListener("click", loadNameSearchView);
@@ -132,6 +111,30 @@ searchFavTagBtn.addEventListener("click", () => {
 });
 
 // Functions
+
+function loadData() {
+  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
+  .then(data => {
+    allRecipeData = data.recipeData;
+    allRecipeStorage.addRecipes(allRecipeData)
+  })
+  .catch((err) => console.log(err));
+
+  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
+    .then(data => {
+      usersData = data.usersData;
+      const randomIndex = Math.floor(Math.random() * usersData.length)
+      currentUser = new User(usersData[randomIndex]);
+    })
+    .catch((err) => console.log(err));
+
+  getPromise('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
+    .then(data => {
+      allIngredientsData = data.ingredientsData;
+    })
+    .catch((err) => console.log(err));
+}
+
 function grabSearchValue(byValue) {
   if (byValue === "name") {
     return searchNameInput.value.toLowerCase();
