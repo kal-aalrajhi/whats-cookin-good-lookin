@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { Recipe } from '../src/classes/Recipe';
 import { recipesSampleData } from '../src/data/recipes-sample-data';
 import { ingredientsSampleData } from '../src/data/ingredients-sample-data';
+
     
 describe('Recipe', () => {
     let allIngredientsData;
@@ -54,20 +55,38 @@ describe('Recipe', () => {
         expect(recipe.toCook).to.equal(false);
     });
 
-    it('should be able to get ingredients details', () => {
-        expect(recipe.recipeIngredients).to.deep.equal([
-            { id: 20081, quantity: { amount: 1.5, unit: 'c' } },
-            { id: 18372, quantity: { amount: 0.5, unit: 'tsp' } },
-            { id: 1123, quantity: { amount: 1, unit: 'large' } },
-            { id: 19335, quantity: { amount: 0.5, unit: 'c' } },
-            { id: 19206, quantity: { amount: 3, unit: 'Tbsp' } }
-          ])
-    });
-
     it('recipe is to cook', () => {
         recipe.toCook = true;
         expect(recipe.toCook).to.equal(true);
     });
+
+    it('should be able to get ingredients details', () => {
+        console.log('INVOKE', recipe.getIngredientDetails(allIngredientsData))
+        expect(recipe.getIngredientDetails(allIngredientsData)).to.deep.equal([
+             {
+              id: 20081,
+              name: 'wheat flour',
+              estimatedCostInCents: 142
+            },
+             {
+              id: 18372,
+              name: 'bicarbonate of soda',
+              estimatedCostInCents: 582
+            },
+             { id: 1123, name: 'eggs', estimatedCostInCents: 472 },
+             { id: 19335, name: 'sucrose', estimatedCostInCents: 902 },
+             {
+              id: 19206,
+              name: 'instant vanilla pudding',
+              estimatedCostInCents: 660
+            }
+          ]
+          )
+    });
+
+    // it('should be able to get ingredients names', () => {
+    //     // expect(recipe.getIngredientNames()).to.equal(ingredientNames);
+    // });
 
     it('should get total cost in dollars', () => {
         expect(recipe.getTotalCostInDollars(allIngredientsData)).to.equal('34.07'); 

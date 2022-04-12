@@ -15,19 +15,22 @@ export class Recipe {
     getIngredientDetails(ingredientsData) {
         let ingredientDetails = this.recipeIngredients.map((recipeIngredient) => {
                 let idMatch = ingredientsData.find(ingredientData => recipeIngredient.id === ingredientData.id);
+                
                 let currentIngredient = new Ingredient(idMatch);
+                
                 return currentIngredient;
             });
-            console.log('another cs', ingredientDetails)
+            // console.log(ingredientDetails)
         return ingredientDetails;
     };
 
     getIngredientNames(ingredientsData) {
-        let ingredientDetails = this.getIngredientDetails(ingredientsData);
+        let ingredientDetails = this.getIngredientDetails(ingredientsData)
         let ingredientNames = ingredientDetails.map(ingredientDetail => ingredientDetail.name);
+        // console.log('ingredientNAMES', ingredientNames);
         return ingredientNames;
     };
-
+ 
     getTotalCostInDollars(ingredientsData) {
         let ingredientDetails =  this.getIngredientDetails(ingredientsData);
         let totalCostInCents = ingredientDetails.reduce((total, ingredientDetail, idx) => {
