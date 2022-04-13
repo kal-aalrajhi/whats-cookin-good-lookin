@@ -60,7 +60,7 @@ const searchFavNameInput = document.querySelector("#favSearchByNameInput");
 const searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
-window.addEventListener('load', loadData);
+window.addEventListener("load", loadData);
 
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 findNameBtn.addEventListener("click", loadNameSearchView);
@@ -123,9 +123,9 @@ searchFavTagBtn.addEventListener("click", () => {
 
 // Functions
 function loadData() {
-  const fetchRecipes = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes');
-  const fetchUsers = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users');
-  const fetchIngredients = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients');
+  const fetchRecipes = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
+  const fetchUsers = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users");
+  const fetchIngredients = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients");
 
   Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
     allRecipeData = data[0].recipeData;
@@ -197,7 +197,7 @@ function loadTagSearchView() {
 }
 
 function addFavoriteRecipe(event) {
-  iconToFull('star');
+  iconToFull("star");
   let recipeToAdd = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -212,7 +212,7 @@ function addFavoriteRecipe(event) {
 }
 
 function removeFavoriteRecipe(event) {
-  iconToEmpty('star');
+  iconToEmpty("star");
   let recipeToRemove = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -234,7 +234,7 @@ function favoriteCurrentRecipe() {
 }
 
 function addToCookRecipe(event) {
-  iconToFull('to-cook');
+  iconToFull("to-cook");
   var recipeToAdd = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -256,7 +256,7 @@ function toCookCurrentRecipe() {
 }
 
 function removeToCookRecipe(event) {
-  iconToEmpty('to-cook');
+  iconToEmpty("to-cook");
   let recipeToRemove = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -282,7 +282,7 @@ function loadAllRecipesView() {
 }
 
 function loadRecipeDetailView(event) {
-  if (event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
+  if (event.target.id !== "searchResultView" && event.target.id !== "allRecipeView" && event.target.id !== "recipeDetailView") {
     hideAllViews();
     showElement(searchResultView);
     showElement(recipeDetailView);
@@ -302,15 +302,15 @@ function loadRecipeDetailView(event) {
     recipeDetails(recipeDetailCard, currentRecipe, instructionsList, allIngredientsData);
     
     if(isFavorite) {
-      iconToFull('star');
+      iconToFull("star");
     } else {
-      iconToEmpty('star');
+      iconToEmpty("star");
     }
 
     if (isWantingToCook) {
-      iconToFull('to-cook');
+      iconToFull("to-cook");
     } else {
-      iconToEmpty('to-cook');
+      iconToEmpty("to-cook");
     }
   }
 }

@@ -52,7 +52,7 @@ export function iconToFull(iconName) {
     icon.classList.add(`full-${iconName}`);
 }
   
-  export function iconToEmpty(iconName) {
+export function iconToEmpty(iconName) {
     let icon = document.querySelector(`.${iconName}-icon`);
     icon.src = `./images/empty-${iconName}.png`;
     icon.classList.remove(`full-${iconName}`);
