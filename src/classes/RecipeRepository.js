@@ -17,6 +17,13 @@ export class RecipeRepository {
     }
   };
 
+  filterByName() {
+    const justNames = this.recipes.map((recipe) => {
+      return recipe.name;
+    });
+    return justNames;
+  };
+
   filterByTag(tagToFilter) {
     const recipesWithTag = this.recipes.reduce((acc, recipe) => {
       let recipeWithSameTag = recipe.tags.find((tag) => tag === tagToFilter);
@@ -26,13 +33,6 @@ export class RecipeRepository {
       return acc;
     }, []);
     return recipesWithTag;
-  };
-
-  filterByName() {
-    const justNames = this.recipes.map((recipe) => {
-      return recipe.name;
-    });
-    return justNames;
   };
 
   filterById(recipeIdtoFind) {
