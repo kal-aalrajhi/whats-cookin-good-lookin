@@ -28,4 +28,8 @@ describe('Pantry', () => {
     })
 
 
+    it('should take in a user pantry', () => {
+        expect(pantry1.ingredients).to.deep.equal(user1.pantry);
+    })
+
 });
