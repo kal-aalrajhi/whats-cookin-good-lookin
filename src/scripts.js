@@ -8,6 +8,9 @@ import { clearView } from './domUpdates';
 import { recipeDetails} from './domUpdates';
 import { iconToFull } from './domUpdates';
 import { iconToEmpty } from './domUpdates';
+import { showElement } from './domUpdates';
+import { hideElement } from './domUpdates';
+import { viewTitle } from './domUpdates';
 
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
@@ -162,14 +165,6 @@ function hideAllViews() {
   hideElement(toCookView);
 }
 
-const showElement = (element) => {
-  element.classList.remove("hidden");
-}
-
-const hideElement = (element) => {
-  element.classList.add("hidden");
-}
-
 function loadFavoriteView() {
   hideAllViews();
   showElement(searchResultView);
@@ -234,7 +229,7 @@ function removeFavoriteRecipe(event) {
 function favoriteCurrentRecipe() {
   clearView(favoriteRecipesView);
   currentUser.favoriteRecipes.forEach((recipe) => {
-    favoriteRecipesView.innerHTML += getRecipeBox(recipe);
+    getRecipeBox(favoriteRecipesView, recipe);
   });
 }
 
@@ -254,9 +249,9 @@ function addToCookRecipe(event) {
 }
 
 function toCookCurrentRecipe() {
-  toCookView.innerHTML = `<h3 class="page-title">Recipes for ${currentUser.name} To Cook:</h3>`;
+  viewTitle(toCookView, currentUser.name);
   currentUser.recipesToCook.forEach((recipe) => {
-  toCookView.innerHTML += getRecipeBox(recipe);
+    getRecipeBox(toCookView, recipe);
   });
 }
 
@@ -282,7 +277,7 @@ function loadAllRecipesView() {
 
   clearView(allRecipeView);
   allRecipeStorage.recipes.forEach((recipe) => {
-    allRecipeView.innerHTML += getRecipeBox(recipe);
+    getRecipeBox(allRecipeView, recipe);
   });
 }
 
@@ -305,6 +300,7 @@ function loadRecipeDetailView(event) {
     });
 
     recipeDetails(recipeDetailCard, currentRecipe, instructionsList, allIngredientsData);
+    
     if(isFavorite) {
       iconToFull('star');
     } else {
@@ -330,7 +326,7 @@ function searchRecipeByName(searchingFor) {
     searchErrorMsg(searchResultsView);
   } else {
     nameResults.forEach((recipe) => {
-      searchResultsView.innerHTML += getRecipeBox(recipe);
+      getRecipeBox(searchResultsView, recipe);
     });
   }
 }
@@ -346,7 +342,7 @@ function searchFavRecipeByName(searchingFor) {
     searchErrorMsg(favoriteRecipesView);
   } else {
     nameResults.forEach((recipe) => {
-      favoriteRecipesView.innerHTML += getRecipeBox(recipe);
+      getRecipeBox(favoriteRecipesView, recipe);
     });
   }
 }
@@ -369,7 +365,7 @@ function searchFavRecipeByTag(searchingFor) {
     searchErrorMsg(favoriteRecipesView);
   } else {
     tagResultRecipes.forEach((recipe) => {
-      favoriteRecipesView.innerHTML += getRecipeBox(recipe);
+      getRecipeBox(favoriteRecipesView, recipe);
     });
   }
 }
@@ -392,7 +388,7 @@ function searchRecipeByTag(searchingFor) {
   } else {
     clearView(searchResultsView);
     tagResultRecipes.forEach((recipe) => {
-      searchResultsView.innerHTML += getRecipeBox(recipe);
+      getRecipeBox(searchResultsView, recipe);
     });
   }
 }

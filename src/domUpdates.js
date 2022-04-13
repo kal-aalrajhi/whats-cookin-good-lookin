@@ -1,3 +1,11 @@
+export function showElement(element) {
+    element.classList.remove("hidden");
+}
+  
+export function hideElement(element) {
+    element.classList.add("hidden");
+}
+
 export function clearView(view) {
     view.innerHTML = "";
 }
@@ -6,8 +14,8 @@ export function searchErrorMsg(view) {
     view.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>";
 }
 
-export function getRecipeBox(recipe) {
-    return `
+export function getRecipeBox(view, recipe) {
+    view.innerHTML += `
         <div class='box recipe-box'>
             <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
             <h4 class='recipe-name'>${recipe.name}</h4>
@@ -49,4 +57,8 @@ export function iconToFull(iconName) {
     icon.src = `./images/empty-${iconName}.png`;
     icon.classList.remove(`full-${iconName}`);
     icon.classList.add(`empty-${iconName}`);
+}
+
+export function viewTitle(view, name) {
+    view.innerHTML = `<h3 class="page-title">Recipes for ${name} To Cook:</h3>`;
 }
