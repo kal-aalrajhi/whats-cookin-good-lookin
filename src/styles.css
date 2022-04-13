@@ -108,9 +108,13 @@ nav {
   max-width: 120rem;
 }
 
+
 .recipe-image {
   height: 30rem;
+
   object-fit: cover;
+ 
+
 }
 
 .recipe-tags {
@@ -181,7 +185,8 @@ nav {
   cursor: pointer;
   flex-basis: 10%;
   margin-top: 2rem;
-}
+  background-size: cover;
+ } 
 
 .box:hover {
   background-color: floralwhite;;

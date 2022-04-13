@@ -242,7 +242,7 @@ function favoriteCurrentRecipe() {
   currentUser.favoriteRecipes.forEach((recipe) => {
     favoriteRecipesView.innerHTML += `
       <div class='box recipe-box'>
-          <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+          <img class='test' id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
           <h4 class='recipe-name'>${recipe.name}</h4>
           <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
       </div>`
@@ -300,7 +300,7 @@ function loadAllRecipesView() {
   allRecipeStorage.recipes.forEach((recipe) => {
     allRecipeView.innerHTML += `
       <div class='box recipe-box'>
-        <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
+        <img class='test-class' id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
         <h4 class='recipe-name'>${recipe.name}</h4>
         <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
       </div>`
