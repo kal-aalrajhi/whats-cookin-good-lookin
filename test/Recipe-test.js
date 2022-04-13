@@ -8,10 +8,15 @@ describe('Recipe', () => {
     let allIngredientsData;
     let recipe;
     let recipeData;
+    let recipeData2;
+    let recipe2;
+
     beforeEach(() => {
         allIngredientsData = ingredientsSampleData;
         recipeData = recipesSampleData[0];
+        recipeData2 = recipesSampleData[1];
         recipe = new Recipe(recipeData);
+        recipe2 = new Recipe(recipeData2)
     });
 
     it('should create a new instance of Recipe', () => {
@@ -55,11 +60,6 @@ describe('Recipe', () => {
         expect(recipe.toCook).to.equal(false);
     });
 
-    it('recipe is to cook', () => {
-        recipe.toCook = true;
-        expect(recipe.toCook).to.equal(true);
-    });
-
     it('should be able to get ingredients details', () => {
         expect(recipe.getIngredientDetails(allIngredientsData)).to.deep.equal([
              {
@@ -94,9 +94,11 @@ describe('Recipe', () => {
 
     it('should get total cost in dollars', () => {
         expect(recipe.getTotalCostInDollars(allIngredientsData)).to.equal('34.07'); 
+        expect(recipe2.getTotalCostInDollars(allIngredientsData)).to.equal('272.97');
     });
 
     it('should get ingredient instructions', () => {
         expect(recipe.getInstructions()).to.equal(recipe.instructions);
-    });
+        
+    })
 });
