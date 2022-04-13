@@ -23,5 +23,9 @@ describe('Pantry', () => {
         expect(pantry1).to.be.an.instanceof(Pantry);
     })
 
+    it('should start empty', () => {
+        expect(pantry0.ingredients).to.deep.equal([]);
+    })
+
 
 });
