@@ -20,12 +20,10 @@ export class Recipe {
                 
                 return currentIngredient;
             });
-            // console.log(ingredientDetails)
         return ingredientDetails;
     };
 
     getIngredientNames(ingredientsData) {
-        
         let ingredientDetails = this.getIngredientDetails(ingredientsData)
         let ingredientNames = ingredientDetails.map(ingredientDetail => ingredientDetail.name);
         return ingredientNames;
