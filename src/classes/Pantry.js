@@ -1,11 +1,21 @@
-import {something} from './File';
-//probably ingredients and user 
+import { Ingredient } from './Ingredient';
+import { User } from './User.js';
 
-class Pantry {
+
+export class Pantry {
     constructor(pantry) {
-        this.ingredients = pantry.ingredients;
+        this.ingredients = pantry || [];
 
     };
+
+    addIngredient() {
+
+    }
+
+    removeIngredient() {
+
+    }
+
     canUserCookRecipe() {
 
     };
