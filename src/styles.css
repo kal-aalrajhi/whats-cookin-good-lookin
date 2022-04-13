@@ -108,13 +108,9 @@ nav {
   max-width: 120rem;
 }
 
-
 .recipe-image {
   height: 30rem;
-
   object-fit: cover;
- 
-
 }
 
 .recipe-tags {

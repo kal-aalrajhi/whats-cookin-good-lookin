@@ -1,5 +1,17 @@
-// import apiCalls from './apiCalls';
 import './styles.css';
+// import apiCalls from './apiCalls';
+import { fetchResponse } from './apiCalls';
+// domUpdates can I import all functions on one line??
+import { getRecipeBox } from './domUpdates';
+import { searchErrorMsg } from './domUpdates';
+import { clearView } from './domUpdates';
+import { recipeDetails} from './domUpdates';
+import { iconToFull } from './domUpdates';
+import { iconToEmpty } from './domUpdates';
+import { showElement } from './domUpdates';
+import { hideElement } from './domUpdates';
+import { viewTitle } from './domUpdates';
+
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
@@ -9,7 +21,6 @@ import './images/full-star.png';
 import './images/empty-star.png';
 import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
-import { fetchResponse } from './apiCalls';
 
 // Global Variables
 let allIngredientsData = [];
@@ -49,7 +60,7 @@ const searchFavNameInput = document.querySelector("#favSearchByNameInput");
 const searchFavTagInput = document.querySelector("#favSearchByTagInput");
 
 // Event Listeners
-window.addEventListener('load', loadData);
+window.addEventListener("load", loadData);
 
 showAllRecipesBtn.addEventListener("click", loadAllRecipesView);
 findNameBtn.addEventListener("click", loadNameSearchView);
@@ -112,9 +123,9 @@ searchFavTagBtn.addEventListener("click", () => {
 
 // Functions
 function loadData() {
-  const fetchRecipes = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes');
-  const fetchUsers = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users');
-  const fetchIngredients = fetchResponse('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients');
+  const fetchRecipes = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
+  const fetchUsers = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users");
+  const fetchIngredients = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients");
 
   Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
     allRecipeData = data[0].recipeData;
@@ -154,14 +165,6 @@ function hideAllViews() {
   hideElement(toCookView);
 }
 
-const showElement = (element) => {
-  element.classList.remove("hidden");
-}
-
-const hideElement = (element) => {
-  element.classList.add("hidden");
-}
-
 function loadFavoriteView() {
   hideAllViews();
   showElement(searchResultView);
@@ -193,22 +196,8 @@ function loadTagSearchView() {
   showElement(findByTagView);
 }
 
-function iconToFull(iconName) {
-  let icon = document.querySelector(`.${iconName}-icon`);
-  icon.src = `./images/full-${iconName}.png`;
-  icon.classList.remove(`empty-${iconName}`);
-  icon.classList.add(`full-${iconName}`);
-}
-
-function iconToEmpty(iconName) {
-  let icon = document.querySelector(`.${iconName}-icon`);
-  icon.src = `./images/empty-${iconName}.png`;
-  icon.classList.remove(`full-${iconName}`);
-  icon.classList.add(`empty-${iconName}`);
-}
-
 function addFavoriteRecipe(event) {
-  iconToFull('star');
+  iconToFull("star");
   let recipeToAdd = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -223,7 +212,7 @@ function addFavoriteRecipe(event) {
 }
 
 function removeFavoriteRecipe(event) {
-  iconToEmpty('star');
+  iconToEmpty("star");
   let recipeToRemove = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -238,19 +227,14 @@ function removeFavoriteRecipe(event) {
 }
 
 function favoriteCurrentRecipe() {
-  favoriteRecipesView.innerHTML = '';
+  clearView(favoriteRecipesView);
   currentUser.favoriteRecipes.forEach((recipe) => {
-    favoriteRecipesView.innerHTML += `
-      <div class='box recipe-box'>
-          <img class='test' id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
-          <h4 class='recipe-name'>${recipe.name}</h4>
-          <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
-      </div>`
+    getRecipeBox(favoriteRecipesView, recipe);
   });
 }
 
 function addToCookRecipe(event) {
-  iconToFull('to-cook');
+  iconToFull("to-cook");
   var recipeToAdd = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -265,19 +249,14 @@ function addToCookRecipe(event) {
 }
 
 function toCookCurrentRecipe() {
-  toCookView.innerHTML = `<h3 class="page-title">Recipes for ${currentUser.name} To Cook:</h3>`;
+  viewTitle(toCookView, currentUser.name);
   currentUser.recipesToCook.forEach((recipe) => {
-  toCookView.innerHTML += `
-    <div class='box recipe-box'>
-      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image' />
-      <h4 class='recipe-name'>${recipe.name}</h4>
-      <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
-    </div>`
+    getRecipeBox(toCookView, recipe);
   });
 }
 
 function removeToCookRecipe(event) {
-  iconToEmpty('to-cook');
+  iconToEmpty("to-cook");
   let recipeToRemove = allRecipeData.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -296,19 +275,14 @@ function loadAllRecipesView() {
   showElement(searchResultView);
   showElement(allRecipeView);
 
-  allRecipeView.innerHTML = '';
+  clearView(allRecipeView);
   allRecipeStorage.recipes.forEach((recipe) => {
-    allRecipeView.innerHTML += `
-      <div class='box recipe-box'>
-        <img class='test-class' id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-        <h4 class='recipe-name'>${recipe.name}</h4>
-        <h5 class='recipe-tags'>Tags: ${recipe.tags}</h5>
-      </div>`
+    getRecipeBox(allRecipeView, recipe);
   });
 }
 
 function loadRecipeDetailView(event) {
-  if (event.target.id !== 'searchResultView' && event.target.id !== 'allRecipeView' && event.target.id !== 'recipeDetailView') {
+  if (event.target.id !== "searchResultView" && event.target.id !== "allRecipeView" && event.target.id !== "recipeDetailView") {
     hideAllViews();
     showElement(searchResultView);
     showElement(recipeDetailView);
@@ -325,47 +299,20 @@ function loadRecipeDetailView(event) {
       return recipe.id === currentRecipe.id;
     });
 
-    recipeDetailCard.innerHTML = `
-      <h3 class='recipe-name'>${currentRecipe.name}</h3>
-      <h4>Ingredients</h4>
-      <p>${currentRecipe.getIngredientNames(allIngredientsData)}</p>
-      <h4>Total Cost</h4>
-      <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
-      <h4>Favorite</h4>
-      <div class="favorite-star" id=${currentRecipe.id}>
-        <img class="star-icon empty-star" id=${currentRecipe.id} src="" alt="star icon"/>
-      </div>
-      <h4>To Cook</h4>
-      <div class="to-cook-tool" id=${currentRecipe.id}>
-        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="" alt="chef tools icon"/>
-      </div>`;
-    instructionsList.innerHTML = '<h3>Instructions</h3>';
-    currentRecipe.instructions.forEach((instruction) => {
-      instructionsList.innerHTML += `
-        <li>${instruction.instruction}</li>`
-    });
-
+    recipeDetails(recipeDetailCard, currentRecipe, instructionsList, allIngredientsData);
+    
     if(isFavorite) {
-      iconToFull('star');
+      iconToFull("star");
     } else {
-      iconToEmpty('star');
+      iconToEmpty("star");
     }
 
-    if(isWantingToCook) {
-      iconToFull('to-cook');
+    if (isWantingToCook) {
+      iconToFull("to-cook");
     } else {
-      iconToEmpty('to-cook');
+      iconToEmpty("to-cook");
     }
   }
-}
-
-function getRecipeBox(recipe) {
-  return `
-  <div class='box recipe-box'>
-      <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-      <h4 class='recipe-name'>${recipe.name}</h4>
-      <p class='recipe-tags'>Tags: ${recipe.tags}</p>
-  </div>`
 }
 
 function searchRecipeByName(searchingFor) {
@@ -374,12 +321,12 @@ function searchRecipeByName(searchingFor) {
     return recipe.name.toLowerCase().includes(searchingFor);
   });
   showElement(searchResultsView);
-  searchResultsView.innerHTML = "";
+  clearView(searchResultsView);
   if(!nameResults.length) {
-    searchResultsView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
+    searchErrorMsg(searchResultsView);
   } else {
     nameResults.forEach((recipe) => {
-      searchResultsView.innerHTML += getRecipeBox(recipe);
+      getRecipeBox(searchResultsView, recipe);
     });
   }
 }
@@ -390,12 +337,12 @@ function searchFavRecipeByName(searchingFor) {
     return recipe.name.toLowerCase().includes(searchingFor);
   });
   showElement(favoriteRecipesView);
-  favoriteRecipesView.innerHTML = "";
+  clearView(favoriteRecipesView);
   if(!nameResults.length) {
-    favoriteRecipesView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
+    searchErrorMsg(favoriteRecipesView);
   } else {
     nameResults.forEach((recipe) => {
-      favoriteRecipesView.innerHTML += getRecipeBox(recipe);
+      getRecipeBox(favoriteRecipesView, recipe);
     });
   }
 }
@@ -413,12 +360,12 @@ function searchFavRecipeByTag(searchingFor) {
   });
   
   showElement(favoriteRecipesView);
-  favoriteRecipesView.innerHTML = '';
+  clearView(favoriteRecipesView);
   if(!tagResultRecipes.length) {
-    favoriteRecipesView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
+    searchErrorMsg(favoriteRecipesView);
   } else {
     tagResultRecipes.forEach((recipe) => {
-      favoriteRecipesView.innerHTML += getRecipeBox(recipe);
+      getRecipeBox(favoriteRecipesView, recipe);
     });
   }
 }
@@ -437,11 +384,11 @@ function searchRecipeByTag(searchingFor) {
 
   showElement(searchResultsView);
   if(!tagResultRecipes.length) {
-    searchResultsView.innerHTML = "<h3>Sorry, nothing found! Try another search.</h3>"
+    searchErrorMsg(searchResultsView);
   } else {
-    searchResultsView.innerHTML = '';
+    clearView(searchResultsView);
     tagResultRecipes.forEach((recipe) => {
-      searchResultsView.innerHTML += getRecipeBox(recipe);
+      getRecipeBox(searchResultsView, recipe);
     });
   }
 }
