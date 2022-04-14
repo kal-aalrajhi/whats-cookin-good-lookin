@@ -16,7 +16,17 @@ export class Pantry {
         let foundIngredient = this.ingredients.find((ingredient) => {
             return pantryIngredient.ingredient === ingredient.ingredient;
         });
-
+        
+        if(!foundIngredient) {
+            this.ingredients.push(pantryIngredient);
+        } else {
+             this.ingredients.forEach((ingredient) => {
+                if(ingredient.ingredient === pantryIngredient.ingredient) {
+                    ingredient.amount += pantryIngredient.amount;
+                }
+            });
+        }
+    }
         
 
 
