@@ -2,15 +2,17 @@ import './styles.css';
 // import apiCalls from './apiCalls';
 import { fetchResponse } from './apiCalls';
 // domUpdates can I import all functions on one line??
-import { getRecipeBox } from './domUpdates';
-import { searchErrorMsg } from './domUpdates';
-import { clearView } from './domUpdates';
-import { recipeDetails} from './domUpdates';
-import { iconToFull } from './domUpdates';
-import { iconToEmpty } from './domUpdates';
-import { showElement } from './domUpdates';
-import { hideElement } from './domUpdates';
-import { viewTitle } from './domUpdates';
+// import { getRecipeBox } from './domUpdates';
+// import { searchErrorMsg } from './domUpdates';
+// import { clearView } from './domUpdates';
+// import { recipeDetails } from './domUpdates';
+// import { iconToFull } from './domUpdates';
+// import { iconToEmpty } from './domUpdates';
+// import { showElement } from './domUpdates';
+// import { hideElement } from './domUpdates';
+// import { viewTitle } from './domUpdates';
+import { getRecipeBox, searchErrorMsg, clearView, recipeDetails, 
+  iconToFull, iconToEmpty, showElement, hideElement, viewTitle } from './domUpdates';
 
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
