@@ -13,6 +13,12 @@ export class Pantry {
             ingredient: ingredientData.id,
             amount: amount
         }
+        let foundIngredient = this.ingredients.find((ingredient) => {
+            return pantryIngredient.ingredient === ingredient.ingredient;
+        });
+
+        
+
 
     
 
