@@ -1,19 +1,8 @@
 import './styles.css';
 // import apiCalls from './apiCalls';
 import { fetchResponse } from './apiCalls';
-// domUpdates can I import all functions on one line??
-// import { getRecipeBox } from './domUpdates';
-// import { searchErrorMsg } from './domUpdates';
-// import { clearView } from './domUpdates';
-// import { recipeDetails } from './domUpdates';
-// import { iconToFull } from './domUpdates';
-// import { iconToEmpty } from './domUpdates';
-// import { showElement } from './domUpdates';
-// import { hideElement } from './domUpdates';
-// import { viewTitle } from './domUpdates';
 import { getRecipeBox, searchErrorMsg, clearView, recipeDetails, 
   iconToFull, iconToEmpty, showElement, hideElement, viewTitle } from './domUpdates';
-
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
@@ -40,6 +29,9 @@ const findByNameView = document.querySelector("#findByNameView");
 const searchResultsView = document.querySelector("#searchResultsView");
 const favoriteRecipesView = document.querySelector("#favoriteRecipeView");
 const toCookView = document.querySelector("#toCookView");
+const toCookRecipiesView = document.querySelector("#toCookRecipiesView");
+// const pantryView = document.querySelector("#pantryView");
+const pantryList = document.querySelector("#pantryList");
 const searchFavBarsView = document.querySelector("#favSearchBar");
 const findByTagView = document.querySelector("#findByTagView");
 const recipeDetailCard = document.querySelector("#recipeDetailCard");
@@ -132,14 +124,26 @@ function loadData() {
   Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
     allRecipeData = data[0].recipeData;
     allRecipeStorage.addRecipes(allRecipeData);
-
+  
     usersData = data[1].usersData;
     const randomIndex = Math.floor(Math.random() * usersData.length)
     currentUser = new User(usersData[randomIndex]);
-
+    
     allIngredientsData = data[2].ingredientsData;
+    // console.log(currentUser.pantry.ingredientsInPantry)
   })
   .catch((err) => console.log(err));
+}
+
+function loadPantry() {
+  currentUser.pantry.ingredientsInPantry.forEach((ingredient, idx) => {
+    pantryList.innerHTML += `
+      <tr>
+        <td>${currentUser.pantry.getIngredientNames(allIngredientsData)[idx]}</td>
+        <td>${currentUser.pantry.getIngredientAmounts(allIngredientsData)[idx]}</td>
+      </tr>
+    `
+  })
 }
 
 function grabSearchValue(byValue) {
@@ -180,6 +184,7 @@ function loadToCookView() {
   showElement(searchResultView);
   showElement(toCookView);
   toCookCurrentRecipe();
+  loadPantry();
 }
 
 function loadHomeView() {
@@ -251,9 +256,9 @@ function addToCookRecipe(event) {
 }
 
 function toCookCurrentRecipe() {
-  viewTitle(toCookView, currentUser.name);
+  // viewTitle(toCookView, currentUser.name);
   currentUser.recipesToCook.forEach((recipe) => {
-    getRecipeBox(toCookView, recipe);
+    getRecipeBox(toCookRecipiesView, recipe);
   });
 }
 
