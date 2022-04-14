@@ -4,19 +4,17 @@ import { User } from './User.js';
 
 export class Pantry {
     constructor(pantry) {
-        this.ingredients = pantry || [];
+        this.ingredients = pantry|| [];
 
     };
 
-    addIngredient(ingredient) {
-        this.ingredients.push(ingredient);
+    addIngredient(ingredientData, amount) {
+        let pantryIngredient = {
+            ingredient: ingredientData.id,
+            amount: amount
+        }
 
-        //check if pantry already includes ingredient
-        //if it doesn't exist push it into the this.ingredients array
-        //if ingredient is there add it to the amount
-        //get ingredients from recipe
-        //somehow access quantities
-    }
+    
 
     removeIngredients() {
         // remove ingredients based off passed in recipe.recipeIngredients
