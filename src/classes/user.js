@@ -8,10 +8,11 @@ export class User {
   };
 
   addFavoriteRecipe(recipe) {
-    this.favoriteRecipes.push(recipe)
+    this.favoriteRecipes.push(recipe);
   };
 
   addRecipesToCook(recipe) {
-    this.recipesToCook.push(recipe)
+    this.recipesToCook.push(recipe);
   };
 };
+
