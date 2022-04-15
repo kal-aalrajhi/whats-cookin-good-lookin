@@ -162,7 +162,12 @@ export class Pantry {
     getMissingIngredients(recipe, ingredientsData) {
         let comparedIngredients = this.compareRecipeToPantry(recipe, ingredientsData);
         let missingIngredients = comparedIngredients.filter(ingredient => ingredient.amountNeeded > 0);
+        
         return missingIngredients;
+    }
+
+    isIngredientMissing(recipe, ingredientsData) {
+        return !!this.getMissingIngredients(recipe, ingredientsData);
     }
 }
 

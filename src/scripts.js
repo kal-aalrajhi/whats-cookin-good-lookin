@@ -12,6 +12,7 @@ import './images/full-star.png';
 import './images/empty-star.png';
 import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
+import './images/check-mark.png';
 
 // Global Variables
 let allIngredientsData = [];
@@ -304,7 +305,7 @@ function loadRecipeDetailView(event) {
       return recipe.id === currentRecipe.id;
     });
 
-    recipeDetails(recipeDetailCard, currentRecipe, instructionsList, allIngredientsData);
+    recipeDetails(recipeDetailCard, currentRecipe, instructionsList, allIngredientsData, currentUser);
     
     if(isFavorite) {
       iconToFull("star");

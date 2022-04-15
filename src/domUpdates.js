@@ -23,7 +23,7 @@ export function getRecipeBox(view, recipe) {
         </div>`
 }
 
-export function recipeDetails(view, currentRecipe, instructionsList, allIngredientsData) {
+export function recipeDetails(view, currentRecipe, instructionsList, allIngredientsData, currentUser) {
     view.innerHTML = `
         <h3 class="recipe-name">${currentRecipe.name}</h3>
         <h4>Ingredients</h4>
@@ -38,16 +38,56 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
         <div class="to-cook-tool" id=${currentRecipe.id}>
             <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="" alt="chef tools icon"/>
         </div>
-        <h4>Cook Status</h4>
-        <div class="to-cook-status" id=${currentRecipe.id}>
-            <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="" alt="chef tools icon"/>
+        <h4>Cook Status: <span id="cookStatusText">Ready to Cook!</span></h4>
+        <div class="to-cook-status" id="toCookStatus">
+            <table class="missing-ingredient-list" id="missingIngredientList"></table>
         </div>`;
+    // Ingredient list
     loadIngredientList(currentRecipe, allIngredientsData);
+
+    // Check for missing ingredients
+    if(currentUser.pantry.isIngredientMissing(currentRecipe, allIngredientsData)) {
+        loadMissingIngredients(currentUser, currentRecipe, allIngredientsData);
+    } else {
+        loadReadyToCookIcon(currentRecipe)
+    }
+
+    view.innerHTML += `<p>You've cooked this recipe: ${currentRecipe.timesCooked} times.</p>`
+    
+    // Load recipe instructions
     instructionsList.innerHTML = "<h3>Instructions</h3>";
     currentRecipe.instructions.forEach((instruction) => {
         instructionsList.innerHTML += `
             <li>${instruction.instruction}</li>`
   });
+}
+
+function loadReadyToCookIcon(currentRecipe) {
+    const toCookStatus = document.querySelector("#toCookStatus");
+    currentRecipe.timesCooked++; // DO THIS ONLY IF IT'S BEEN CLICKED
+    toCookStatus.innerHTML = `
+        <div class="check-mark" id=${currentRecipe.id}>
+            <img class="check-mark-icon" id=${currentRecipe.id} src="./images/check-mark.png" alt="green and white check mark icon"/>
+        </div>`
+}
+
+function loadMissingIngredients(currentUser, currentRecipe, allIngredientsData) {
+    const cookStatusText = document.querySelector("#cookStatusText");
+    cookStatusText.innerText = "Not ready. You're missing the following...";
+    const missingIngredientList = document.querySelector("#missingIngredientList");
+    missingIngredientList.innerHTML = `
+        <tr>
+            <th>Ingredient</th>
+            <th>Amount Missing</th>
+        </tr>`;
+    let missingIngredients = currentUser.pantry.getMissingIngredients(currentRecipe, allIngredientsData);
+    missingIngredients.forEach(ingredient => {
+        missingIngredientList.innerHTML += `
+        <tr>
+            <td>${ingredient.name}</td>
+            <td>${ingredient.amountNeeded}</td>
+        </tr>`;
+    });
 }
 
 function loadIngredientList(currentRecipe, allIngredientsData) {
@@ -65,6 +105,7 @@ function loadIngredientList(currentRecipe, allIngredientsData) {
         </tr>`;
     });
 }
+
 
 export function iconToFull(iconName) {
     let icon = document.querySelector(`.${iconName}-icon`);

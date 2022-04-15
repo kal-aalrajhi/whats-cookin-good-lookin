@@ -10,6 +10,7 @@ export class Recipe {
         this.tags = recipe.tags;
         this.favorite = false;
         this.toCook = false;
+        this.timesCooked = 0; // test this
     };
 
     getIngredientDetails(ingredientsData) {
