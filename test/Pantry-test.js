@@ -23,8 +23,9 @@ describe('Pantry', () => {
         pantry0 = new Pantry();
         pantry1 = new Pantry(user1.pantry);
         ingredient = ingredientsSampleData[8];
-        recipeData = recipesSampleData;
-        recipe = new Recipe(recipesSampleData);
+        recipeData = recipesSampleData[0];
+        recipe = new Recipe(recipeData);
+        ingredientData = ingredientsSampleData;
     });
 
     it('should create a new instance of Pantry', () => {
@@ -49,7 +50,7 @@ describe('Pantry', () => {
         // console.log('var ingriedein', ingredient)
     });
 
-    it.only('howdy2', () => {
+    it('howdy2', () => {
         // expect(pantry1.addIngredient(ingredient)).to.equal()
         console.log("\nremove first ingredient.... (doesn't exist)")
         console.log(pantry1.removeIngredient(ingredient, 7));
@@ -58,5 +59,12 @@ describe('Pantry', () => {
         console.log("\nremove ingredient.... (exists now)")
         console.log(pantry1.removeIngredient(ingredient, 600));
         console.log(pantry1.removeIngredient(ingredient, 66));
+    });
+
+    it('howdy3', () => {
+        // pantry1.getIngredientDetails(ingredientsData);
+        // console.log(ingredientData);
+        console.log(pantry1.getIngredientAmounts(recipeData))
+        // pantry1.isAbleToCook(recipe, ingredientData);
     });
 });

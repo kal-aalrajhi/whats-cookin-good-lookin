@@ -1,3 +1,5 @@
+import loader from "sass-loader";
+
 export function showElement(element) {
     element.classList.remove("hidden");
 }
@@ -27,22 +29,40 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
     view.innerHTML = `
         <h3 class='recipe-name'>${currentRecipe.name}</h3>
         <h4>Ingredients</h4>
+        <table class='ingredient-list'id='class='ingredient-list'></table>
         <p>${currentRecipe.getIngredientNames(allIngredientsData)}</p>
         <h4>Total Cost</h4>
         <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
         <h4>Favorite</h4>
         <div class="favorite-star" id=${currentRecipe.id}>
-        <img class="star-icon empty-star" id=${currentRecipe.id} src="" alt="star icon"/>
+            <img class="star-icon empty-star" id=${currentRecipe.id} src="" alt="star icon"/>
         </div>
         <h4>To Cook</h4>
         <div class="to-cook-tool" id=${currentRecipe.id}>
-        <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="" alt="chef tools icon"/>
+            <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="" alt="chef tools icon"/>
+        </div>
+        <h4>Cook Status</h4>
+        <div class="to-cook-status" id=${currentRecipe.id}>
+            <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="" alt="chef tools icon"/>
         </div>`;
+    loadIngredientList(currentRecipe, allIngredientsData);
     instructionsList.innerHTML = '<h3>Instructions</h3>';
     currentRecipe.instructions.forEach((instruction) => {
         instructionsList.innerHTML += `
             <li>${instruction.instruction}</li>`
   });
+}
+
+function loadIngredientList(currentRecipe, allIngredientsData) {
+    const ingredientList = document.querySelector("#ingredient-list");
+    console.log(currentRecipe.getIngredientIds(allIngredientsData));
+    ingredientList.innerHTML = "";
+    ingredientList.innerHTML += `
+        <tr>
+            <td>
+            </td>
+        </tr>
+    `;
 }
 
 export function iconToFull(iconName) {

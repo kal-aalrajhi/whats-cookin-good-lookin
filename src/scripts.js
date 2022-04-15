@@ -14,7 +14,7 @@ import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
 
 // Global Variables
-let allIngredientsData = [];
+export let allIngredientsData = [];
 let allRecipeStorage = new RecipeRepository();
 let allRecipeData = [];
 let usersData = [];
