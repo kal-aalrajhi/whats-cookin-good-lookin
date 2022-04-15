@@ -1,5 +1,3 @@
-import loader from "sass-loader";
-
 export function showElement(element) {
     element.classList.remove("hidden");
 }
@@ -18,19 +16,18 @@ export function searchErrorMsg(view) {
 
 export function getRecipeBox(view, recipe) {
     view.innerHTML += `
-        <div class='box recipe-box'>
-            <img id=${recipe.id} src=${recipe.image} alt='${recipe.name} image'/>
-            <h4 class='recipe-name'>${recipe.name}</h4>
-            <p class='recipe-tags'>Tags: ${recipe.tags}</p>
+        <div class="box recipe-box">
+            <img id=${recipe.id} src=${recipe.image} alt="${recipe.name} image"/>
+            <h4 class="recipe-name">${recipe.name}</h4>
+            <p class="recipe-tags">Tags: ${recipe.tags}</p>
         </div>`
 }
 
 export function recipeDetails(view, currentRecipe, instructionsList, allIngredientsData) {
     view.innerHTML = `
-        <h3 class='recipe-name'>${currentRecipe.name}</h3>
+        <h3 class="recipe-name">${currentRecipe.name}</h3>
         <h4>Ingredients</h4>
-        <table class='ingredient-list'id='class='ingredient-list'></table>
-        <p>${currentRecipe.getIngredientNames(allIngredientsData)}</p>
+        <table class="ingredient-list" id="ingredientList"></table>
         <h4>Total Cost</h4>
         <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
         <h4>Favorite</h4>
@@ -46,7 +43,7 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
             <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="" alt="chef tools icon"/>
         </div>`;
     loadIngredientList(currentRecipe, allIngredientsData);
-    instructionsList.innerHTML = '<h3>Instructions</h3>';
+    instructionsList.innerHTML = "<h3>Instructions</h3>";
     currentRecipe.instructions.forEach((instruction) => {
         instructionsList.innerHTML += `
             <li>${instruction.instruction}</li>`
@@ -54,15 +51,19 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
 }
 
 function loadIngredientList(currentRecipe, allIngredientsData) {
-    const ingredientList = document.querySelector("#ingredient-list");
-    console.log(currentRecipe.getIngredientIds(allIngredientsData));
-    ingredientList.innerHTML = "";
-    ingredientList.innerHTML += `
+    const ingredientList = document.querySelector("#ingredientList");
+    ingredientList.innerHTML = `
         <tr>
-            <td>
-            </td>
-        </tr>
-    `;
+            <th>Ingredient</th>
+            <th>Amount</th>
+        </tr>`;
+    currentRecipe.getIngredientIds(allIngredientsData).forEach(ingredientId => {
+        ingredientList.innerHTML += `
+        <tr>
+            <td>${currentRecipe.getIngredientName(ingredientId, allIngredientsData)}</td>
+            <td>${currentRecipe.getQuantityRequired(ingredientId, allIngredientsData)}</td>
+        </tr>`;
+    });
 }
 
 export function iconToFull(iconName) {

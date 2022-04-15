@@ -1,9 +1,8 @@
 import { Ingredient } from './Ingredient';
 
 export class Pantry {
-    constructor(pantry) {
-        this.ingredientsInPantry = pantry|| [];
-
+    constructor(pantry) { // Remember that Pantry is only accessed via the User
+        this.ingredientsInPantry = pantry || [];
     };
 
     // Test me
@@ -76,6 +75,16 @@ export class Pantry {
     }
 
     // Test me
+    getCurrentQuantity(ingredientId) {
+        let ingredientToFind = this.ingredientsInPantry.find(pantryIngredient => pantryIngredient.ingredient === ingredientId);
+        // if not found, then you have 0 of that ingredient
+        if(!ingredientToFind) {
+            return 0;
+        }
+        return ingredientToFind.amount;
+    };
+
+    // Test me
     getIngredientIds(ingredientsData) {
         let ingredientDetails = this.getIngredientDetails(ingredientsData);
         let ingredientIds = ingredientDetails.map(ingredientDetail => ingredientDetail.id);
@@ -95,20 +104,66 @@ export class Pantry {
         return ingredientAmounts;  // works with ingredient objects, returns array of amount ['18', '7']
     }
 
+    // From INGREDIENTS DATA (ingredientsData)
+    // [
+    //     { id: 20081, name: 'wheat flour', estimatedCostInCents: 142 },
+    //     { id: 18372, name: 'bicarbonate of soda', estimatedCostInCents: 582 },
+    //     { id: 1123, name: 'eggs', estimatedCostInCents: 472 },... 
+    // ]
+      
+
+    // From the RECIPE (recipe.recipeIngredients)
+    // recipeIngredients: [ 
+    //     { id: 20081, quantity: [Object] },
+    //     { id: 18372, quantity: [Object] },
+    //     { id: 1123, quantity: [Object] },
+    //     { id: 19335, quantity: [Object] },
+    //     { id: 19206, quantity: [Object] }
+    //   ]
+
+    // quantity (recipe.recipeIngredients[0].quantity)
+    //  { amount: 1.5, unit: 'c' }
+
+    // From INGREDIENTS IN PANTRY (this.ingredientsInPantry)
+    // [
+    //     { ingredient: 11297, amount: 4 },
+    //     { ingredient: 1082047, amount: 10 },
+    //     { ingredient: 20081, amount: 5 }, ...
+    // ]
+
     // Test me
-    isAbleToCook(recipe, ingredientsData) { // takes in a recipe object
-        // We need to compare ingredient quantities
-        // this.getIngredientIds(ingredientsData);
-        // if (this.getIngredientIds() === recipe.recipeIngredients[0].id);
-        
-
-
-        return {}
+    compareRecipeToPantry(recipe, ingredientsData) { // takes in a recipe object
+        const recipeToPantryIngredients = recipe.recipeIngredients.map((recIngredient) => {
+            // Get current ingredient name
+            let ingredientName = ingredientsData.find(ingredientData => ingredientData.id === recIngredient.id).name;
+            // Get current ingredient from pantry
+            let ingredientFromPantry = this.ingredientsInPantry.find(ingredientInPantry => ingredientInPantry.ingredient === recIngredient.id);
+            let ingredientFromPantryAmount = 0; // incase ingredient not found, then we have 0 of it
+            if (ingredientFromPantry) {
+                ingredientFromPantryAmount = ingredientFromPantry.amount;
+            } 
+            // Get amount needed to make recipe
+            let amountNeeded = recIngredient.quantity.amount - ingredientFromPantryAmount; 
+            // if negative, then user has more than enough - so they don't need any
+            if(amountNeeded < 0) {
+                amountNeeded = 0;
+            }
+            return {
+                id: recIngredient.id,
+                name: ingredientName,
+                amountRequired: recIngredient.quantity.amount,
+                amountInPantry: ingredientFromPantryAmount,
+                amountNeeded: amountNeeded
+            }
+        });
+        return recipeToPantryIngredients;
     }
 
-    // isMissing() {
-
-    // }
+    getMissingIngredients(recipe, ingredientsData) {
+        let comparedIngredients = this.compareRecipeToPantry(recipe, ingredientsData);
+        let missingIngredients = comparedIngredients.filter(ingredient => ingredient.amountNeeded > 0);
+        return missingIngredients;
+    }
 }
 
 

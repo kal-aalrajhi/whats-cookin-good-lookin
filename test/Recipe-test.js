@@ -97,7 +97,7 @@ describe('Recipe', () => {
           ]);
     });
 
-    it.only('should be able to get an ingredient\'s quantity by id', () => {
+    it('should be able to get an ingredient\'s quantity by id', () => {
         expect(recipe.getQuantityRequired(20081, allIngredientsData)).to.equal(1.5);
         expect(recipe.getQuantityRequired(19206, allIngredientsData)).to.equal(3);
     });

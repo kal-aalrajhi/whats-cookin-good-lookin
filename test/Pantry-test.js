@@ -8,13 +8,13 @@ import { recipesSampleData } from '../src/data/recipes-sample-data.js';
 import { User } from '../src/classes/User.js'
 
 
-describe('Pantry', () => {
+describe('Pantry Test', () => {
     let pantry0;
     let pantry1;
     let pantryData;
     let user1;
     let ingredient;
-    let ingredientData;
+    let ingredientsData;
     let recipeData;
     let recipe;
 
@@ -25,7 +25,7 @@ describe('Pantry', () => {
         ingredient = ingredientsSampleData[8];
         recipeData = recipesSampleData[0];
         recipe = new Recipe(recipeData);
-        ingredientData = ingredientsSampleData;
+        ingredientsData = ingredientsSampleData;
     });
 
     it('should create a new instance of Pantry', () => {
@@ -61,10 +61,12 @@ describe('Pantry', () => {
         console.log(pantry1.removeIngredient(ingredient, 66));
     });
 
-    it('howdy3', () => {
+    it.only('howdy3', () => {
         // pantry1.getIngredientDetails(ingredientsData);
         // console.log(ingredientData);
-        console.log(pantry1.getIngredientAmounts(recipeData))
-        // pantry1.isAbleToCook(recipe, ingredientData);
+        // console.log(user1.pantry)
+        // console.log(user1.pantry.getCurrentQuantity(2027));
+        // console.log(user1.pantry.compareRecipeToPantry(recipe, ingredientsData));
+        console.log(user1.pantry.getMissingIngredients(recipe, ingredientsData));
     });
 });

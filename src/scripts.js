@@ -14,7 +14,7 @@ import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
 
 // Global Variables
-export let allIngredientsData = [];
+let allIngredientsData = [];
 let allRecipeStorage = new RecipeRepository();
 let allRecipeData = [];
 let usersData = [];
@@ -130,7 +130,6 @@ function loadData() {
     currentUser = new User(usersData[randomIndex]);
     
     allIngredientsData = data[2].ingredientsData;
-    // console.log(currentUser.pantry.ingredientsInPantry)
   })
   .catch((err) => console.log(err));
 }
@@ -141,8 +140,7 @@ function loadPantry() {
       <tr>
         <td>${currentUser.pantry.getIngredientNames(allIngredientsData)[idx]}</td>
         <td>${currentUser.pantry.getIngredientAmounts(allIngredientsData)[idx]}</td>
-      </tr>
-    `
+      </tr>`
   })
 }
 
