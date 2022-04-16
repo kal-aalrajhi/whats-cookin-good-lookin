@@ -30,8 +30,7 @@ const findByNameView = document.querySelector("#findByNameView");
 const searchResultsView = document.querySelector("#searchResultsView");
 const favoriteRecipesView = document.querySelector("#favoriteRecipeView");
 const toCookView = document.querySelector("#toCookView");
-const toCookRecipiesView = document.querySelector("#toCookRecipiesView");
-// const pantryView = document.querySelector("#pantryView");
+const pantryView = document.querySelector("#pantryView");
 const pantryList = document.querySelector("#pantryList");
 const searchFavBarsView = document.querySelector("#favSearchBar");
 const findByTagView = document.querySelector("#findByTagView");
@@ -45,6 +44,8 @@ const showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
 const findNameBtn = document.querySelector("#findNameBtn");
 const findTagBtn = document.querySelector("#findTagBtn");
 const toCookBtn = document.querySelector("#toCookBtn");
+const pantryBtn = document.querySelector("#pantryBtn");
+const addIngredientBtn = document.querySelector("#addIngredientBtn");
 const searchNameBtn = document.querySelector("#nameSearchBtn");
 const searchTagBtn = document.querySelector("#tagSearchBtn");
 const searchFavNameBtn = document.querySelector("#favNameSearchBtn");
@@ -53,6 +54,8 @@ const searchNameInput = document.querySelector("#searchByNameInput");
 const searchTagInput = document.querySelector("#searchByTagInput");
 const searchFavNameInput = document.querySelector("#favSearchByNameInput");
 const searchFavTagInput = document.querySelector("#favSearchByTagInput");
+const addIngredientInput = document.querySelector("#addIngredientInput");
+const addAmountInput = document.querySelector("#addAmountInput");
 
 // Event Listeners
 window.addEventListener("load", loadData);
@@ -64,6 +67,7 @@ showFavoriteBtn.addEventListener("click", loadFavoriteView);
 homeBtn.addEventListener("click", loadHomeView);
 homeBtnIcon.addEventListener("click", loadHomeView);
 toCookBtn.addEventListener("click", loadToCookView);
+pantryBtn.addEventListener("click", loadPantryView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 
 recipeDetailView.addEventListener("click", (event) => {
@@ -116,6 +120,23 @@ searchFavTagBtn.addEventListener("click", () => {
   searchFavTagInput.value = "";
 });
 
+addIngredientBtn.addEventListener("click", () => {
+  let ingredientToAdd = grabSearchValue("ingredient to add");
+  let amountToAdd = grabSearchValue("amount to add");
+  addIngredientToPantry(ingredientToAdd, amountToAdd);
+  addIngredientInput.value = "";
+  addAmountInput.value = "";
+});
+
+function addIngredientToPantry(ingredientToAddName, amountToAdd) {
+  event.preventDefault();
+  let ingredientToAddId = currentUser.pantry.getIngredientIdByName(ingredientToAddName, allIngredientsData);
+  console.log(currentUser.pantry.addIngredientById(ingredientToAddId, amountToAdd, allIngredientsData));
+  // ^ check if what's returned is valid, can't allow user to add 'butthair'
+  loadPantry();
+}
+
+
 // Functions
 function loadData() {
   const fetchRecipes = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
@@ -135,16 +156,6 @@ function loadData() {
   .catch((err) => console.log(err));
 }
 
-function loadPantry() {
-  currentUser.pantry.ingredientsInPantry.forEach((ingredient, idx) => {
-    pantryList.innerHTML += `
-      <tr>
-        <td>${currentUser.pantry.getIngredientNames(allIngredientsData)[idx]}</td>
-        <td>${currentUser.pantry.getIngredientAmounts(allIngredientsData)[idx]}</td>
-      </tr>`
-  })
-}
-
 function grabSearchValue(byValue) {
   if (byValue === "name") {
     return searchNameInput.value.toLowerCase();
@@ -154,6 +165,10 @@ function grabSearchValue(byValue) {
     return searchFavNameInput.value.toLowerCase();
   } else if (byValue === "favorite tag") {
     return searchFavTagInput.value.toLowerCase();
+  } else if (byValue === "ingredient to add") {
+    return addIngredientInput.value.toLowerCase();
+  } else if (byValue === "amount to add") {
+    return addAmountInput.value;
   }
 }
 
@@ -168,6 +183,7 @@ function hideAllViews() {
   hideElement(favoriteRecipesView);
   hideElement(searchFavBarsView);
   hideElement(toCookView);
+  hideElement(pantryView);
 }
 
 function loadFavoriteView() {
@@ -183,6 +199,24 @@ function loadToCookView() {
   showElement(searchResultView);
   showElement(toCookView);
   toCookCurrentRecipe();
+
+}
+
+// Move to DOM file
+function loadPantry() {
+  pantryList.innerHTML = "";
+  currentUser.pantry.ingredientsInPantry.forEach((ingredient, idx) => {
+    pantryList.innerHTML += `
+      <tr>
+        <td>${currentUser.pantry.getIngredientNames(allIngredientsData)[idx]}</td>
+        <td>${currentUser.pantry.getIngredientAmounts(allIngredientsData)[idx]}</td>
+      </tr>`
+  });
+}
+
+function loadPantryView() {
+  hideAllViews();
+  showElement(pantryView); 
   loadPantry();
 }
 
@@ -255,9 +289,9 @@ function addToCookRecipe(event) {
 }
 
 function toCookCurrentRecipe() {
-  // viewTitle(toCookView, currentUser.name);
+  viewTitle(toCookView, currentUser.name);
   currentUser.recipesToCook.forEach((recipe) => {
-    getRecipeBox(toCookRecipiesView, recipe);
+    getRecipeBox(toCookView, recipe);
   });
 }
 

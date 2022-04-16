@@ -106,7 +106,6 @@ function loadIngredientList(currentRecipe, allIngredientsData) {
     });
 }
 
-
 export function iconToFull(iconName) {
     let icon = document.querySelector(`.${iconName}-icon`);
     icon.src = `./images/full-${iconName}.png`;

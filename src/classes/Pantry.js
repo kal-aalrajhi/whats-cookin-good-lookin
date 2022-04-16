@@ -5,10 +5,13 @@ export class Pantry {
         this.ingredientsInPantry = pantry || [];
     };
 
-    // Test me
-    addIngredient(ingredientData, amount) {
+
+
+    // Test me || refactor to add by name
+    addIngredientById(ingredientId, amount, ingredientData) {
+        let ingredientName = this.getIngredientNameById(ingredientId, ingredientData)        
         let pantryIngredient = {
-            ingredient: ingredientData.id,
+            ingredient: ingredientId,
             amount: amount
         }
         let foundIngredient = this.ingredientsInPantry.find((ingredient) => {
@@ -17,19 +20,19 @@ export class Pantry {
         
         if(!foundIngredient) {
             this.ingredientsInPantry.push(pantryIngredient);
-            return `Successfully added ${pantryIngredient.amount} ${ingredientData.name} to your pantry.`;
+            return `Successfully added ${pantryIngredient.amount} ${ingredientName} to your pantry.`;
         } else {
              this.ingredientsInPantry.forEach((ingredient) => {
                 if(ingredient.ingredient === pantryIngredient.ingredient) {
-                    ingredient.amount += pantryIngredient.amount;
+                    ingredient.amount += Number(pantryIngredient.amount);
                 }
             });
-            return `Successfully added ${pantryIngredient.amount} more ${ingredientData.name} to your pantry.`;
+            return `Successfully added ${pantryIngredient.amount} more ${ingredientName} to your pantry.`;
         }
     }
     
-    // Test me
-    removeIngredient(ingredientData, amountToRemove) {
+    // Test me || Refactor to look like addIngredientById
+    removeIngredient(ingredient, amountToRemove) {
         let pantryIngredient = {
             ingredient: ingredientData.id,
             amount: amountToRemove
@@ -83,6 +86,19 @@ export class Pantry {
         }
         return ingredientToFind.amount;
     };
+
+    // Test me
+    getIngredientIdByName(ingredientName, ingredientData) {
+        let ingredientToFind = ingredientData.find(ingredient => ingredient.name === ingredientName);
+        // Error handle if ingredient not found...like if someone typed "butthair"
+        return ingredientToFind.id; 
+    }
+
+    // Test me
+    getIngredientNameById(ingredientId, ingredientData) {
+        let ingredientToFind = ingredientData.find(ingredient => ingredient.id === ingredientId);
+        return ingredientToFind.name; 
+    }
 
     // Test me
     getIngredientIds(ingredientsData) {

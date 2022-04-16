@@ -24,6 +24,9 @@
         <button class="nav-btn" id="toCookBtn">To Cook</button>
       </li>
       <li class="nav-item">
+        <button class="nav-btn" id="pantryBtn">Pantry</button>
+      </li>
+      <li class="nav-item">
         <button class="nav-btn" id="findNameBtn">Find by Name</button>
       </li>
       <li class="nav-item">
@@ -73,22 +76,9 @@
         <!-- view favorite recipes appears -->
       </section>
       <!-- TO COOK VIEW-->
-        <section class="view to-cook-view hidden" id="toCookView">
-          <section class="view to-cook-recipes-view" id="toCookRecipiesView">
-            <!-- to cook recipe cards appear-->
-          </section>
-          <section class="view pantry-view" id="pantryView">
-            <!-- view pantry appears-->
-            <h3>Current Pantry</h3>
-            <table class="pantry-list" id="pantryList" >
-              <tr>
-                <th>Ingredient</th>
-                <th>Amount</th>
-              </tr>
-              <!-- pantry ingredients here-->
-            </table>
-          </section>
-        </section>
+      <section class="view to-cook-view hidden" id="toCookView">
+        <!-- view favorite recipes appears -->
+      </section>
       <!--SEARCH BY RECIPE VIEW -->
       <section class="view name-recipe-view hidden" id="findByNameView">
         <form class="search-form">
@@ -123,7 +113,26 @@
         </article>
       </section>
     </section>
+    <!-- PANTRY VIEW-->
+    <section class="view pantry-view hidden" id="pantryView">
+      <h3>Current Pantry</h3>
+      <form class="add-form">
+        <label class="add-label">Ingredient</label>
+        <input class="add-ingredient-input" id="addIngredientInput" required/>
+        <label class="add-label">Amount</label>
+        <input type="number" min="1" class="add-amount-input" id="addAmountInput" required/>
+        <button class="add-ingredient-btn" id="addIngredientBtn">Add</button>
+      </form>
+      <table class="pantry-list" id="pantryList" >
+        <tr>
+          <th>Ingredient</th>
+          <th>Amount</th>
+        </tr>
+        <!-- pantry ingredients here-->
+      </table>
+    </section>
   </main>
 </body>
   <script src="bundle.js"></script>
 </html>
+ 
