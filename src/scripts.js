@@ -1,17 +1,8 @@
 import './styles.css';
 // import apiCalls from './apiCalls';
 import { fetchResponse } from './apiCalls';
-// domUpdates can I import all functions on one line??
-import { getRecipeBox } from './domUpdates';
-import { searchErrorMsg } from './domUpdates';
-import { clearView } from './domUpdates';
-import { recipeDetails} from './domUpdates';
-import { iconToFull } from './domUpdates';
-import { iconToEmpty } from './domUpdates';
-import { showElement } from './domUpdates';
-import { hideElement } from './domUpdates';
-import { viewTitle } from './domUpdates';
-
+import { getRecipeBox, searchErrorMsg, clearView, recipeDetails, 
+  iconToFull, iconToEmpty, showElement, hideElement, loadPantry } from './domUpdates';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
@@ -21,6 +12,7 @@ import './images/full-star.png';
 import './images/empty-star.png';
 import './images/full-to-cook.png';
 import './images/empty-to-cook.png';
+import './images/check-mark.png';
 
 // Global Variables
 let allIngredientsData = [];
@@ -38,6 +30,8 @@ const findByNameView = document.querySelector("#findByNameView");
 const searchResultsView = document.querySelector("#searchResultsView");
 const favoriteRecipesView = document.querySelector("#favoriteRecipeView");
 const toCookView = document.querySelector("#toCookView");
+const pantryView = document.querySelector("#pantryView");
+const pantryList = document.querySelector("#pantryList");
 const searchFavBarsView = document.querySelector("#favSearchBar");
 const findByTagView = document.querySelector("#findByTagView");
 const recipeDetailCard = document.querySelector("#recipeDetailCard");
@@ -50,6 +44,8 @@ const showFavoriteBtn = document.querySelector("#favoriteRecipesBtn");
 const findNameBtn = document.querySelector("#findNameBtn");
 const findTagBtn = document.querySelector("#findTagBtn");
 const toCookBtn = document.querySelector("#toCookBtn");
+const pantryBtn = document.querySelector("#pantryBtn");
+const addIngredientBtn = document.querySelector("#addIngredientBtn");
 const searchNameBtn = document.querySelector("#nameSearchBtn");
 const searchTagBtn = document.querySelector("#tagSearchBtn");
 const searchFavNameBtn = document.querySelector("#favNameSearchBtn");
@@ -58,6 +54,8 @@ const searchNameInput = document.querySelector("#searchByNameInput");
 const searchTagInput = document.querySelector("#searchByTagInput");
 const searchFavNameInput = document.querySelector("#favSearchByNameInput");
 const searchFavTagInput = document.querySelector("#favSearchByTagInput");
+const addIngredientInput = document.querySelector("#addIngredientInput");
+const addAmountInput = document.querySelector("#addAmountInput");
 
 // Event Listeners
 window.addEventListener("load", loadData);
@@ -69,6 +67,7 @@ showFavoriteBtn.addEventListener("click", loadFavoriteView);
 homeBtn.addEventListener("click", loadHomeView);
 homeBtnIcon.addEventListener("click", loadHomeView);
 toCookBtn.addEventListener("click", loadToCookView);
+pantryBtn.addEventListener("click", loadPantryView);
 searchResultsView.addEventListener("click", loadRecipeDetailView);
 
 recipeDetailView.addEventListener("click", (event) => {
@@ -121,6 +120,22 @@ searchFavTagBtn.addEventListener("click", () => {
   searchFavTagInput.value = "";
 });
 
+addIngredientBtn.addEventListener("click", () => {
+  let ingredientToAdd = grabSearchValue("ingredient to add");
+  let amountToAdd = grabSearchValue("amount to add");
+  addIngredientToPantry(ingredientToAdd, amountToAdd);
+  addIngredientInput.value = "";
+  addAmountInput.value = "";
+});
+
+function addIngredientToPantry(ingredientToAddName, amountToAdd) {
+  event.preventDefault();
+  let ingredientToAddId = currentUser.pantry.getIngredientIdByName(ingredientToAddName, allIngredientsData);
+  let addStatus = currentUser.pantry.addIngredientById(ingredientToAddId, amountToAdd, allIngredientsData)
+  loadPantry(pantryList, allIngredientsData, currentUser, addStatus);
+}
+
+
 // Functions
 function loadData() {
   const fetchRecipes = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
@@ -130,11 +145,11 @@ function loadData() {
   Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
     allRecipeData = data[0].recipeData;
     allRecipeStorage.addRecipes(allRecipeData);
-
+  
     usersData = data[1].usersData;
     const randomIndex = Math.floor(Math.random() * usersData.length)
     currentUser = new User(usersData[randomIndex]);
-
+    
     allIngredientsData = data[2].ingredientsData;
   })
   .catch((err) => console.log(err));
@@ -149,6 +164,10 @@ function grabSearchValue(byValue) {
     return searchFavNameInput.value.toLowerCase();
   } else if (byValue === "favorite tag") {
     return searchFavTagInput.value.toLowerCase();
+  } else if (byValue === "ingredient to add") {
+    return addIngredientInput.value.toLowerCase();
+  } else if (byValue === "amount to add") {
+    return addAmountInput.value;
   }
 }
 
@@ -163,6 +182,7 @@ function hideAllViews() {
   hideElement(favoriteRecipesView);
   hideElement(searchFavBarsView);
   hideElement(toCookView);
+  hideElement(pantryView);
 }
 
 function loadFavoriteView() {
@@ -178,6 +198,13 @@ function loadToCookView() {
   showElement(searchResultView);
   showElement(toCookView);
   toCookCurrentRecipe();
+
+}
+
+function loadPantryView() {
+  hideAllViews();
+  showElement(pantryView); 
+  loadPantry(pantryList, allIngredientsData, currentUser);
 }
 
 function loadHomeView() {
@@ -249,7 +276,6 @@ function addToCookRecipe(event) {
 }
 
 function toCookCurrentRecipe() {
-  viewTitle(toCookView, currentUser.name);
   currentUser.recipesToCook.forEach((recipe) => {
     getRecipeBox(toCookView, recipe);
   });
@@ -299,7 +325,7 @@ function loadRecipeDetailView(event) {
       return recipe.id === currentRecipe.id;
     });
 
-    recipeDetails(recipeDetailCard, currentRecipe, instructionsList, allIngredientsData);
+    recipeDetails(recipeDetailCard, currentRecipe, instructionsList, allIngredientsData, currentUser);
     
     if(isFavorite) {
       iconToFull("star");

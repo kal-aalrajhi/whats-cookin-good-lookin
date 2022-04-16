@@ -17,6 +17,7 @@ floralwhite;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
+  /* border: 0.1rem solid red; */
 }
 
 /* TEXT */
@@ -52,10 +53,32 @@ li {
   margin-top: 0.5rem;
 }
 
+th {
+  border: 0.3rem solid #676666;
+  background-color: #ffcb90;
+  padding: 1rem;
+  font-size: 2rem;
+}
+
+td {
+  border: 0.2rem solid #9b9a9a;
+  padding: 1rem;
+  font-size: 2rem;
+}
+
 .page-title {
  margin-left: 2.2rem;
  margin-top: 3rem;
 }
+
+.view-title {
+  margin: 1rem 2.2rem;
+ }
+
+ .add-msg {
+   font-size: 1.8rem;
+   margin: 0 0 1rem 2.2rem;
+ }
 
 /* NAVIGATION */
 nav {
@@ -238,6 +261,36 @@ nav {
   font-size: 1.5rem;
 }
 
+.pantry-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.pantry-list {
+  background-color: #fadc8a;
+}
+
+.add-label {
+  font-size: 2rem;
+  margin-left: 2.2rem;
+  margin-right: 0.8rem;
+}
+
+.add-ingredient-input {
+  font-size: 1.8rem;
+  height: 3rem;
+  padding: 0.5rem 0.5rem;
+  width: 30rem;
+}
+
+.add-amount-input {
+  font-size: 1.8rem;
+  height: 3rem;
+  padding: 0.5rem 0.5rem;
+  width: 8rem;
+}
+
+
 /* BUTTONS */
 .nav-btn {
   background: #82b2ad;
@@ -254,7 +307,7 @@ nav {
 .nav-btn:hover {
   background: #392F5A;
 }
-
+ 
 .search-btn {
   background: #f3cb9d;
   border: none;
@@ -273,6 +326,22 @@ nav {
 .btn-fav {
   font-size: 1.5rem;
   padding: 0.4rem 0.8rem;
+}
+
+.add-ingredient-btn {
+  background: #f3cb9d;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  margin: 1rem;
+  padding: 0.8rem 1.1rem;
+  transition: all 200ms ease-in
+}
+
+.add-ingredient-btn:hover {
+  background-color: #f9dd92;
 }
 
 /* FUNCTIONALITY */

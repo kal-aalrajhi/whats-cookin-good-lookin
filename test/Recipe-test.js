@@ -79,7 +79,12 @@ describe('Recipe', () => {
               name: 'instant vanilla pudding',
               estimatedCostInCents: 660
             }
-          ])
+          ]);
+    });
+
+    it('should be able to get an ingredient\'s name by id', () => {
+        expect(recipe.getIngredientName(20081, allIngredientsData)).to.equal("wheat flour");
+        expect(recipe.getIngredientName(19206, allIngredientsData)).to.equal("instant vanilla pudding");
     });
 
     it('should be able to get ingredients names', () => {
@@ -89,7 +94,12 @@ describe('Recipe', () => {
             'eggs',
             'sucrose',
             'instant vanilla pudding'
-          ])
+          ]);
+    });
+
+    it('should be able to get an ingredient\'s quantity by id', () => {
+        expect(recipe.getQuantityRequired(20081, allIngredientsData)).to.equal(1.5);
+        expect(recipe.getQuantityRequired(19206, allIngredientsData)).to.equal(3);
     });
 
     it('should get total cost in dollars', () => {
