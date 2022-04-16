@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Whats Cookin' Good Lookin'</title>
   </head>
@@ -9,28 +9,28 @@
     <h1>Whats Cookin' Good Lookin'</h1>
     <ul class="nav-list">
       <li class="nav-item">
-        <img class="nav-icon" id="homeBtnIcon" src="./images/food-icon-light.png" alt="food-icon-home">
+        <img class="nav-icon" aria-describedby="homeBtnIcon" id="homeBtnIcon" src="./images/food-icon-light.png" alt="home page food photo">
       </li>
       <li class="nav-item">
-        <button class="nav-btn" id="homeBtn">Home</button>
+        <button class="nav-btn" aria-describedby="homeBtn" id="homeBtn">Home</button>
       </li>
       <li class="nav-item">
-        <button class="nav-btn" id="allRecipesBtn">All Recipes</button>
+        <button class="nav-btn" aria-describedby="allRecipesBtn" id="allRecipesBtn">All Recipes</button>
       </li>
       <li class="nav-item">
-        <button class="nav-btn" id="favoriteRecipesBtn">Favorite Recipes</button>
+        <button class="nav-btn" aria-describedby="favoriteRecipesBtn" id="favoriteRecipesBtn">Favorite Recipes</button>
       </li>
       <li class="nav-item">
-        <button class="nav-btn" id="toCookBtn">To Cook</button>
+        <button class="nav-btn" aria-describedby="toCookBtn" id="toCookBtn">To Cook</button>
       </li>
       <li class="nav-item">
-        <button class="nav-btn" id="pantryBtn">Pantry</button>
+        <button class="nav-btn" aria-describedby="pantryBtn" id="pantryBtn">Pantry</button>
       </li>
       <li class="nav-item">
-        <button class="nav-btn" id="findNameBtn">Find by Name</button>
+        <button class="nav-btn" aria-describedby="findNameBtn" id="findNameBtn">Find by Name</button>
       </li>
       <li class="nav-item">
-        <button class="nav-btn" id="findTagBtn">Find by Tag</button>
+        <button class="nav-btn" aria-describedby="findTagBtn" id="findTagBtn">Find by Tag</button>
       </li>
     </ul>
   </nav>
@@ -38,7 +38,7 @@
   <main class="main">
     <!--LANDING VIEW-->
     <section class="home-view" id="homeView">
-      <img class="recipe-image" src="./images/apple-pie-home.jpg" alt="apple pie image">
+      <img class="recipe-image" src="./images/apple-pie-home.jpg" alt="apple pie home image">
       <h2 class="explore-recipe">The Ultimate Recipe Explorer</h2>
       <section class="word-set">
         <section class="word-box">
@@ -61,12 +61,12 @@
       <!--FAVORITE RECIPES VIEW-->
       <div class="fav-search-bar hidden" id="favSearchBar">
         <form class="search-form-fav">
-          <label class="search-label search-fav"> Favorite by Name: </label>
-          <input class="search-by-name-input search-input-fav" id="favSearchByNameInput"/>
+          <label for="favSearchByNameInput" class="search-label search-fav"> Favorite by Name: </label>
+          <input class="search-by-name-input search-input-fav" aria-description="Name Search Input" id="favSearchByNameInput"/>
           <button class="search-btn btn-fav" id="favNameSearchBtn">Search</button>
         </form>
         <form class="search-form-fav">
-          <label class="search-label search-fav"> Favorite by Tag: </label>
+          <label for="favSearchByTagInput" class="search-label search-fav"> Favorite by Tag: </label>
           <input class="search-by-tag-input search-input-fav" id="favSearchByTagInput"/>
           <button class="search-btn btn-fav" id="favTagSearchBtn">Search</button>
         </form>
@@ -83,7 +83,7 @@
       <!--SEARCH BY RECIPE VIEW -->
       <section class="view name-recipe-view hidden" id="findByNameView">
         <form class="search-form">
-          <label class="search-label">Search by Name: </label>
+          <label for="searchByNameInput" class="search-label">Search by Name: </label>
           <input class="search-by-name-input search-input" id="searchByNameInput"/>
           <button class="search-btn" id="nameSearchBtn">Search</button>
         </form>
@@ -92,7 +92,7 @@
       <section class="view tag-recipes-view hidden" id="findByTagView">
         <h2> Snack, Appetizer, Main Course, Main Dish, Dinner, Lunch, Sauce, Maybe drop down instead? </h2>
         <form class="search-form">
-          <label class="search-label">Search by Tag: </label>
+          <label for="searchByTagInput" class="search-label">Search by Tag: </label>
           <input class="search-by-tag-input search-input" id="searchByTagInput"/>
           <button class="search-btn" id="tagSearchBtn">Search</button>
         </form>
@@ -118,9 +118,9 @@
     <section class="view pantry-view hidden" id="pantryView">
       <h3 class="view-title" id="pantryTitle">Current Pantry</h3>
       <form class="add-form">
-        <label class="add-label">Ingredient</label>
+        <label for="addIngredientInput" for="addIngredientInput" class="add-label">Ingredient</label>
           <input class="add-ingredient-input" id="addIngredientInput" required/>
-        <label class="add-label">Amount</label>
+        <label for="addAmountInput" class="add-label">Amount</label>
           <input type="number" min="1" class="add-amount-input" id="addAmountInput" required/>
         <button class="add-ingredient-btn" id="addIngredientBtn">Add</button>
         <p class="add-msg" id="addMsg">Hello</p>
