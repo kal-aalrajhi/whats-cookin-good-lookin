@@ -2,7 +2,7 @@ import './styles.css';
 // import apiCalls from './apiCalls';
 import { fetchResponse } from './apiCalls';
 import { getRecipeBox, searchErrorMsg, clearView, recipeDetails, 
-  iconToFull, iconToEmpty, showElement, hideElement, viewTitle } from './domUpdates';
+  iconToFull, iconToEmpty, showElement, hideElement, loadPantry } from './domUpdates';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
@@ -131,9 +131,8 @@ addIngredientBtn.addEventListener("click", () => {
 function addIngredientToPantry(ingredientToAddName, amountToAdd) {
   event.preventDefault();
   let ingredientToAddId = currentUser.pantry.getIngredientIdByName(ingredientToAddName, allIngredientsData);
-  console.log(currentUser.pantry.addIngredientById(ingredientToAddId, amountToAdd, allIngredientsData));
-  // ^ check if what's returned is valid, can't allow user to add 'butthair'
-  loadPantry();
+  let addStatus = currentUser.pantry.addIngredientById(ingredientToAddId, amountToAdd, allIngredientsData)
+  loadPantry(pantryList, allIngredientsData, currentUser, addStatus);
 }
 
 
@@ -202,22 +201,10 @@ function loadToCookView() {
 
 }
 
-// Move to DOM file
-function loadPantry() {
-  pantryList.innerHTML = "";
-  currentUser.pantry.ingredientsInPantry.forEach((ingredient, idx) => {
-    pantryList.innerHTML += `
-      <tr>
-        <td>${currentUser.pantry.getIngredientNames(allIngredientsData)[idx]}</td>
-        <td>${currentUser.pantry.getIngredientAmounts(allIngredientsData)[idx]}</td>
-      </tr>`
-  });
-}
-
 function loadPantryView() {
   hideAllViews();
   showElement(pantryView); 
-  loadPantry();
+  loadPantry(pantryList, allIngredientsData, currentUser);
 }
 
 function loadHomeView() {
@@ -289,7 +276,6 @@ function addToCookRecipe(event) {
 }
 
 function toCookCurrentRecipe() {
-  viewTitle(toCookView, currentUser.name);
   currentUser.recipesToCook.forEach((recipe) => {
     getRecipeBox(toCookView, recipe);
   });

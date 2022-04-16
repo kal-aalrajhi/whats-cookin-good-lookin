@@ -77,6 +77,7 @@
       </section>
       <!-- TO COOK VIEW-->
       <section class="view to-cook-view hidden" id="toCookView">
+        <h3 class="page-title">Recipes to Cook:</h3>
         <!-- view favorite recipes appears -->
       </section>
       <!--SEARCH BY RECIPE VIEW -->
@@ -115,19 +116,16 @@
     </section>
     <!-- PANTRY VIEW-->
     <section class="view pantry-view hidden" id="pantryView">
-      <h3>Current Pantry</h3>
+      <h3 class="view-title" id="pantryTitle">Current Pantry</h3>
       <form class="add-form">
         <label class="add-label">Ingredient</label>
-        <input class="add-ingredient-input" id="addIngredientInput" required/>
+          <input class="add-ingredient-input" id="addIngredientInput" required/>
         <label class="add-label">Amount</label>
-        <input type="number" min="1" class="add-amount-input" id="addAmountInput" required/>
+          <input type="number" min="1" class="add-amount-input" id="addAmountInput" required/>
         <button class="add-ingredient-btn" id="addIngredientBtn">Add</button>
+        <p class="add-msg" id="addMsg">Hello</p>
       </form>
       <table class="pantry-list" id="pantryList" >
-        <tr>
-          <th>Ingredient</th>
-          <th>Amount</th>
-        </tr>
         <!-- pantry ingredients here-->
       </table>
     </section>

@@ -42,6 +42,7 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
         <div class="to-cook-status" id="toCookStatus">
             <table class="missing-ingredient-list" id="missingIngredientList"></table>
         </div>`;
+
     // Ingredient list
     loadIngredientList(currentRecipe, allIngredientsData);
 
@@ -120,6 +121,23 @@ export function iconToEmpty(iconName) {
     icon.classList.add(`empty-${iconName}`);
 }
 
-export function viewTitle(view, name) {
+export function pantryTitle(view, name) {
     view.innerHTML = `<h3 class="page-title">Recipes for ${name} To Cook:</h3>`;
 }
+
+export function loadPantry(pantryList, allIngredientsData, currentUser, addStatus="") {
+    document.querySelector("#pantryTitle").innerText = `${currentUser.name}'s Pantry:`;
+    document.querySelector("#addMsg").innerText = addStatus;
+    pantryList.innerHTML = `        
+        <tr>
+            <th>Ingredient</th>
+            <th>Amount</th>
+        </tr>`;
+    currentUser.pantry.ingredientsInPantry.forEach((ingredient, idx) => {
+      pantryList.innerHTML += `
+        <tr>
+          <td>${currentUser.pantry.getIngredientNames(allIngredientsData)[idx]}</td>
+          <td>${currentUser.pantry.getIngredientAmounts(allIngredientsData)[idx]}</td>
+        </tr>`;
+    });
+  }
