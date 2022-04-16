@@ -138,19 +138,22 @@ function addIngredientToPantry(ingredientToAddName, amountToAdd) {
 
 // Functions
 function loadData() {
-  const fetchRecipes = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
-  const fetchUsers = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users");
-  const fetchIngredients = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients");
+  // const fetchRecipes = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
+  // const fetchUsers = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users");
+  // const fetchIngredients = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients");
+  const fetchRecipes = fetchResponse("http://localhost:3001/api/v1/recipes");
+  const fetchUsers = fetchResponse("http://localhost:3001/api/v1/users");
+  const fetchIngredients = fetchResponse("http://localhost:3001/api/v1/ingredients");
 
   Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
-    allRecipeData = data[0].recipeData;
+    allRecipeData = data[0]
     allRecipeStorage.addRecipes(allRecipeData);
   
-    usersData = data[1].usersData;
+    usersData = data[1]
     const randomIndex = Math.floor(Math.random() * usersData.length)
     currentUser = new User(usersData[randomIndex]);
     
-    allIngredientsData = data[2].ingredientsData;
+    allIngredientsData = data[2]
   })
   .catch((err) => console.log(err));
 }

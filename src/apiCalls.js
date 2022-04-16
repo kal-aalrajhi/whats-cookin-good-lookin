@@ -1,3 +1,6 @@
+import './scripts.js';
+
+
 export const fetchResponse = (url) => {
     return fetch(url)
         .then(response => {
