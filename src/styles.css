@@ -134,6 +134,7 @@ nav {
 .recipe-image {
   height: 30rem;
   object-fit: cover;
+  /* background-size: contain; */
 }
 
 .recipe-tags {
@@ -161,6 +162,7 @@ nav {
   flex-basis: 45%;
   margin-top: 2rem;
   padding: 2rem;
+  /* background-size: contain; */
 }
 
 .recipe-card > h4 {
@@ -204,7 +206,7 @@ nav {
   cursor: pointer;
   flex-basis: 10%;
   margin-top: 2rem;
-  background-size: cover;
+  /* background-size: contain; */
  } 
 
 .box:hover {
@@ -217,6 +219,7 @@ nav {
 .box > img {
   height: 30rem;
   width: 25rem;
+  object-fit: cover;
 }
 
 .search-input {
@@ -293,7 +296,7 @@ nav {
 
 /* BUTTONS */
 .nav-btn {
-  background: #82b2ad;
+  background: #011a3b;
   border: none;
   border-radius: 1rem;
   cursor: pointer;
