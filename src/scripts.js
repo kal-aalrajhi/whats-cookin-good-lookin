@@ -140,7 +140,7 @@ function addIngredientToPantry(ingredientToAddName, amountToAdd) {
   loadPantry(pantryList, allIngredientsData, currentUser, addStatus);
 }
 
-
+import { usersSampleData } from '../src/data/users-sample-data.js'; // DELETE ME
 // Functions
 function loadData() {
   // Turing Server
@@ -159,8 +159,8 @@ function loadData() {
   
     usersData = data[1];
     const randomIndex = Math.floor(Math.random() * usersData.length)
-    currentUser = new User(usersData[randomIndex]);
-    
+    // currentUser = new User(usersData[randomIndex]);
+    currentUser = new User(usersSampleData[4]); // DELETE
     allIngredientsData = data[2];
   })
   .catch((err) => console.log(err));
@@ -263,6 +263,12 @@ function cookRecipe(event) {
   });
   cookedRecipe = new Recipe(cookedRecipe);
   
+  // Remove ingredients from pantry based off cooked recipe ingredients
+  console.log("\nBefore: ", currentUser.pantry.ingredientsInPantry);
+  currentUser.pantry.useRecipeIngredients(cookedRecipe, allIngredientsData);
+  console.log("\n\nAfter: ", currentUser.pantry.ingredientsInPantry);
+
+  // Check if user's cooked this recipe to incriment accordingly
   let result = currentUser.recipesCooked.find(recipe => {
     return recipe.id === Number(event.target.id);
   });

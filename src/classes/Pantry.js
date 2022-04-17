@@ -33,6 +33,15 @@ export class Pantry {
         }
     }
     
+    // Test return message
+    useRecipeIngredients(recipe, ingredientData) {
+        // iterate through recipe ingredients to get Id and call remove ingredient on each recipe.
+        recipe.recipeIngredients.forEach(ingredient => {
+            console.log(this.removeIngredientById(ingredient.id, ingredient.quantity.amount, ingredientData));
+        });
+        return `${recipe.name} successfully cooked.`;
+    }
+
     // Test me 
     removeIngredientById(ingredientId, amountToRemove, ingredientData) {
         if (!ingredientId) {
@@ -42,11 +51,12 @@ export class Pantry {
         let ingredientName = this.getIngredientNameById(ingredientId, ingredientData);
         let pantryIngredient = {
             ingredient: ingredientId,
-            amount: -Number(amountToRemove) // Just make the additon function but add a NEGATIVE amount instead!!
+            amount: Number(-amountToRemove) // Just make the additon function but add a NEGATIVE amount instead!!
         }
         let foundIngredient = this.ingredientsInPantry.find((ingredient) => {
             return pantryIngredient.ingredient === ingredient.ingredient;
         });
+
         let removalStatusMsg = "";
         // Check if ingredient is in pantry
         if(!foundIngredient) {
@@ -59,11 +69,11 @@ export class Pantry {
                     if (ingredient.amount < amountToRemove) {
                         removalStatusMsg = `Sorry you can't remove ${amountToRemove} ${ingredientName} when you only have ${ingredient.amount} ${ingredientName}.`;
                     } else { // Substract amount from ingredient
-                        ingredient.amount -= amountToRemove;
-                        removalStatusMsg = `Successfully removed ${amountToRemove} ${ingredientName}.`
+                        ingredient.amount += Number(pantryIngredient.amount);
+                        removalStatusMsg = `Successfully removed ${amountToRemove} ${ingredientName}, you have ${ingredient.amount} left.`
                     }
 
-                    // Check if ingredient amount is 0. If so, remove it.
+                    // Check if ingredient amount is 0. If so, remove it from pantry.
                     if (ingredient.amount === 0) {
                         this.ingredientsInPantry.splice(idx, 1);
                     }
