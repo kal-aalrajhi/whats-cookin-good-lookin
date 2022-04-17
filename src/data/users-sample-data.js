@@ -600,5 +600,31 @@ export const usersSampleData = [
           "amount": 2
         }
       ]
+    }, // Has all the ingredients to make many cookies
+    {
+      "name": "Cookie Monster",
+      "id": 4,
+      "pantry": [
+        {
+          "ingredient": 20081,
+          "amount": 999
+        },
+        {
+          "ingredient": 18372,
+          "amount": 999
+        },
+        {
+          "ingredient": 1123,
+          "amount": 999
+        },
+        {
+          "ingredient": 19335,
+          "amount": 999
+        },
+        {
+          "ingredient": 19206,
+          "amount": 999
+        }
+      ]
     }
   ];

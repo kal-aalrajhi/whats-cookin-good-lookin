@@ -43,9 +43,7 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
             <table class="missing-ingredient-list" id="missingIngredientList"></table>
         </div>`;
 
-    // Ingredient list
     loadIngredientList(currentRecipe, allIngredientsData);
-
     loadTimesCooked(view, currentUser, currentRecipe);
 
     // Check for missing ingredients
@@ -55,12 +53,15 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
         loadReadyToCookIcon(currentRecipe);
     }
 
-    // Load recipe instructions
+    loadRecipeInstructions(currentRecipe, instructionsList);
+}
+
+function loadRecipeInstructions(currentRecipe, instructionsList) {
     instructionsList.innerHTML = "<h3>Instructions</h3>";
     currentRecipe.instructions.forEach((instruction) => {
         instructionsList.innerHTML += `
             <li>${instruction.instruction}</li>`
-  });
+    });
 }
 
 function loadTimesCooked(view, currentUser, currentRecipe) {
@@ -71,7 +72,7 @@ function loadTimesCooked(view, currentUser, currentRecipe) {
     if (result) {
         timesCooked = result.timesCooked;
     }
-    view.innerHTML += `<p>You've cooked this recipe: ${timesCooked} times.</p>`
+    view.innerHTML += `<p class="cooked-count">You've cooked this recipe: ${timesCooked} times.</p>`
 }
 
 function loadReadyToCookIcon(currentRecipe) {
