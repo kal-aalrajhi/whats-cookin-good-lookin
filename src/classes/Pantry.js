@@ -16,7 +16,7 @@ export class Pantry {
         let ingredientName = this.getIngredientNameById(ingredientId, ingredientData)        
         let pantryIngredient = {
             ingredient: ingredientId,
-            amount: amount
+            amount: Number(amount)
         }
         let foundIngredient = this.ingredientsInPantry.find((ingredient) => {
             return pantryIngredient.ingredient === ingredient.ingredient;
@@ -184,11 +184,16 @@ export class Pantry {
     getMissingIngredients(recipe, ingredientsData) {
         let comparedIngredients = this.compareRecipeToPantry(recipe, ingredientsData);
         let missingIngredients = comparedIngredients.filter(ingredient => ingredient.amountNeeded > 0);
-        
+
         return missingIngredients;
     }
 
     isIngredientMissing(recipe, ingredientsData) {
-        return !!this.getMissingIngredients(recipe, ingredientsData);
+        if (this.getMissingIngredients(recipe, ingredientsData).length){ // needs !
+            return false;
+        } else {
+            console.log(this.getMissingIngredients(recipe, ingredientsData).length)
+            return true;
+        }
     }
 }

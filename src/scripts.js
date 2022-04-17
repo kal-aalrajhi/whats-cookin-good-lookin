@@ -1,5 +1,5 @@
-import './styles.css';
 // import apiCalls from './apiCalls';
+import './styles.css';
 import { fetchResponse } from './apiCalls';
 import { getRecipeBox, searchErrorMsg, clearView, recipeDetails, 
   iconToFull, iconToEmpty, showElement, hideElement, loadPantry } from './domUpdates';
@@ -82,6 +82,11 @@ recipeDetailView.addEventListener("click", (event) => {
   } else if (event.target.classList.contains("full-to-cook")) {
     removeToCookRecipe(event);
   }
+
+  if (event.target.classList.contains("check-mark-icon")) {
+    cookRecipe(event);
+    loadRecipeDetailView(event);
+  } 
 });
 
 favoriteRecipesView.addEventListener("click", (event) => {
@@ -138,22 +143,51 @@ function addIngredientToPantry(ingredientToAddName, amountToAdd) {
 
 // Functions
 function loadData() {
-  const fetchRecipes = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
-  const fetchUsers = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users");
-  const fetchIngredients = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients");
+  // Turing Server
+  // const fetchRecipes = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
+  // const fetchUsers = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users");
+  // const fetchIngredients = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients");
+  // Local Server
+  const fetchRecipes = fetchResponse("http://localhost:3001/api/v1/recipes");
+  const fetchUsers = fetchResponse("http://localhost:3001/api/v1/users");
+  const fetchIngredients = fetchResponse("http://localhost:3001/api/v1/ingredients");
 
   Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
-    allRecipeData = data[0].recipeData;
+    // allRecipeData = data[0].recipeData;
+    allRecipeData = data[0];
     allRecipeStorage.addRecipes(allRecipeData);
   
-    usersData = data[1].usersData;
+    usersData = data[1];
     const randomIndex = Math.floor(Math.random() * usersData.length)
     currentUser = new User(usersData[randomIndex]);
     
-    allIngredientsData = data[2].ingredientsData;
+    allIngredientsData = data[2];
   })
   .catch((err) => console.log(err));
 }
+
+// function addIngredientToApi() {
+//   let userID = currentUser.id;
+//   // let ingredientID = // use ADD function, but search API instead.
+//   // let ingredientMod = // amount to add
+
+//   fetch('http://localhost:3001/api/v1/users', {
+//    method: "POST",
+//    headers: {
+//     'Content-type': 'application/json'
+//    },
+//    body: JSON.stringify(
+//       {
+//         "userID": currentUser.id,
+//         "ingredientID": 123,
+//         "ingredientModification": 3
+//       }
+//    )
+// })
+// .then(response => response.json())
+// .then(data => console.log(data));
+// }
+
 
 function grabSearchValue(byValue) {
   if (byValue === "name") {
@@ -223,6 +257,23 @@ function loadTagSearchView() {
   showElement(findByTagView);
 }
 
+function cookRecipe(event) {
+  let cookedRecipe = allRecipeData.find(recipe => {
+    return recipe.id === Number(event.target.id)
+  });
+  cookedRecipe = new Recipe(cookedRecipe);
+  
+  let result = currentUser.recipesCooked.find(recipe => {
+    return recipe.id === Number(event.target.id);
+  });
+  if (!result) {
+    cookedRecipe.timesCooked++;
+    currentUser.addRecipesCooked(cookedRecipe);
+  } else {
+    result.timesCooked++;
+  }
+}
+
 function addFavoriteRecipe(event) {
   iconToFull("star");
   let recipeToAdd = allRecipeData.find(recipe => {
@@ -230,6 +281,7 @@ function addFavoriteRecipe(event) {
   });
   recipeToAdd = new Recipe(recipeToAdd);
   recipeToAdd.favorite = true;
+  
   let result = currentUser.favoriteRecipes.find(recipe => {
     return recipe.id === Number(event.target.id);
   });
@@ -244,6 +296,7 @@ function removeFavoriteRecipe(event) {
     return recipe.id === Number(event.target.id)
   });
   recipeToRemove.favorite = false;
+  
   let result = currentUser.favoriteRecipes.find(recipe => {
     return recipe.id === Number(event.target.id)
   });
@@ -276,6 +329,7 @@ function addToCookRecipe(event) {
 }
 
 function toCookCurrentRecipe() {
+  clearView(toCookView);
   currentUser.recipesToCook.forEach((recipe) => {
     getRecipeBox(toCookView, recipe);
   });

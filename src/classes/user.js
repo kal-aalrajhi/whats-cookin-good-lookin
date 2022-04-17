@@ -8,14 +8,20 @@ export class User {
     // this.pantry = userData.pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
+    this.recipesCooked = [];
   };
 
   addFavoriteRecipe(recipe) {
     this.favoriteRecipes.push(recipe);
-  };
+  }
 
   addRecipesToCook(recipe) {
     this.recipesToCook.push(recipe);
-  };
+  }
+
+  // TEST ME
+  addRecipesCooked(recipe) {
+    this.recipesCooked.push(recipe);
+  }
 };
 
