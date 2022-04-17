@@ -239,26 +239,28 @@ describe('Pantry Test', () => {
         expect(user2.pantry.isIngredientMissing(recipe1, ingredientsDataLarge)).to.equal(true);
     });
 
-    // START
     it('Should add an ingredient by id and amount to users pantry', () => {
-        expect(user1.pantry.isIngredientMissing(recipe1, ingredientsDataLarge)).to.equal(false);
-        expect(user1.pantry.isIngredientMissing(recipe2, ingredientsDataLarge)).to.equal(true);
-        expect(user2.pantry.isIngredientMissing(recipe1, ingredientsDataLarge)).to.equal(true);
+        ingredient1Id = 10123;
+        ingredient2Id = 9214;
+
+        expect(user2.pantry.addIngredientById(ingredient1Id, 10, ingredientsDataLarge)).to.equal("Successfully added 10 bacon slices to your pantry.");
+        expect(user2.pantry.addIngredientById(ingredient2Id, 22, ingredientsDataLarge)).to.equal("Successfully added 22 orange juice concentrate to your pantry.");
     });
 
     it('Should add only an amount if ingredient already in users pantry', () => {
-        expect(user1.pantry.isIngredientMissing(recipe1, ingredientsDataLarge)).to.equal(false);
-        expect(user1.pantry.isIngredientMissing(recipe2, ingredientsDataLarge)).to.equal(true);
-        expect(user2.pantry.isIngredientMissing(recipe1, ingredientsDataLarge)).to.equal(true);
+        ingredient1Id = 20081;
+        ingredient2Id = 1123;
+
+        expect(user2.pantry.addIngredientById(ingredient1Id, 10, ingredientsDataLarge)).to.equal("Successfully added 10 more wheat flour to your pantry.");
+        expect(user2.pantry.addIngredientById(ingredient2Id, 22, ingredientsDataLarge)).to.equal("Successfully added 22 more eggs to your pantry.");
     });
 
-    it('Should check for invalid ingredient id', () => {
-        expect(user1.pantry.isIngredientMissing(recipe1, ingredientsDataLarge)).to.equal(false);
-        expect(user1.pantry.isIngredientMissing(recipe2, ingredientsDataLarge)).to.equal(true);
-        expect(user2.pantry.isIngredientMissing(recipe1, ingredientsDataLarge)).to.equal(true);
-    });
-    // END
+    it('Should check for an ingredient id', () => {
+        ingredient1Id = null;
 
+        expect(user2.pantry.addIngredientById(ingredient1Id, 10, ingredientsDataLarge)).to.equal("Sorry, not a valid ingredient you can add.");
+        expect(user2.pantry.addIngredientById(ingredient2Id, 22, ingredientsDataLarge)).to.equal("Sorry, not a valid ingredient you can add.");
+    });
 
     it('When passing in a recipe, respective ingredients should be removed from the pantry', () => {
         expect(user1.pantry.ingredientsInPantry).to.deep.equal([
