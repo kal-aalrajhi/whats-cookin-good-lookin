@@ -32,43 +32,54 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
         <p>$${currentRecipe.getTotalCostInDollars(allIngredientsData)}</p>
         <h4>Favorite</h4>
         <div class="favorite-star" id=${currentRecipe.id}>
-            <img class="star-icon empty-star" id=${currentRecipe.id} src="" alt="star icon"/>
+            <img class="star-icon empty-star icon" id=${currentRecipe.id} src="" alt="star icon"/>
         </div>
         <h4>To Cook</h4>
         <div class="to-cook-tool" id=${currentRecipe.id}>
-            <img class="to-cook-icon empty-to-cook" id=${currentRecipe.id} src="" alt="chef tools icon"/>
+            <img class="to-cook-icon empty-to-cook icon" id=${currentRecipe.id} src="" alt="chef tools icon"/>
         </div>
         <h4>Cook Status: <span id="cookStatusText">Ready to Cook!</span></h4>
         <div class="to-cook-status" id="toCookStatus">
             <table class="missing-ingredient-list" id="missingIngredientList"></table>
         </div>`;
 
-    // Ingredient list
     loadIngredientList(currentRecipe, allIngredientsData);
+    loadTimesCooked(view, currentUser, currentRecipe);
 
     // Check for missing ingredients
     if(currentUser.pantry.isIngredientMissing(currentRecipe, allIngredientsData)) {
         loadMissingIngredients(currentUser, currentRecipe, allIngredientsData);
     } else {
-        loadReadyToCookIcon(currentRecipe)
+        loadReadyToCookIcon(currentRecipe);
     }
 
-    view.innerHTML += `<p>You've cooked this recipe: ${currentRecipe.timesCooked} times.</p>`
-    
-    // Load recipe instructions
+    loadRecipeInstructions(currentRecipe, instructionsList);
+}
+
+function loadRecipeInstructions(currentRecipe, instructionsList) {
     instructionsList.innerHTML = "<h3>Instructions</h3>";
     currentRecipe.instructions.forEach((instruction) => {
         instructionsList.innerHTML += `
             <li>${instruction.instruction}</li>`
-  });
+    });
+}
+
+function loadTimesCooked(view, currentUser, currentRecipe) {
+    let timesCooked = 0;
+    let result = currentUser.recipesCooked.find(recipeCooked => {
+        return currentRecipe.id === recipeCooked.id;
+      });
+    if (result) {
+        timesCooked = result.timesCooked;
+    }
+    view.innerHTML += `<p class="cooked-count">You've cooked this recipe: ${timesCooked} times.</p>`
 }
 
 function loadReadyToCookIcon(currentRecipe) {
     const toCookStatus = document.querySelector("#toCookStatus");
-    currentRecipe.timesCooked++; // DO THIS ONLY IF IT'S BEEN CLICKED
     toCookStatus.innerHTML = `
         <div class="check-mark" id=${currentRecipe.id}>
-            <img class="check-mark-icon" id=${currentRecipe.id} src="./images/check-mark.png" alt="green and white check mark icon"/>
+            <img class="check-mark-icon icon" id=${currentRecipe.id} src="./images/check-mark.png" alt="green and white check mark icon"/>
         </div>`
 }
 

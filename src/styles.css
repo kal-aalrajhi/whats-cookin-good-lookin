@@ -222,6 +222,15 @@ nav {
   object-fit: cover;
 }
 
+.icon {
+  cursor: pointer;
+}
+
+.cooked-count {
+  margin: 2rem 0 0 2rem;
+  font-size: 2rem;
+}
+
 .search-input {
   font-size: 2.5rem;
   height: 4rem;

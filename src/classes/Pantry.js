@@ -5,18 +5,16 @@ export class Pantry {
         this.ingredientsInPantry = pantry || [];
     };
 
-
-
-    // Test me || refactor to add by name
+    // Test me 
     addIngredientById(ingredientId, amount, ingredientData) {
         if (!ingredientId) {
-            return "Sorry, not a valid ingredient.";
+            return "Sorry, not a valid ingredient you can add.";
         }
 
-        let ingredientName = this.getIngredientNameById(ingredientId, ingredientData)        
+        let ingredientName = this.getIngredientNameById(ingredientId, ingredientData);        
         let pantryIngredient = {
             ingredient: ingredientId,
-            amount: amount
+            amount: Number(amount)
         }
         let foundIngredient = this.ingredientsInPantry.find((ingredient) => {
             return pantryIngredient.ingredient === ingredient.ingredient;
@@ -35,33 +33,47 @@ export class Pantry {
         }
     }
     
-    // Test me || Refactor to look like addIngredientById
-    removeIngredient(ingredient, amountToRemove) {
+    // Test return message
+    useRecipeIngredients(recipe, ingredientData) {
+        // iterate through recipe ingredients to get Id and call remove ingredient on each recipe.
+        recipe.recipeIngredients.forEach(ingredient => {
+            console.log(this.removeIngredientById(ingredient.id, ingredient.quantity.amount, ingredientData));
+        });
+        return `${recipe.name} successfully cooked.`;
+    }
+
+    // Test me 
+    removeIngredientById(ingredientId, amountToRemove, ingredientData) {
+        if (!ingredientId) {
+            return "Sorry, not a valid ingredient you can remove.";
+        }
+        
+        let ingredientName = this.getIngredientNameById(ingredientId, ingredientData);
         let pantryIngredient = {
-            ingredient: ingredientData.id,
-            amount: amountToRemove
+            ingredient: ingredientId,
+            amount: Number(-amountToRemove) // Just make the additon function but add a NEGATIVE amount instead!!
         }
         let foundIngredient = this.ingredientsInPantry.find((ingredient) => {
             return pantryIngredient.ingredient === ingredient.ingredient;
         });
-        // console.log(this.ingredientsInPantry)
+
         let removalStatusMsg = "";
         // Check if ingredient is in pantry
         if(!foundIngredient) {
-            removalStatusMsg = `You do not have any ${ingredientData.name} to remove.`;
+            removalStatusMsg = `You do not have any ${ingredientName} to remove.`;
         } else {
              this.ingredientsInPantry.forEach((ingredient, idx) => {
                  // Locate the ingredient
                 if (ingredient.ingredient === pantryIngredient.ingredient) {
                     // Make sure you can't remove more than you have
                     if (ingredient.amount < amountToRemove) {
-                        removalStatusMsg = `Sorry you can't remove ${amountToRemove} ${ingredientData.name} when you only have ${ingredient.amount} ${ingredientData.name}.`;
+                        removalStatusMsg = `Sorry you can't remove ${amountToRemove} ${ingredientName} when you only have ${ingredient.amount} ${ingredientName}.`;
                     } else { // Substract amount from ingredient
-                        ingredient.amount -= amountToRemove;
-                        removalStatusMsg = `Successfully removed ${amountToRemove} ${ingredientData.name}.`
+                        ingredient.amount += Number(pantryIngredient.amount);
+                        removalStatusMsg = `Successfully removed ${amountToRemove} ${ingredientName}, you have ${ingredient.amount} left.`
                     }
 
-                    // Check if ingredient amount is 0. If so, remove it.
+                    // Check if ingredient amount is 0. If so, remove it from pantry.
                     if (ingredient.amount === 0) {
                         this.ingredientsInPantry.splice(idx, 1);
                     }
@@ -184,11 +196,16 @@ export class Pantry {
     getMissingIngredients(recipe, ingredientsData) {
         let comparedIngredients = this.compareRecipeToPantry(recipe, ingredientsData);
         let missingIngredients = comparedIngredients.filter(ingredient => ingredient.amountNeeded > 0);
-        
+
         return missingIngredients;
     }
 
     isIngredientMissing(recipe, ingredientsData) {
-        return !!this.getMissingIngredients(recipe, ingredientsData);
+        // take off ! to get checkmark to appear
+        if (!this.getMissingIngredients(recipe, ingredientsData).length){ 
+            return false;
+        } else {
+            return true;
+        }
     }
 }
