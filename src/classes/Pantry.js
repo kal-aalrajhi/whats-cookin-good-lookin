@@ -42,7 +42,6 @@ export class Pantry {
         return `${recipe.name} successfully cooked.`;
     }
 
-    // Test me 
     removeIngredientById(ingredientId, amountToRemove, ingredientData) {
         if (!ingredientId) {
             return "Sorry, not a valid ingredient you can remove.";

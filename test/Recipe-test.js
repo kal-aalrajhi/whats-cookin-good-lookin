@@ -6,10 +6,8 @@ import { ingredientsSampleData } from '../src/data/ingredients-sample-data';
     
 describe('Recipe', () => {
     let allIngredientsData;
-    let recipe;
-    let recipeData;
-    let recipeData2;
-    let recipe2;
+    let recipe, recipe2;
+    let recipeData, recipeData2;
 
     beforeEach(() => {
         allIngredientsData = ingredientsSampleData;
@@ -60,6 +58,10 @@ describe('Recipe', () => {
         expect(recipe.toCook).to.equal(false);
     });
 
+    it('recipe starts off not being cooked', () => {
+        expect(recipe.timesCooked).to.equal(0);
+    });
+
     it('should be able to get ingredients details', () => {
         expect(recipe.getIngredientDetails(allIngredientsData)).to.deep.equal([
              {
@@ -108,7 +110,6 @@ describe('Recipe', () => {
     });
 
     it('should get ingredient instructions', () => {
-        expect(recipe.getInstructions()).to.equal(recipe.instructions);
-        
+        expect(recipe.getInstructions()).to.equal(recipe.instructions); 
     })
 });

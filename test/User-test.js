@@ -3,6 +3,7 @@ import { Recipe } from '../src/classes/Recipe';
 import { recipesSampleData } from '../src/data/recipes-sample-data';
 import { User } from '../src/classes/User.js';
 import { usersSampleData } from '../src/data/users-sample-data.js';
+import { Pantry } from '../src/classes/Pantry.js';
 
 describe('User', () => {
   let user;
@@ -31,8 +32,12 @@ describe('User', () => {
     expect(user.id).to.equal(1);
   });
 
+  it('user pantry should be an instance of Pantry', () => {
+    expect(user.pantry).to.be.an.instanceof(Pantry);
+  });
+
   it('should have a pantry with ingredients and amounts', () => {
-    expect(user.pantry).to.deep.equal(userData[0].pantry);
+    expect(user.pantry.ingredientsInPantry).to.deep.equal(userData[0].pantry);
   });
 
   it('should start with no favorite recipes', () => {
@@ -65,5 +70,21 @@ describe('User', () => {
     user.addRecipesToCook(recipe2);
     user.addRecipesToCook(recipe3);
     expect(user.recipesToCook).to.deep.equal([recipe1, recipe2, recipe3]);
+  });
+
+  it('should start with no recipes cooked', () => {
+    expect(user.recipesCooked).to.deep.equal([]);
+  });
+
+  it('should add a cooked recipe', () => {
+    user.addRecipesCooked(recipe1);
+    expect(user.recipesCooked).to.deep.equal([recipe1]);
+  });
+
+  it('should add multiple cooked recipes', () => {
+    user.addRecipesCooked(recipe1);
+    user.addRecipesCooked(recipe2);
+    user.addRecipesCooked(recipe3);
+    expect(user.recipesCooked).to.deep.equal([recipe1, recipe2, recipe3]);
   });
 });

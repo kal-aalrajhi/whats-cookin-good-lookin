@@ -10,7 +10,7 @@ export class Recipe {
         this.tags = recipe.tags;
         this.favorite = false;
         this.toCook = false;
-        this.timesCooked = 0; // test this
+        this.timesCooked = 0;
     };
 
     getIngredientDetails(ingredientsData) {
@@ -35,21 +35,12 @@ export class Recipe {
         return ingredientToFind.name;
     }
 
-    // Might not need this anymore...
     getIngredientNames(ingredientsData) {
         let ingredientDetails = this.getIngredientDetails(ingredientsData)
         let ingredientNames = ingredientDetails.map(ingredientDetail => ingredientDetail.name);
         return ingredientNames;
     };
-
-    // Test this
-    getIngredientIds(ingredientsData) {
-        let ingredientDetails = this.getIngredientDetails(ingredientsData)
-        let ingredientNames = ingredientDetails.map(ingredientDetail => ingredientDetail.id);
-        return ingredientNames;
-    };
  
-    // Refactor to use getQuantityRequires
     getTotalCostInDollars(ingredientsData) {
         let ingredientDetails =  this.getIngredientDetails(ingredientsData);
         let totalCostInCents = ingredientDetails.reduce((total, ingredientDetail, idx) => {
