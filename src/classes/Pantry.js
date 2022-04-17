@@ -1,11 +1,10 @@
 import { Ingredient } from './Ingredient';
 
 export class Pantry {
-    constructor(pantry) { // Remember that Pantry is only accessed via the User
+    constructor(pantry) { 
         this.ingredientsInPantry = pantry || [];
     };
 
-    // Test me 
     addIngredientById(ingredientId, amount, ingredientData) {
         if (!ingredientId) {
             return "Sorry, not a valid ingredient you can add.";
@@ -33,7 +32,6 @@ export class Pantry {
         }
     }
     
-    // Test return message
     useRecipeIngredients(recipe, ingredientData) {
         // iterate through recipe ingredients to get Id and call remove ingredient on each recipe.
         recipe.recipeIngredients.forEach(ingredient => {
@@ -82,17 +80,15 @@ export class Pantry {
         return removalStatusMsg;
     }
 
-    // Test me
-    getIngredientDetails(ingredientsData) { // ingredient dictionary passed in
+    getIngredientDetails(ingredientsData) { 
         let ingredientDetails = this.ingredientsInPantry.map((ingredientInPantry) => {
         let idMatch = ingredientsData.find(ingredientData => ingredientInPantry.ingredient === ingredientData.id);
         let currentIngredient = new Ingredient(idMatch);
         return currentIngredient
         });
-        return ingredientDetails; // returns ingredient objects
+        return ingredientDetails; 
     }
 
-    // Test me
     getCurrentQuantity(ingredientId) {
         let ingredientToFind = this.ingredientsInPantry.find(pantryIngredient => pantryIngredient.ingredient === ingredientId);
         // if not found, then you have 0 of that ingredient
@@ -102,7 +98,6 @@ export class Pantry {
         return ingredientToFind.amount;
     };
 
-    // Test me
     getIngredientIdByName(ingredientName, ingredientData) {
         let ingredientToFind = ingredientData.find(ingredient => ingredient.name === ingredientName);
         if (!ingredientToFind) {
@@ -111,27 +106,23 @@ export class Pantry {
         return ingredientToFind.id; 
     }
 
-    // Test me
     getIngredientNameById(ingredientId, ingredientData) {
         let ingredientToFind = ingredientData.find(ingredient => ingredient.id === ingredientId);
         return ingredientToFind.name; 
     }
 
-    // Test me
     getIngredientIds(ingredientsData) {
         let ingredientDetails = this.getIngredientDetails(ingredientsData);
         let ingredientIds = ingredientDetails.map(ingredientDetail => ingredientDetail.id);
         return ingredientIds; // works with ingredient objects, returns array of IDs ['17783', '123123']
     }
 
-    // Test me
     getIngredientNames(ingredientsData) {
         let ingredientDetails = this.getIngredientDetails(ingredientsData);
         let ingredientNames = ingredientDetails.map(ingredientDetail => ingredientDetail.name);
         return ingredientNames; // works with ingredient objects, returns array of names ['cinnamon', 'blueberry']
     }
 
-    // Test me
     getIngredientAmounts() {
         let ingredientAmounts = this.ingredientsInPantry.map(ingredientInPantry => ingredientInPantry.amount);
         return ingredientAmounts;  // works with ingredient objects, returns array of amount ['18', '7']
@@ -164,7 +155,6 @@ export class Pantry {
     //     { ingredient: 20081, amount: 5 }, ...
     // ]
 
-    // Test me
     compareRecipeToPantry(recipe, ingredientsData) { // takes in a recipe object
         const recipeToPantryIngredients = recipe.recipeIngredients.map((recIngredient) => {
             // Get current ingredient name

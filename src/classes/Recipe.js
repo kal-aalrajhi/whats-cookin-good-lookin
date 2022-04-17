@@ -10,7 +10,7 @@ export class Recipe {
         this.tags = recipe.tags;
         this.favorite = false;
         this.toCook = false;
-        this.timesCooked = 0;
+        this.timesCooked = 0; 
     };
 
     getIngredientDetails(ingredientsData) {
@@ -38,6 +38,12 @@ export class Recipe {
     getIngredientNames(ingredientsData) {
         let ingredientDetails = this.getIngredientDetails(ingredientsData)
         let ingredientNames = ingredientDetails.map(ingredientDetail => ingredientDetail.name);
+        return ingredientNames;
+    };
+
+    getIngredientIds(ingredientsData) {
+        let ingredientDetails = this.getIngredientDetails(ingredientsData)
+        let ingredientNames = ingredientDetails.map(ingredientDetail => ingredientDetail.id);
         return ingredientNames;
     };
  
