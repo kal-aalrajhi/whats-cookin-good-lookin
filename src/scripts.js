@@ -1,8 +1,8 @@
-// import apiCalls from './apiCalls';
+import apiCalls from './apiCalls';
 import './styles.css';
 import { fetchResponse } from './apiCalls';
-import { getRecipeBox, searchErrorMsg, clearView, recipeDetails, 
-  iconToFull, iconToEmpty, showElement, hideElement, loadPantry } from './domUpdates';
+import { getRecipeBox, searchErrorMsg, clearView, recipeDetails, iconToFull, iconToEmpty, 
+         showElement, hideElement, loadPantry, displayCookMessages, loadTimesCooked } from './domUpdates';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
@@ -36,6 +36,7 @@ const searchFavBarsView = document.querySelector("#favSearchBar");
 const findByTagView = document.querySelector("#findByTagView");
 const recipeDetailCard = document.querySelector("#recipeDetailCard");
 const instructionsList = document.querySelector("#instructionsList");
+const toCookTitle = document.querySelector("#toCookTitle");
 
 const homeBtnIcon = document.querySelector("#homeBtnIcon");
 const homeBtn = document.querySelector("#homeBtn");
@@ -84,8 +85,8 @@ recipeDetailView.addEventListener("click", (event) => {
   }
 
   if (event.target.classList.contains("check-mark-icon")) {
-    cookRecipe(event);
     loadRecipeDetailView(event);
+    cookRecipe(event);
   } 
 });
 
@@ -217,6 +218,7 @@ function hideAllViews() {
   hideElement(searchFavBarsView);
   hideElement(toCookView);
   hideElement(pantryView);
+  hideElement(toCookTitle);
 }
 
 function loadFavoriteView() {
@@ -229,6 +231,7 @@ function loadFavoriteView() {
 
 function loadToCookView() {
   hideAllViews();
+  showElement(toCookTitle);
   showElement(searchResultView);
   showElement(toCookView);
   toCookCurrentRecipe();
@@ -262,22 +265,22 @@ function cookRecipe(event) {
     return recipe.id === Number(event.target.id)
   });
   cookedRecipe = new Recipe(cookedRecipe);
-  
-  // Remove ingredients from pantry based off cooked recipe ingredients
-  console.log("\nBefore: ", currentUser.pantry.ingredientsInPantry);
-  currentUser.pantry.useRecipeIngredients(cookedRecipe, allIngredientsData);
-  console.log("\n\nAfter: ", currentUser.pantry.ingredientsInPantry);
+  let useIngredientUpdates = document.querySelector("#useIngredientUpdates");
+  let useIngredientMessages = currentUser.pantry.useRecipeIngredients(cookedRecipe, allIngredientsData);
+  displayCookMessages(useIngredientUpdates, useIngredientMessages);
 
-  // Check if user's cooked this recipe to incriment accordingly
   let result = currentUser.recipesCooked.find(recipe => {
     return recipe.id === Number(event.target.id);
   });
+
   if (!result) {
     cookedRecipe.timesCooked++;
     currentUser.addRecipesCooked(cookedRecipe);
   } else {
     result.timesCooked++;
   }
+
+  loadTimesCooked(recipeDetailCard, currentUser, cookedRecipe);
 }
 
 function addFavoriteRecipe(event) {

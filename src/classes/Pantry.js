@@ -34,11 +34,20 @@ export class Pantry {
     
     useRecipeIngredients(recipe, ingredientData) {
         // iterate through recipe ingredients to get Id and call remove ingredient on each recipe.
+        let logMessages = [];
         recipe.recipeIngredients.forEach(ingredient => {
-            console.log(this.removeIngredientById(ingredient.id, ingredient.quantity.amount, ingredientData));
+            logMessages.push(this.removeIngredientById(ingredient.id, ingredient.quantity.amount, ingredientData));
         });
-        return `${recipe.name} successfully cooked.`;
+        return logMessages;
     }
+
+    // useRecipeIngredients(recipe, ingredientData) {
+    //     // iterate through recipe ingredients to get Id and call remove ingredient on each recipe.
+    //     recipe.recipeIngredients.forEach(ingredient => {
+    //         console.log(this.removeIngredientById(ingredient.id, ingredient.quantity.amount, ingredientData));
+    //     });
+    //     return `${recipe.name} successfully cooked.`;
+    // }
 
     removeIngredientById(ingredientId, amountToRemove, ingredientData) {
         if (!ingredientId) {

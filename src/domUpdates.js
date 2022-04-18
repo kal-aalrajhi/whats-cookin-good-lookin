@@ -40,18 +40,18 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
         <h4>Cook Status: <span id="cookStatusText">Ready to Cook!</span></h4>
         <div class="to-cook-status" id="toCookStatus">
             <table class="missing-ingredient-list" id="missingIngredientList"></table>
-        </div>`;
+        </div>
+        <div id="useIngredientUpdates"></div>`;
 
     loadIngredientList(currentRecipe, allIngredientsData);
-    loadTimesCooked(view, currentUser, currentRecipe);
 
     // Check for missing ingredients
     if(currentUser.pantry.isIngredientMissing(currentRecipe, allIngredientsData)) {
         loadMissingIngredients(currentUser, currentRecipe, allIngredientsData);
+        loadTimesCooked(view, currentUser, currentRecipe);
     } else {
         loadReadyToCookIcon(currentRecipe);
     }
-
     loadRecipeInstructions(currentRecipe, instructionsList);
 }
 
@@ -63,7 +63,7 @@ function loadRecipeInstructions(currentRecipe, instructionsList) {
     });
 }
 
-function loadTimesCooked(view, currentUser, currentRecipe) {
+export function loadTimesCooked(view, currentUser, currentRecipe) {
     let timesCooked = 0;
     let result = currentUser.recipesCooked.find(recipeCooked => {
         return currentRecipe.id === recipeCooked.id;
@@ -114,6 +114,13 @@ function loadIngredientList(currentRecipe, allIngredientsData) {
             <td>${currentRecipe.getIngredientName(ingredientId, allIngredientsData)}</td>
             <td>${currentRecipe.getQuantityRequired(ingredientId, allIngredientsData)}</td>
         </tr>`;
+    });
+}
+
+export function displayCookMessages(useIngredientUpdates, useIngredientMessages) {
+    useIngredientMessages.forEach(message => {
+      useIngredientUpdates.innerHTML += `
+        <h4>${message}</h4>`
     });
 }
 

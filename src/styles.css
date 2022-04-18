@@ -8,7 +8,7 @@
 floralwhite;
 */
 :root {
-  background-color: #FFF8F0;
+  background-color: #faead7;
   font-size: 62.5%;
 }
 * {
@@ -158,7 +158,6 @@ nav {
   flex-basis: 45%;
   margin-top: 2rem;
   padding: 2rem;
-  /* background-size: contain; */
 }
 
 .recipe-card > h4 {
@@ -176,6 +175,10 @@ nav {
   height: 4rem;
   margin: 1rem 0 0 0.5rem;
   width: 4rem;
+}
+
+.check-mark-icon {
+  margin-top: 1rem;
 }
 
 .word-box {
@@ -201,8 +204,8 @@ nav {
   border: 0.2rem solid #333333;
   cursor: pointer;
   flex-basis: 10%;
-  margin-top: 2rem;
-  /* background-size: contain; */
+  margin: 1rem 0.15rem;
+  padding-bottom: 1rem;
  } 
 
 .box:hover {
