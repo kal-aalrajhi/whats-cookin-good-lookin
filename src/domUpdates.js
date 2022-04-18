@@ -157,3 +157,14 @@ export function loadPantry(pantryList, allIngredientsData, currentUser, addStatu
         </tr>`;
     });
   }
+
+export function loadTagSuggestions() {
+    const tagSuggestions = ["antipasti", "starter", "snack", "appetizer", "antipasto", "side dish", "lunch", 
+    "main dish", "main course", "dinner", "sauce", "morning meal", "breakfast", "brunch", "condiment", 
+    "dip", "spread", "salad"];
+    const tagSuggestionsDisplay = document.querySelector("#tagSuggestions");
+    tagSuggestionsDisplay.innerHTML = "<h4>Tag Suggestions: </h4>";
+    tagSuggestions.forEach(tag => {
+      tagSuggestionsDisplay.innerHTML += `${tag} - `;
+    });
+  }

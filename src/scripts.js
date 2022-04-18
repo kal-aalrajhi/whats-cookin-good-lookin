@@ -2,7 +2,7 @@ import apiCalls from './apiCalls';
 import './styles.css';
 import { fetchResponse } from './apiCalls';
 import { getRecipeBox, searchErrorMsg, clearView, recipeDetails, iconToFull, iconToEmpty, 
-         showElement, hideElement, loadPantry, displayCookMessages, loadTimesCooked } from './domUpdates';
+         showElement, hideElement, loadPantry, displayCookMessages, loadTimesCooked, loadTagSuggestions} from './domUpdates';
 import { RecipeRepository } from '../src/classes/RecipeRepository';
 import { User } from './classes/User';
 import { Recipe } from '../src/classes/Recipe';
@@ -230,15 +230,7 @@ function loadTagSearchView() {
   hideAllViews();
   showElement(searchResultView);
   showElement(findByTagView);
-  
-  const tagSuggestions = ["antipasti", "starter", "snack", "appetizer", "antipasto", "side dish", "lunch", 
-    "main dish", "main course", "dinner", "sauce", "morning meal", "breakfast", "brunch", "condiment", 
-    "dip", "spread", "salad"];
-  const tagSuggestionsDisplay = document.querySelector("#tagSuggestions");
-  tagSuggestionsDisplay.innerHTML = "<h4>Tag Suggestions: </h4>";
-  tagSuggestions.forEach(tag => {
-    tagSuggestionsDisplay.innerHTML += `${tag} - `;
-  });
+  loadTagSuggestions();
 }
 
 function cookRecipe(event) {
