@@ -600,7 +600,7 @@ export const usersSampleData = [
           "amount": 2
         }
       ]
-    }, // Has all the ingredients to make many cookies
+    }, 
     {
       "name": "Cookie Monster",
       "id": 4,

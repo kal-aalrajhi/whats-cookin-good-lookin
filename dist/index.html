@@ -70,15 +70,15 @@
           <input class="search-by-tag-input search-input-fav" id="favSearchByTagInput"/>
           <button class="search-btn btn-fav" id="favTagSearchBtn">Search</button>
         </form>
-        <h3 class="page-title">Favorite Recipes:</h3>
+        <h3 class="page-title" id="favRecipeTitle">Favorite Recipes:</h3>
       </div>
       <section class="view favorite-recipe-view hidden" id="favoriteRecipeView">
         <!-- view favorite recipes appears -->
       </section>
       <!-- TO COOK VIEW-->
+      <h3 class="page-title hidden" id="toCookTitle">Recipes to Cook:</h3>
       <section class="view to-cook-view hidden" id="toCookView">
-        <h3 class="page-title">Recipes to Cook:</h3>
-        <!-- view favorite recipes appears -->
+        <!-- view to cook recipes appears -->
       </section>
       <!--SEARCH BY RECIPE VIEW -->
       <section class="view name-recipe-view hidden" id="findByNameView">
@@ -90,12 +90,12 @@
       </section>
       <!--SEARCH BY TAG VIEW -->
       <section class="view tag-recipes-view hidden" id="findByTagView">
-        <h2> Snack, Appetizer, Main Course, Main Dish, Dinner, Lunch, Sauce, Maybe drop down instead? </h2>
         <form class="search-form">
           <label for="searchByTagInput" class="search-label">Search by Tag: </label>
           <input class="search-by-tag-input search-input" id="searchByTagInput"/>
           <button class="search-btn" id="tagSearchBtn">Search</button>
         </form>
+        <article class="tag-suggestions" id="tagSuggestions"></article>
       </section>
       <!--SEARCH RESULTS VIEW -->
       <section class="view search-results-view hidden" id="searchResultsView">
@@ -104,7 +104,7 @@
       </section>
       <!--RECIPE DETAIL VIEW-->
       <section class="recipe-detail-view hidden" id="recipeDetailView">
-        <article class='recipe-card' id="recipeDetailCard">
+        <article class="recipe-card" id="recipeDetailCard">
           <!-- list recipe details here-->
         </article>
         <article class="recipe-card" id="instructionsCard">

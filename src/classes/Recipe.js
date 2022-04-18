@@ -16,9 +16,7 @@ export class Recipe {
     getIngredientDetails(ingredientsData) {
         let ingredientDetails = this.recipeIngredients.map((recipeIngredient) => {
                 let idMatch = ingredientsData.find(ingredientData => recipeIngredient.id === ingredientData.id);
-                
                 let currentIngredient = new Ingredient(idMatch);
-                
                 return currentIngredient;
             });
         return ingredientDetails;

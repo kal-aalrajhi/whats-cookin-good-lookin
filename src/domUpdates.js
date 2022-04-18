@@ -40,18 +40,17 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
         <h4>Cook Status: <span id="cookStatusText">Ready to Cook!</span></h4>
         <div class="to-cook-status" id="toCookStatus">
             <table class="missing-ingredient-list" id="missingIngredientList"></table>
-        </div>`;
+        </div>
+        <div id="useIngredientUpdates"></div>`;
 
     loadIngredientList(currentRecipe, allIngredientsData);
-    loadTimesCooked(view, currentUser, currentRecipe);
 
-    // Check for missing ingredients
     if(currentUser.pantry.isIngredientMissing(currentRecipe, allIngredientsData)) {
         loadMissingIngredients(currentUser, currentRecipe, allIngredientsData);
+        loadTimesCooked(view, currentUser, currentRecipe);
     } else {
         loadReadyToCookIcon(currentRecipe);
     }
-
     loadRecipeInstructions(currentRecipe, instructionsList);
 }
 
@@ -59,11 +58,11 @@ function loadRecipeInstructions(currentRecipe, instructionsList) {
     instructionsList.innerHTML = "<h3>Instructions</h3>";
     currentRecipe.instructions.forEach((instruction) => {
         instructionsList.innerHTML += `
-            <li>${instruction.instruction}</li>`
+            <li class="instruction">${instruction.instruction}</li>`
     });
 }
 
-function loadTimesCooked(view, currentUser, currentRecipe) {
+export function loadTimesCooked(view, currentUser, currentRecipe) {
     let timesCooked = 0;
     let result = currentUser.recipesCooked.find(recipeCooked => {
         return currentRecipe.id === recipeCooked.id;
@@ -117,6 +116,13 @@ function loadIngredientList(currentRecipe, allIngredientsData) {
     });
 }
 
+export function displayCookMessages(useIngredientUpdates, useIngredientMessages) {
+    useIngredientMessages.forEach(message => {
+      useIngredientUpdates.innerHTML += `
+        <h4>${message}</h4>`
+    });
+}
+
 export function iconToFull(iconName) {
     let icon = document.querySelector(`.${iconName}-icon`);
     icon.src = `./images/full-${iconName}.png`;
@@ -149,5 +155,16 @@ export function loadPantry(pantryList, allIngredientsData, currentUser, addStatu
           <td>${currentUser.pantry.getIngredientNames(allIngredientsData)[idx]}</td>
           <td>${currentUser.pantry.getIngredientAmounts(allIngredientsData)[idx]}</td>
         </tr>`;
+    });
+  }
+
+export function loadTagSuggestions() {
+    const tagSuggestions = ["antipasti", "starter", "snack", "appetizer", "antipasto", "side dish", "lunch", 
+    "main dish", "main course", "dinner", "sauce", "morning meal", "breakfast", "brunch", "condiment", 
+    "dip", "spread", "salad"];
+    const tagSuggestionsDisplay = document.querySelector("#tagSuggestions");
+    tagSuggestionsDisplay.innerHTML = "<h4>Tag Suggestions: </h4>";
+    tagSuggestions.forEach(tag => {
+      tagSuggestionsDisplay.innerHTML += `${tag} - `;
     });
   }
