@@ -45,7 +45,6 @@ export function recipeDetails(view, currentRecipe, instructionsList, allIngredie
 
     loadIngredientList(currentRecipe, allIngredientsData);
 
-    // Check for missing ingredients
     if(currentUser.pantry.isIngredientMissing(currentRecipe, allIngredientsData)) {
         loadMissingIngredients(currentUser, currentRecipe, allIngredientsData);
         loadTimesCooked(view, currentUser, currentRecipe);
@@ -59,7 +58,7 @@ function loadRecipeInstructions(currentRecipe, instructionsList) {
     instructionsList.innerHTML = "<h3>Instructions</h3>";
     currentRecipe.instructions.forEach((instruction) => {
         instructionsList.innerHTML += `
-            <li>${instruction.instruction}</li>`
+            <li class="instruction">${instruction.instruction}</li>`
     });
 }
 

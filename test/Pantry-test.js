@@ -15,13 +15,13 @@ describe('Pantry Test', () => {
     let ingredient1Id, ingredient2Id;
 
     beforeEach(() => {
-        user1 = new User(usersSampleData[3]); // Cookie Monster
+        user1 = new User(usersSampleData[3]); 
         user2 = new User(usersSampleData[0]); 
         emptyPantry = new Pantry();
         pantry1 = new Pantry(user1.pantry);
         ingredientsDataLarge = ingredientsSampleDataLarge;
         recipeData = recipesSampleData;
-        recipe1 = new Recipe(recipeData[0]); // Cookie recipe
+        recipe1 = new Recipe(recipeData[0]); 
         recipe2 = new Recipe(recipeData[1]); 
         ingredient1Id = 0;
         ingredient2Id = 0;

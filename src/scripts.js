@@ -144,11 +144,6 @@ function addIngredientToPantry(ingredientToAddName, amountToAdd) {
 import { usersSampleData } from '../src/data/users-sample-data.js'; // DELETE ME
 // Functions
 function loadData() {
-  // Turing Server
-  // const fetchRecipes = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes");
-  // const fetchUsers = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users");
-  // const fetchIngredients = fetchResponse("https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients");
-  // Local Server
   const fetchRecipes = fetchResponse("http://localhost:3001/api/v1/recipes");
   const fetchUsers = fetchResponse("http://localhost:3001/api/v1/users");
   const fetchIngredients = fetchResponse("http://localhost:3001/api/v1/ingredients");
@@ -166,29 +161,6 @@ function loadData() {
   })
   .catch((err) => console.log(err));
 }
-
-// function addIngredientToApi() {
-//   let userID = currentUser.id;
-//   // let ingredientID = // use ADD function, but search API instead.
-//   // let ingredientMod = // amount to add
-
-//   fetch('http://localhost:3001/api/v1/users', {
-//    method: "POST",
-//    headers: {
-//     'Content-type': 'application/json'
-//    },
-//    body: JSON.stringify(
-//       {
-//         "userID": currentUser.id,
-//         "ingredientID": 123,
-//         "ingredientModification": 3
-//       }
-//    )
-// })
-// .then(response => response.json())
-// .then(data => console.log(data));
-// }
-
 
 function grabSearchValue(byValue) {
   if (byValue === "name") {
@@ -258,6 +230,15 @@ function loadTagSearchView() {
   hideAllViews();
   showElement(searchResultView);
   showElement(findByTagView);
+  
+  const tagSuggestions = ["antipasti", "starter", "snack", "appetizer", "antipasto", "side dish", "lunch", 
+    "main dish", "main course", "dinner", "sauce", "morning meal", "breakfast", "brunch", "condiment", 
+    "dip", "spread", "salad"];
+  const tagSuggestionsDisplay = document.querySelector("#tagSuggestions");
+  tagSuggestionsDisplay.innerHTML = "<h4>Tag Suggestions: </h4>";
+  tagSuggestions.forEach(tag => {
+    tagSuggestionsDisplay.innerHTML += `${tag} - `;
+  });
 }
 
 function cookRecipe(event) {
