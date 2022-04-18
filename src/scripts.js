@@ -141,7 +141,6 @@ function addIngredientToPantry(ingredientToAddName, amountToAdd) {
   loadPantry(pantryList, allIngredientsData, currentUser, addStatus);
 }
 
-import { usersSampleData } from '../src/data/users-sample-data.js'; // DELETE ME
 // Functions
 function loadData() {
   const fetchRecipes = fetchResponse("http://localhost:3001/api/v1/recipes");
@@ -149,14 +148,13 @@ function loadData() {
   const fetchIngredients = fetchResponse("http://localhost:3001/api/v1/ingredients");
 
   Promise.all([fetchRecipes, fetchUsers, fetchIngredients]).then((data) => {
-    // allRecipeData = data[0].recipeData;
     allRecipeData = data[0];
     allRecipeStorage.addRecipes(allRecipeData);
   
     usersData = data[1];
     const randomIndex = Math.floor(Math.random() * usersData.length)
-    // currentUser = new User(usersData[randomIndex]);
-    currentUser = new User(usersSampleData[4]); // DELETE
+    currentUser = new User(usersData[randomIndex]);
+    
     allIngredientsData = data[2];
   })
   .catch((err) => console.log(err));
