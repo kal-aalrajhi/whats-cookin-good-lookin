@@ -22,7 +22,6 @@
 - [Instructions on Use](#instructions-on-use)
 - [Challenges and Wins](#challenges-and-wins)
 - [Project Overview and Goals](#project-overview-and-goals)
-- [Deploy Link](#deploy-link)
 
 #### About the Project
 Do you love recipes and food?
@@ -129,6 +128,3 @@ Hope you enjoy using What's Cookin' Good Lookin'!
 - Be able to toggle between different views.
 - Work with fetch to GET and POST from/to our API.
 
-
-#### Deploy Link
- [link](https://lourdesbnts.github.io/whats-cookin-good-lookin/)
